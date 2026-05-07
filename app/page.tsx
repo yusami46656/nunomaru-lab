@@ -21,9 +21,7 @@ export default function HomePage() {
           <div className="flex-1">
             <Stamp label="WORKSHOP / 実験工房" />
             <h1 className="mt-4 nl-heading-serif text-3xl font-bold leading-tight sm:text-5xl">
-              ぬのまるの
-              <br className="sm:hidden" />
-              実験工房
+              ぬのまるの実験工房
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-800 sm:text-lg">
               AIで作った小さな企画を、実際に触れる形で実験的に公開していく工房です。
@@ -47,7 +45,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="pointer-events-none shrink-0 self-end sm:self-auto" aria-hidden>
+          <div className="pointer-events-none shrink-0 self-center sm:self-auto" aria-hidden>
             <Image
               src="/character/nunomaru-hero.png"
               alt="ぬのまる"
