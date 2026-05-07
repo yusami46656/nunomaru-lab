@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EXTERNAL_LINKS, X_PLACEHOLDER } from "@/lib/external-links";
+import { EXTERNAL_LINKS } from "@/lib/external-links";
 import { Gear } from "@/components/decorations/Gear";
 
 const FOOTER_LINKS = [
@@ -43,24 +43,14 @@ export function Footer() {
             >
               note ↗
             </a>
-            {X_PLACEHOLDER ? (
-              <span
-                className="cursor-not-allowed text-ink-700/60"
-                title="Xアカウントは準備中です"
-                aria-disabled="true"
-              >
-                X (準備中)
-              </span>
-            ) : (
-              <a
-                href={EXTERNAL_LINKS.x}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink-800 hover:text-brass-700 hover:underline underline-offset-4"
-              >
-                X ↗
-              </a>
-            )}
+            <a
+              href={EXTERNAL_LINKS.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink-800 hover:text-brass-700 hover:underline underline-offset-4"
+            >
+              X ↗
+            </a>
           </nav>
         </div>
 
