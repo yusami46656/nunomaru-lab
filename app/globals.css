@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #fdfaf3;
+  --paper-deep: #f4ead4;
+  --brass: #b58853;
+  --ink: #42301f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(202, 164, 106, 0.18), transparent 42%),
+    radial-gradient(circle at 88% 90%, rgba(184, 115, 51, 0.12), transparent 48%),
+    linear-gradient(rgba(154, 109, 62, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154, 109, 62, 0.06) 1px, transparent 1px);
+  background-size: auto, auto, 28px 28px, 28px 28px;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  /* フラットデザイン: ドロップシャドウ・グラデーションは使わず、ベタ塗り＋ボーダーで面を区切る。 */
+
+  .nl-card {
+    @apply relative rounded-2xl border border-brass-500/40 bg-parchment-50 p-6;
+  }
+
+  .nl-plate {
+    @apply relative rounded-2xl border border-brass-500/50 bg-parchment-100 px-5 py-4;
+  }
+
+  .nl-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brass-600 px-5 py-2.5 font-medium text-parchment-50 transition-colors hover:bg-brass-700 focus:outline-none focus:ring-2 focus:ring-brass-500/50 focus:ring-offset-2 focus:ring-offset-parchment-50;
+  }
+
+  .nl-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-brass-500 bg-parchment-50 px-5 py-2.5 font-medium text-ink-800 transition-colors hover:bg-parchment-100 hover:border-brass-600 focus:outline-none focus:ring-2 focus:ring-brass-500/50 focus:ring-offset-2 focus:ring-offset-parchment-50;
+  }
+
+  .nl-tag {
+    @apply inline-flex items-center gap-1 rounded-full border border-brass-400/60 bg-parchment-100 px-3 py-1 text-xs text-ink-700;
+  }
+
+  /* リベット: 立体的なハイライトを除き、平面のドットへ。 */
+  .nl-rivet {
+    @apply absolute h-1.5 w-1.5 rounded-full bg-brass-600/60;
+  }
+
+  .nl-divider {
+    @apply relative my-10 flex items-center justify-center text-brass-600/70;
+  }
+
+  .nl-divider::before,
+  .nl-divider::after {
+    content: "";
+    @apply h-px flex-1 bg-brass-500/30;
+  }
+
+  /* 旧名 (font-serif 化) を維持しつつ、丸ゴシックの bold で見出しを強調する。 */
+  .nl-heading-serif {
+    @apply font-sans font-bold tracking-wide text-ink-900;
+  }
+
+  .nl-link {
+    @apply text-brass-700 underline-offset-4 hover:underline;
+  }
+}
