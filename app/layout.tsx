@@ -7,11 +7,14 @@ import { Footer } from "@/components/Footer";
 // 丸ゴシック (Zen Maru Gothic) をサイト全体で使う。
 // 旧 --font-noto-sans-jp / --font-noto-serif-jp という CSS 変数名を残しているのは
 // 既存のコンポーネントが font-sans / font-serif 経由で参照しているため、変更を最小化するため。
+// preload: false — Vercel ビルド環境での fonts.gstatic.com 接続失敗を回避するため
+// ビルド時のプリロードをスキップし、フォントはランタイムで読み込む
 const zenMaru = Zen_Maru_Gothic({
   subsets: ["latin"],
   weight: ["400", "500", "700", "900"],
   variable: "--font-zen-maru",
   display: "swap",
+  preload: false,
 });
 
 const SITE_URL = "https://nunomaru-lab.com";
