@@ -31,7 +31,7 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="/experiments" className="nl-btn">
-                公開中の実験を見る
+                実験ノートを見る
                 <span aria-hidden>→</span>
               </Link>
               <a
@@ -68,7 +68,7 @@ export default function HomePage() {
             実験一覧
           </h2>
           <Link href="/experiments" className="nl-link shrink-0 text-sm">
-            一覧を見る →
+            ノートを見る →
           </Link>
         </div>
 

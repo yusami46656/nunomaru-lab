@@ -7,7 +7,7 @@ import { EXTERNAL_LINKS } from "@/lib/external-links";
 import { Gear } from "@/components/decorations/Gear";
 
 const NAV = [
-  { href: "/experiments", label: "実験一覧" },
+  { href: "/experiments", label: "実験ノート" },
   { href: "/about", label: "About" },
 ];
 

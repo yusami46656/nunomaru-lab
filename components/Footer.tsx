@@ -3,7 +3,7 @@ import { EXTERNAL_LINKS } from "@/lib/external-links";
 import { Gear } from "@/components/decorations/Gear";
 
 const FOOTER_LINKS = [
-  { href: "/experiments", label: "実験一覧" },
+  { href: "/experiments", label: "実験ノート" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },
