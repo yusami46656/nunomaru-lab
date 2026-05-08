@@ -29,6 +29,5 @@ export const experiments: Experiment[] = [
     publishedAt: "2026年5月",
     href: "/experiments/harassment-type",
     ctaLabel: "診断してみる",
-    comingSoon: true,
   },
 ];
