@@ -15,6 +15,8 @@ export type Experiment = {
   ctaLabel: string;
   /** 任意。制作過程・実験結果のnote記事リンク。複数登録可。 */
   noteArticles?: NoteArticle[];
+  /** true のとき未公開扱い。カードからのリンクを無効化し「近日公開」表示にする。 */
+  comingSoon?: boolean;
 };
 
 export const experiments: Experiment[] = [
@@ -27,5 +29,6 @@ export const experiments: Experiment[] = [
     publishedAt: "2026年5月",
     href: "/experiments/harassment-type",
     ctaLabel: "診断してみる",
+    comingSoon: true,
   },
 ];

@@ -7,45 +7,74 @@ type Props = {
 };
 
 export function ExperimentCard({ experiment }: Props) {
-  const { title, description, thumbnail, publishedAt, href, ctaLabel } = experiment;
+  const { title, description, thumbnail, publishedAt, href, ctaLabel, comingSoon } = experiment;
 
   return (
     <article className="nl-card group flex flex-col overflow-hidden p-0">
       <Rivets />
 
-      <Link href={href} className="block" aria-label={`${title}を開く`}>
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
-          <ThumbnailPlaceholder />
-          {thumbnail ? (
-            // background-image で描画しているので、ファイル未配置時はプレースホルダーが透けて表示される。
-            <div
-              role="img"
-              aria-label=""
-              className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.02]"
-              style={{ backgroundImage: `url(${thumbnail})` }}
-            />
-          ) : null}
+      {comingSoon ? (
+        <div className="block cursor-default" aria-label={`${title}（近日公開）`}>
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
+            <ThumbnailPlaceholder />
+            {thumbnail ? (
+              <div
+                role="img"
+                aria-label=""
+                className="absolute inset-0 bg-cover bg-center opacity-60"
+                style={{ backgroundImage: `url(${thumbnail})` }}
+              />
+            ) : null}
+          </div>
         </div>
-      </Link>
+      ) : (
+        <Link href={href} className="block" aria-label={`${title}を開く`}>
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
+            <ThumbnailPlaceholder />
+            {thumbnail ? (
+              <div
+                role="img"
+                aria-label=""
+                className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.02]"
+                style={{ backgroundImage: `url(${thumbnail})` }}
+              />
+            ) : null}
+          </div>
+        </Link>
+      )}
 
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center gap-2 text-xs text-ink-700">
-          <span className="nl-tag">公開日 {publishedAt}</span>
+          {comingSoon ? (
+            <span className="nl-tag bg-parchment-300 text-ink-500">近日公開</span>
+          ) : (
+            <span className="nl-tag">公開日 {publishedAt}</span>
+          )}
         </div>
 
         <h3 className="nl-heading-serif text-xl font-bold leading-snug sm:text-2xl">
-          <Link href={href} className="hover:text-brass-700">
-            {title}
-          </Link>
+          {comingSoon ? (
+            <span className="text-ink-500">{title}</span>
+          ) : (
+            <Link href={href} className="hover:text-brass-700">
+              {title}
+            </Link>
+          )}
         </h3>
 
         <p className="text-sm leading-relaxed text-ink-700">{description}</p>
 
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
-          <Link href={href} className="nl-btn">
-            {ctaLabel}
-            <span aria-hidden>→</span>
-          </Link>
+          {comingSoon ? (
+            <span className="nl-btn cursor-not-allowed opacity-50 pointer-events-none">
+              準備中…
+            </span>
+          ) : (
+            <Link href={href} className="nl-btn">
+              {ctaLabel}
+              <span aria-hidden>→</span>
+            </Link>
+          )}
         </div>
       </div>
     </article>
