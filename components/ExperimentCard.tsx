@@ -7,7 +7,7 @@ type Props = {
 };
 
 export function ExperimentCard({ experiment }: Props) {
-  const { title, description, thumbnail, publishedAt, href, ctaLabel, noteUrl } = experiment;
+  const { title, description, thumbnail, publishedAt, href, ctaLabel } = experiment;
 
   return (
     <article className="nl-card group flex flex-col overflow-hidden p-0">
@@ -46,16 +46,6 @@ export function ExperimentCard({ experiment }: Props) {
             {ctaLabel}
             <span aria-hidden>→</span>
           </Link>
-          {noteUrl ? (
-            <a
-              href={noteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nl-link text-sm"
-            >
-              noteで読む ↗
-            </a>
-          ) : null}
         </div>
       </div>
     </article>

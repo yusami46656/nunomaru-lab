@@ -1,3 +1,8 @@
+export type NoteArticle = {
+  title: string;
+  url: string;
+};
+
 export type Experiment = {
   /** URLスラッグ。/experiments/<slug> として展開されることを想定。 */
   slug: string;
@@ -8,8 +13,8 @@ export type Experiment = {
   publishedAt: string;
   href: string;
   ctaLabel: string;
-  /** 任意。noteの解説記事リンクなど。 */
-  noteUrl?: string;
+  /** 任意。制作過程・実験結果のnote記事リンク。複数登録可。 */
+  noteArticles?: NoteArticle[];
 };
 
 export const experiments: Experiment[] = [

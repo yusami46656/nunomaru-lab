@@ -65,7 +65,7 @@ export default function HomePage() {
       <section aria-labelledby="experiments-heading" className="space-y-6">
         <div className="flex items-end justify-between gap-4">
           <h2 id="experiments-heading" className="nl-heading-serif text-2xl font-bold sm:text-3xl">
-            公開中の実験
+            実験一覧
           </h2>
           <Link href="/experiments" className="nl-link shrink-0 text-sm">
             一覧を見る →
