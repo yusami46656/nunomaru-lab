@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Experiment } from "@/data/experiments";
 import { Rivets } from "@/components/decorations/Rivets";
+import { ThumbnailImage } from "@/components/ThumbnailImage";
 
 type Props = {
   experiment: Experiment;
@@ -17,15 +18,12 @@ export function ExperimentNoteRow({ experiment }: Props) {
         {comingSoon ? (
           <div className="block shrink-0 cursor-default sm:w-48" aria-label={`${title}（近日公開）`}>
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full sm:min-h-[9rem]">
-              <ThumbnailPlaceholder />
-              {thumbnail ? (
-                <div
-                  role="img"
-                  aria-label=""
-                  className="absolute inset-0 bg-cover bg-center opacity-60"
-                  style={{ backgroundImage: `url(${thumbnail})` }}
-                />
-              ) : null}
+              <ThumbnailImage
+                src={thumbnail}
+                alt={title}
+                sizes="(max-width: 640px) 100vw, 192px"
+                imageClassName="object-cover opacity-60"
+              />
             </div>
           </div>
         ) : (
@@ -36,15 +34,11 @@ export function ExperimentNoteRow({ experiment }: Props) {
             tabIndex={-1}
           >
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full sm:min-h-[9rem]">
-              <ThumbnailPlaceholder />
-              {thumbnail ? (
-                <div
-                  role="img"
-                  aria-label=""
-                  className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.02]"
-                  style={{ backgroundImage: `url(${thumbnail})` }}
-                />
-              ) : null}
+              <ThumbnailImage
+                src={thumbnail}
+                alt={title}
+                sizes="(max-width: 640px) 100vw, 192px"
+              />
             </div>
           </Link>
         )}
@@ -107,32 +101,5 @@ export function ExperimentNoteRow({ experiment }: Props) {
         </div>
       </div>
     </article>
-  );
-}
-
-function ThumbnailPlaceholder() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center bg-parchment-200">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(154, 109, 62, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(154, 109, 62, 0.18) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
-      <div className="relative flex flex-col items-center gap-1 text-brass-700/70">
-        <svg viewBox="0 0 100 100" aria-hidden className="h-10 w-10">
-          <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.6" />
-          <circle cx="50" cy="50" r="6" fill="currentColor" opacity="0.7" />
-          <line x1="50" y1="18" x2="50" y2="6" stroke="currentColor" strokeWidth="2" />
-          <line x1="50" y1="94" x2="50" y2="82" stroke="currentColor" strokeWidth="2" />
-          <line x1="6" y1="50" x2="18" y2="50" stroke="currentColor" strokeWidth="2" />
-          <line x1="82" y1="50" x2="94" y2="50" stroke="currentColor" strokeWidth="2" />
-        </svg>
-        <span className="font-serif text-xs tracking-[0.25em] text-brass-700/70">EXPERIMENT</span>
-      </div>
-    </div>
   );
 }
