@@ -27,6 +27,7 @@ export default function HarassmentTypeQuestionsPage() {
   const [answers, setAnswers] = useState<Record<string, ChoiceId>>({});
   const shuffledRef = useRef<Choice[][]>([]);
   const [ready, setReady] = useState(false);
+  const [diagnosing, setDiagnosing] = useState(false);
 
   useEffect(() => {
     shuffledRef.current = harassmentQuestions.map((q) => shuffleArray(q.choices));
@@ -45,6 +46,8 @@ export default function HarassmentTypeQuestionsPage() {
     if (currentIndex < total - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
+      setDiagnosing(true);
+
       const raw = calculateRawScores(newAnswers);
       const pct = calculatePercentages(raw);
       const typeId = determineTypeId(pct);
@@ -78,6 +81,16 @@ export default function HarassmentTypeQuestionsPage() {
   if (!ready) return null;
 
   return (
+    <>
+    {diagnosing && (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-zinc-900/80 backdrop-blur-sm">
+        <div className="flex flex-col items-center gap-5 rounded-2xl bg-white px-10 py-8 shadow-xl">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900" />
+          <p className="text-base font-bold text-zinc-900">診断中…</p>
+          <p className="text-sm text-zinc-500">あなたのタイプを判定しています</p>
+        </div>
+      </div>
+    )}
     <div className="space-y-8">
       {/* ヘッダー */}
       <section>
@@ -167,5 +180,6 @@ export default function HarassmentTypeQuestionsPage() {
         )}
       </div>
     </div>
+    </>
   );
 }
