@@ -150,7 +150,7 @@ export const harassmentQuestions: Question[] = [
     scenario: '部下のSNSで、休日の過ごし方を見つけた',
     choices: [
       { id: 'A', text: '見なかったことにする', scores: { P: 0, M: 0, S: 0, C: 0 } },
-      { id: 'B', text: '月曜日に「あの店行ったんだ?誰と?」と聞く', scores: { P: 1, M: 1, S: 5, C: 0 } },
+      { id: 'B', text: '週明けに「あの店行ったんだ?誰と?」と聞く', scores: { P: 1, M: 1, S: 5, C: 0 } },
       { id: 'C', text: '「平日あんなに疲れてるのに、休日は元気なんだね」と皮肉を言う', scores: { P: 1, M: 5, S: 2, C: 0 } },
       { id: 'D', text: '「俺(私)も今度連れてってよ」と自分から誘う', scores: { P: 2, M: 0, S: 5, C: 1 } },
     ],
