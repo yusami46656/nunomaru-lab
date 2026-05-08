@@ -49,6 +49,19 @@ export default function HarassmentTypeQuestionsPage() {
       const pct = calculatePercentages(raw);
       const typeId = determineTypeId(pct);
 
+      // 集計送信（fire-and-forget: 失敗してもユーザー体験に影響させない）
+      const answersStr = harassmentQuestions.map((q) => newAnswers[q.id] ?? "A").join("");
+      fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+          typeId,
+          scores: pct,
+          answers: answersStr,
+        }),
+      }).catch(() => {});
+
       sessionStorage.setItem(
         "harassment-type-result",
         JSON.stringify({ typeId, scores: pct }),
