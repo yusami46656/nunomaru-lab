@@ -6,6 +6,9 @@ import Image from "next/image";
 import type { HarassmentType } from "@/data/harassment-type";
 import type { PercentScores } from "@/lib/harassment-type/scoring";
 import ShareButtons from "@/components/harassment-type/ShareButtons";
+import { AdBanner } from "@/components/AdBanner";
+
+const ADSENSE_SLOT_RESULT = process.env.NEXT_PUBLIC_ADSENSE_SLOT_RESULT ?? "";
 
 function ScoreBar({
   attr,
@@ -211,6 +214,12 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
       <section className="ht-card space-y-4">
         <h2 className="text-base font-bold text-zinc-900">結果をシェア</h2>
         <ShareButtons typeData={typeData} scores={scores} />
+      </section>
+
+      {/* 広告 */}
+      <section aria-label="広告" className="py-4">
+        <p className="mb-3 text-center text-xs text-zinc-400">広告</p>
+        <AdBanner slotId={ADSENSE_SLOT_RESULT} />
       </section>
 
       {/* ナビゲーション */}

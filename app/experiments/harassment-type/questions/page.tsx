@@ -9,6 +9,9 @@ import {
   calculateRawScores,
   determineTypeId,
 } from "@/lib/harassment-type/scoring";
+import { AdBanner } from "@/components/AdBanner";
+
+const ADSENSE_SLOT_DIAGNOSING = process.env.NEXT_PUBLIC_ADSENSE_SLOT_DIAGNOSING ?? "";
 
 function shuffleArray<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -28,11 +31,20 @@ export default function HarassmentTypeQuestionsPage() {
   const shuffledRef = useRef<Choice[][]>([]);
   const [ready, setReady] = useState(false);
   const [diagnosing, setDiagnosing] = useState(false);
+  const typeIdRef = useRef<string>("");
 
   useEffect(() => {
     shuffledRef.current = harassmentQuestions.map((q) => shuffleArray(q.choices));
     setReady(true);
   }, []);
+
+  useEffect(() => {
+    if (!diagnosing) return;
+    const timer = setTimeout(() => {
+      router.push(`/experiments/harassment-type/results/${typeIdRef.current}`);
+    }, 3500);
+    return () => clearTimeout(timer);
+  }, [diagnosing, router]);
 
   const total = harassmentQuestions.length;
   const currentQ = harassmentQuestions[currentIndex];
@@ -46,11 +58,11 @@ export default function HarassmentTypeQuestionsPage() {
     if (currentIndex < total - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      setDiagnosing(true);
-
       const raw = calculateRawScores(newAnswers);
       const pct = calculatePercentages(raw);
       const typeId = determineTypeId(pct);
+
+      typeIdRef.current = typeId;
 
       // 集計送信（fire-and-forget: 失敗してもユーザー体験に影響させない）
       const answersStr = harassmentQuestions.map((q) => newAnswers[q.id] ?? "A").join("");
@@ -70,7 +82,7 @@ export default function HarassmentTypeQuestionsPage() {
         JSON.stringify({ typeId, scores: pct }),
       );
 
-      router.push(`/experiments/harassment-type/results/${typeId}`);
+      setDiagnosing(true);
     }
   };
 
@@ -80,17 +92,26 @@ export default function HarassmentTypeQuestionsPage() {
 
   if (!ready) return null;
 
-  return (
-    <>
-    {diagnosing && (
-      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-zinc-900/80 backdrop-blur-sm">
-        <div className="flex flex-col items-center gap-5 rounded-2xl bg-white px-10 py-8 shadow-xl">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900" />
-          <p className="text-base font-bold text-zinc-900">診断中…</p>
-          <p className="text-sm text-zinc-500">あなたのタイプを判定しています</p>
+  if (diagnosing) {
+    return (
+      <div className="flex min-h-[70vh] flex-col items-center justify-center gap-10 py-12">
+        <div className="flex flex-col items-center gap-5 text-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-300 border-t-zinc-900" />
+          <div className="space-y-2">
+            <p className="text-2xl font-bold text-zinc-900 sm:text-3xl">診断中…</p>
+            <p className="text-sm text-zinc-500">あなたの回答を解析しています</p>
+          </div>
+        </div>
+
+        <div className="w-full max-w-xl px-4">
+          <p className="mb-3 text-center text-xs text-zinc-400">広告</p>
+          <AdBanner slotId={ADSENSE_SLOT_DIAGNOSING} />
         </div>
       </div>
-    )}
+    );
+  }
+
+  return (
     <div className="space-y-8">
       {/* ヘッダー */}
       <section>
@@ -180,6 +201,5 @@ export default function HarassmentTypeQuestionsPage() {
         )}
       </div>
     </div>
-    </>
   );
 }
