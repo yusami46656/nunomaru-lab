@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "ハラスメントタイプ診断",
@@ -43,37 +43,97 @@ export default function HarassmentTypeTopPage() {
   return (
     <div className="space-y-12">
       {/* フルブリードヒーロー */}
-      <section className="relative -mx-4 sm:-mx-6 -mt-10 sm:-mt-14 overflow-hidden min-h-[45vh] sm:min-h-[60vh] flex items-center">
-        {/* グラデーション背景（画像配置後に差し替え） */}
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-[#3D2B5E] to-[#8C2A4E]" />
-        {/* 画像配置用（ファイル配置後に有効化）: */}
-        {/* <Image src="/experiments/harassment-type/hero.png" alt="" fill className="object-cover opacity-40" /> */}
-
-        <div className="relative z-10 px-4 sm:px-6 py-10 sm:py-24 w-full text-center">
-          <p className="text-xs font-bold tracking-widest text-white/60 uppercase">
-            Harassment Type Diagnosis
-          </p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-            ハラスメントタイプ診断
-          </h1>
-          <p className="mt-4 text-base leading-relaxed text-white/80 sm:text-lg">
-            16の職業タイプで、あなたの危険なクセを診断
-          </p>
-          <p className="mt-2 text-sm text-white/60">全16問・約5分で完了</p>
-          <div className="mt-8 flex flex-wrap gap-3 justify-center">
-            <Link
-              href="/experiments/harassment-type/questions"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-zinc-900 hover:bg-zinc-100 transition-colors"
-            >
-              診断をはじめる →
-            </Link>
-            <Link
-              href="/experiments/harassment-type/types"
-              className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-colors"
-            >
-              全16タイプを見る
-            </Link>
+      <section
+        className="-mt-10 sm:-mt-14 overflow-x-hidden"
+        style={{
+          marginLeft: "calc(-50vw + 50%)",
+          marginRight: "calc(-50vw + 50%)",
+          width: "100vw",
+        }}
+      >
+        {/* ── スマホ用（～639px） ── */}
+        <div className="relative sm:hidden">
+          <Image
+            src="/experiments/harassment-type/hero/hero_phone.png"
+            alt=""
+            width={1080}
+            height={1440}
+            className="w-full h-auto block"
+            unoptimized
+            priority
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-start pt-[2%] text-center">
+            <Image
+              src="/experiments/harassment-type/hero/title.png"
+              alt="ハラスメントタイプ診断"
+              width={2159}
+              height={540}
+              sizes="100vw"
+              className="w-full h-auto"
+              priority
+            />
+            <div className="mt-2 flex flex-col items-center gap-1 w-full px-4">
+              <p className="text-sm text-zinc-800">16の職業タイプで、あなたの危険なクセを診断</p>
+              <p className="text-xs text-zinc-500">全16問・約5分で完了</p>
+              <div className="mt-2 flex flex-col gap-2 w-full max-w-xs">
+                <Link
+                  href="/experiments/harassment-type/questions"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors"
+                >
+                  診断をはじめる →
+                </Link>
+                <Link
+                  href="/experiments/harassment-type/types"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-700/50 px-6 py-3 text-sm font-bold text-zinc-800 hover:bg-zinc-100/60 transition-colors"
+                >
+                  全16タイプを見る
+                </Link>
+              </div>
+            </div>
           </div>
+        </div>
+
+        {/* ── PC用（640px〜） ── */}
+        <div className="relative hidden sm:block">
+          <Image
+            src="/experiments/harassment-type/hero/hero_pc.png"
+            alt=""
+            width={1920}
+            height={794}
+            className="w-full h-auto block"
+            unoptimized
+            priority
+          />
+          {/* コンテンツを上半分（キャラクター領域外）に収める */}
+          <div className="absolute top-0 inset-x-0 h-[50%] flex flex-col items-center justify-center px-8 text-center gap-4">
+            <Image
+              src="/experiments/harassment-type/hero/title.png"
+              alt="ハラスメントタイプ診断"
+              width={2159}
+              height={540}
+              sizes="65vw"
+              className="w-[65%] h-auto"
+              priority
+            />
+            <div className="-mt-8 flex flex-col items-center gap-4 w-full">
+            <p className="text-sm text-zinc-800">16の職業タイプで、あなたの危険なクセを診断</p>
+            <p className="text-xs text-zinc-500">全16問・約5分で完了</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                href="/experiments/harassment-type/questions"
+                className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-xs font-bold text-white hover:bg-zinc-700 transition-colors"
+              >
+                診断をはじめる →
+              </Link>
+              <Link
+                href="/experiments/harassment-type/types"
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-700/50 px-5 py-2 text-xs font-bold text-zinc-800 hover:bg-zinc-100/60 transition-colors"
+              >
+                全16タイプを見る
+              </Link>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 

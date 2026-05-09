@@ -230,6 +230,9 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
         <Link href="/experiments/harassment-type/types" className="ht-btn-ghost">
           他のタイプを見る
         </Link>
+        <Link href="/experiments" className="ht-btn-ghost">
+          他のゲームを見る
+        </Link>
         <Link href="/experiments/harassment-type" className="ht-btn-ghost">
           診断トップへ
         </Link>

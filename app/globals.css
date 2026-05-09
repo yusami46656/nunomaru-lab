@@ -99,6 +99,7 @@ body {
 
 /* ─── ハラスメントタイプ診断: body 背景オーバーライド ───────── */
 body.ht-page {
-  background-color: #f4f4f5;
+  background-color: #FBF6F1;
   background-image: none;
+  overflow-x: hidden;
 }
