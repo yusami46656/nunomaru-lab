@@ -233,7 +233,7 @@ export const harassmentTypes: HarassmentType[] = [
     imagePath: '/experiments/harassment-type/images/villager.png',
   },
   {
-    id: 'strategist',
+    id: 'shogun',
     number: 2,
     name: '詰め将軍',
     attributes: ['P'],
@@ -249,7 +249,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「なぜ?」を、人ではなく仕組みに向けてみましょう。「あなたはなぜできない?」を「この工程のどこが詰まっている?」に置き換えるだけで十分です。問いの矛先を一段ずらすと、追い詰める人から、改善を引き出す人へと評価が変わっていきます。',
     ],
     colors: { main: '#5E4A7C', pale: '#F3EFF8' },
-    imagePath: '/experiments/harassment-type/images/strategist.png',
+    imagePath: '/experiments/harassment-type/images/shogun.png',
   },
   {
     id: 'gatekeeper',
@@ -521,7 +521,7 @@ export const harassmentTypes: HarassmentType[] = [
 
 export const typeMap: Record<string, string> = {
   '': 'villager',
-  'P': 'strategist',
+  'P': 'shogun',
   'M': 'gatekeeper',
   'S': 'minister',
   'C': 'noble',

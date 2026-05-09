@@ -24,7 +24,7 @@
 | `/experiments/harassment-type/quiz/` | 質問回答画面(SPA的に1画面で進行) |
 | `/experiments/harassment-type/result/[typeId]/` | 結果ページ。共有用URL |
 
-`typeId` は後述の16タイプの英数字キー(`emperor`, `villager`, `strategist` など)。
+`typeId` は後述の16タイプの英数字キー(`emperor`, `villager`, `shogun` など)。
 
 ### 技術スタック
 - フレームワーク: **Next.js**(親サイトに準拠)
@@ -220,7 +220,7 @@ type Ability = {
 };
 
 type HarassmentType = {
-  id: string;             // "villager", "strategist", "emperor" など
+  id: string;             // "villager", "shogun", "emperor" など
   number: number;         // 1〜16
   name: string;           // "ハラスメント皇帝"
   attributes: ('P'|'M'|'S'|'C')[];  // 該当属性
@@ -782,7 +782,7 @@ public/experiments/harassment-type/
 | # | typeId | タイプ名 | 該当属性 | Main | Pale |
 |---|---|---|---|---|---|
 | 1 | `villager` | 無害な村人 | (なし) | `#8A4F3A` | `#F7EEE7` |
-| 2 | `strategist` | 詰め将軍 | P | `#5E4A7C` | `#F3EFF8` |
+| 2 | `shogun` | 詰め将軍 | P | `#5E4A7C` | `#F3EFF8` |
 | 3 | `gatekeeper` | ため息の門番 | M | `#3F628E` | `#EEF4FA` |
 | 4 | `minister` | 下心大臣 | S | `#A03B62` | `#FAEEF3` |
 | 5 | `noble` | お困り貴族 | C | `#C4474F` | `#FBECEF` |
@@ -803,7 +803,7 @@ public/experiments/harassment-type/
 ```typescript
 const typeMap: Record<string, string> = {
   '': 'villager',
-  'P': 'strategist', 'M': 'gatekeeper', 'S': 'minister', 'C': 'noble',
+  'P': 'shogun', 'M': 'gatekeeper', 'S': 'minister', 'C': 'noble',
   'PM': 'commander', 'PS': 'sergeant', 'PC': 'knight',
   'MS': 'spy', 'MC': 'judge', 'SC': 'priest',
   'PMS': 'mage', 'PMC': 'alchemist', 'PSC': 'summoner', 'MSC': 'cursemaster',
@@ -844,7 +844,7 @@ function getTypeId(attrs: string[]): string {
 
 ---
 
-### 2. 詰め将軍(typeId: `strategist` / 属性: P)
+### 2. 詰め将軍(typeId: `shogun` / 属性: P)
 
 **カラー**: Main `#5E4A7C` / Pale `#F3EFF8`
 
