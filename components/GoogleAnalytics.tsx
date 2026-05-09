@@ -6,9 +6,12 @@ import { useEffect } from 'react';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
+type WindowWithDataLayer = Window & { dataLayer: unknown[] };
+
 function gtag(...args: unknown[]) {
-  (window as Window & { dataLayer?: unknown[] }).dataLayer ??= [];
-  (window as Window & { dataLayer: unknown[] }).dataLayer.push(args);
+  const w = window as unknown as WindowWithDataLayer;
+  w.dataLayer ??= [];
+  w.dataLayer.push(args);
 }
 
 export function GoogleAnalytics() {
