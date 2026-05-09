@@ -18,15 +18,26 @@ export default function ContactPage() {
 
       <section className="space-y-4 text-base leading-relaxed text-ink-800">
         <p>
-          ご意見・ご感想・お問い合わせは、以下のフォームまたはnote/X経由でお願いします。
+          ご意見・ご感想・お問い合わせは、note または X からご連絡ください。
         </p>
-        <div className="nl-plate border-dashed">
-          <p className="font-serif text-sm font-bold tracking-wider text-brass-700">準備中</p>
-          <p className="mt-1 text-ink-800">※お問い合わせフォームは準備中です。</p>
-        </div>
       </section>
 
       <section className="grid gap-3 sm:grid-cols-2">
+        <a
+          href={EXTERNAL_LINKS.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nl-card flex items-center justify-between gap-4 transition hover:border-brass-600"
+        >
+          <div>
+            <p className="font-serif text-xs tracking-[0.3em] text-brass-700">X</p>
+            <p className="mt-1 font-serif text-lg font-bold text-ink-900">
+              Xで連絡する
+            </p>
+          </div>
+          <span aria-hidden className="text-brass-600">↗</span>
+        </a>
+
         <a
           href={EXTERNAL_LINKS.note}
           target="_blank"
@@ -40,21 +51,6 @@ export default function ContactPage() {
             </p>
             <p className="mt-1 text-xs text-ink-700">
               制作ログ・AI活用メモはこちら。
-            </p>
-          </div>
-          <span aria-hidden className="text-brass-600">↗</span>
-        </a>
-
-        <a
-          href={EXTERNAL_LINKS.x}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="nl-card flex items-center justify-between gap-4 transition hover:border-brass-600"
-        >
-          <div>
-            <p className="font-serif text-xs tracking-[0.3em] text-brass-700">X</p>
-            <p className="mt-1 font-serif text-lg font-bold text-ink-900">
-              Xで連絡する
             </p>
           </div>
           <span aria-hidden className="text-brass-600">↗</span>

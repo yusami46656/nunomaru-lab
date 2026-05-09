@@ -36,20 +36,20 @@ export function Footer() {
               </Link>
             ))}
             <a
-              href={EXTERNAL_LINKS.note}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-ink-800 hover:text-brass-700 hover:underline underline-offset-4"
-            >
-              note ↗
-            </a>
-            <a
               href={EXTERNAL_LINKS.x}
               target="_blank"
               rel="noopener noreferrer"
               className="text-ink-800 hover:text-brass-700 hover:underline underline-offset-4"
             >
               X ↗
+            </a>
+            <a
+              href={EXTERNAL_LINKS.note}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink-800 hover:text-brass-700 hover:underline underline-offset-4"
+            >
+              note ↗
             </a>
           </nav>
         </div>
