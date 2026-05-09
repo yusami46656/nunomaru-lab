@@ -79,7 +79,6 @@ export default function ShareButtons({ typeData, scores }: Props) {
   };
 
   const handleInstagram = async () => {
-    const text = getShareText();
     const imagePath = `/experiments/harassment-type/share/${typeData.id}.png`;
 
     // Web Share API（モバイル共有シート）
@@ -90,7 +89,9 @@ export default function ShareButtons({ typeData, scores }: Props) {
           const blob = await res.blob();
           const file = new File([blob], `${typeData.id}.png`, { type: "image/png" });
           if (navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file], text });
+            showToast("共有シートを開きました。Instagramストーリーズを選んで投稿してください");
+            await navigator.share({ files: [file] });
+            showToast("画像を共有しました。Instagram側で投稿を完了してください");
             return;
           }
         }
@@ -99,7 +100,7 @@ export default function ShareButtons({ typeData, scores }: Props) {
       }
     }
 
-    // フォールバック: 画像DL + テキストコピー
+    // フォールバック: 画像ダウンロード（PC・非対応ブラウザ）
     try {
       const a = document.createElement("a");
       a.href = imagePath;
@@ -108,12 +109,7 @@ export default function ShareButtons({ typeData, scores }: Props) {
     } catch {
       // 画像未配置の場合は無視
     }
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      // clipboard 利用不可の場合は無視
-    }
-    showToast("画像を保存し、テキストをコピーしました。Instagramにペーストしてシェアしてください");
+    showToast("画像を保存しました。Instagramストーリーズで投稿してください");
   };
 
   const handleCopyUrl = async () => {
