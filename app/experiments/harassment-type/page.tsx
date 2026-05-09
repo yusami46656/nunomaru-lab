@@ -57,7 +57,7 @@ export default function HarassmentTypeTopPage() {
             ハラスメントタイプ診断
           </h1>
           <p className="mt-4 text-base leading-relaxed text-white/80 sm:text-lg">
-            あなたの中に潜むモンスター、診断します
+            16の職業タイプで、あなたの危険なクセを診断
           </p>
           <p className="mt-2 text-sm text-white/60">全16問・約5分で完了</p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
@@ -82,7 +82,7 @@ export default function HarassmentTypeTopPage() {
         <h2 id="attrs-heading" className="text-lg sm:text-xl font-bold text-zinc-900 mb-4">
           4つの診断属性
         </h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {ATTRIBUTES.map((attr) => (
             <div
               key={attr.key}

@@ -3,6 +3,7 @@ import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 // 丸ゴシック (Zen Maru Gothic) をサイト全体で使う。
 // 旧 --font-noto-sans-jp / --font-noto-serif-jp という CSS 変数名を残しているのは
@@ -65,6 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={zenMaru.variable}>
+      <GoogleAnalytics />
       {/* suppressHydrationWarning: 一部ブラウザ拡張(ColorZilla 等)が body に属性を後付けするため、その差分のみ抑制する。 */}
       <body className="min-h-screen font-sans" suppressHydrationWarning>
         <a
