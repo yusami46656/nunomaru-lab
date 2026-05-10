@@ -1,62 +1,23 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { harassmentTypes, type HarassmentType } from "@/data/harassment-type";
 
 function TypeCard({ type }: { type: HarassmentType }) {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <div
-      className="ht-card overflow-hidden p-0"
+      className="ht-card p-3 space-y-0.5"
       style={{ borderTopWidth: 3, borderTopColor: type.colors.main }}
     >
-      {/* 画像エリア */}
-      <div
-        className="relative w-full aspect-[3/4] overflow-hidden"
-        style={{ backgroundColor: type.colors.pale }}
+      <span
+        className="block text-[10px] font-bold tracking-widest leading-none"
+        style={{ color: type.colors.main }}
       >
-        {!imgError ? (
-          <Image
-            src={type.imagePath}
-            alt={type.name}
-            fill
-            className="object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <span
-              className="text-5xl font-bold"
-              style={{ color: type.colors.main }}
-            >
-              {type.attributesLabel || "N"}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* テキストエリア */}
-      <div className="p-4 space-y-1.5">
-        <div className="flex items-center gap-2">
-          <span
-            className="text-xs font-bold tracking-widest"
-            style={{ color: type.colors.main }}
-          >
-            {type.attributesLabel
-              ? type.attributesLabel.split("").join(" · ")
-              : "無属性"}
-          </span>
-        </div>
-        <p className="font-bold" style={{ color: type.colors.main }}>
-          {type.name}
-        </p>
-        <p className="text-sm sm:text-base leading-relaxed text-zinc-600 line-clamp-3">
-          {type.caption}
-        </p>
-      </div>
+        {type.attributesLabel
+          ? type.attributesLabel.split("").join(" · ")
+          : "無属性"}
+      </span>
+      <p className="text-sm font-bold leading-snug" style={{ color: type.colors.main }}>
+        {type.name}
+      </p>
     </div>
   );
 }
@@ -87,7 +48,7 @@ export default function HarassmentTypesPage() {
       </section>
 
       <section>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {harassmentTypes.map((type) => (
             <TypeCard key={type.id} type={type} />
           ))}

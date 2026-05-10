@@ -143,8 +143,8 @@ export default function HarassmentTypeQuestionsPage() {
         </div>
       </section>
 
-      {/* 質問カード */}
-      <section className="ht-card space-y-6">
+      {/* 質問カード: key で強制再マウントして選択色のキャリーオーバーを防ぐ */}
+      <section key={currentQ.id} className="ht-card space-y-6">
         <div className="flex items-start gap-3">
           <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-xs font-bold text-zinc-600">
             {String(currentIndex + 1).padStart(2, "0")}
