@@ -67,6 +67,18 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
 
   return (
     <div className="space-y-6">
+      {/* タイトルロゴ */}
+      <div className="flex justify-center pt-2">
+        <Image
+          src="/experiments/harassment-type/hero/title.png"
+          alt="ハラスメントタイプ診断"
+          width={2159}
+          height={540}
+          className="w-full max-w-[240px] sm:max-w-[320px] h-auto"
+          priority
+        />
+      </div>
+
       {/* タイプカード */}
       <section
         className="ht-card"
