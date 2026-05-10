@@ -35,7 +35,7 @@ export function calculateMaxScores(): RawScores {
   return max;
 }
 
-const SCORE_SCALE = 0.65;
+const SCORE_SCALE = 0.7;
 
 export function calculatePercentages(raw: RawScores): PercentScores {
   const max = calculateMaxScores();
