@@ -48,8 +48,8 @@ export function calculatePercentages(raw: RawScores): PercentScores {
 }
 
 export function determineTypeId(pct: PercentScores): string {
-  const THRESHOLD = 40;
-  const GAP = 20;
+  const THRESHOLD = 45;
+  const GAP = 25;
 
   const candidates = ATTR_ORDER.filter(attr => pct[attr] >= THRESHOLD);
 

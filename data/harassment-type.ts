@@ -53,7 +53,7 @@ export const harassmentQuestions: Question[] = [
       { id: 'A', text: '特に何も言わない', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「いいね、似合ってる」と伝える', scores: { P: 0, M: 0, S: 1, C: 0 } },
       { id: 'C', text: '「イメチェンしたね。彼氏(彼女)できた?」と聞く', scores: { P: 0, M: -1, S: 5, C: 0 } },
-      { id: 'D', text: '「社会人としてその髪型はちょっと…」と指摘する', scores: { P: 1, M: 5, S: -1, C: 1 } },
+      { id: 'D', text: '「社会人としてその髪型はちょっと…」と指摘する', scores: { P: 1, M: 5, S: -1, C: 0 } },
     ],
   },
   {
@@ -64,7 +64,7 @@ export const harassmentQuestions: Question[] = [
       { id: 'A', text: 'まあこんなものかと思って黙って食べる', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「すみません、これ思ってたのと違うんですけど」と店員に伝える', scores: { P: 0, M: 0, S: 0, C: 1 } },
       { id: 'C', text: '「責任者を呼んでください」と店長対応を求める', scores: { P: 1, M: 1, S: 0, C: 5 } },
-      { id: 'D', text: '「この対応でお金取る気ですか？」と嫌味を言う', scores: { P: 3, M: 3, S: 0, C: 3 } },
+      { id: 'D', text: '「この対応でお金取る気ですか？」と嫌味を言う', scores: { P: 3, M: 3, S: 0, C: 1 } },
     ],
   },
   {
@@ -85,7 +85,7 @@ export const harassmentQuestions: Question[] = [
     choices: [
       { id: 'A', text: '忙しいんだろうなと思って気にしない', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「何してたの?誰といたの?」と帰宅後に確認する', scores: { P: 0, M: 2, S: 5, C: 0 } },
-      { id: 'C', text: '「私のこと、そんなに大事じゃないんだね」と落ち込んだ態度をとる', scores: { P: -1, M: 3, S: 2, C: 4 } },
+      { id: 'C', text: '「私のこと、そんなに大事じゃないんだね」と落ち込んだ態度をとる', scores: { P: -1, M: 3, S: 0, C: 4 } },
       { id: 'D', text: '「連絡くらいするのが普通でしょ」と指摘する', scores: { P: 2, M: 5, S: 0, C: 1 } },
     ],
   },
@@ -95,9 +95,9 @@ export const harassmentQuestions: Question[] = [
     scenario: '取引先の担当者がメールの返信を1日忘れていた',
     choices: [
       { id: 'A', text: '「お忙しいところすみません、再送します」と軽く再送する', scores: { P: 0, M: 0, S: 0, C: 0 } },
-      { id: 'B', text: '「組織としてどうなんですか?再発防止策を出してください」と求める', scores: { P: 4, M: 3, S: 0, C: 5 } },
-      { id: 'C', text: '「これでうちが損害出たら誰が責任取るの?」と責任論で迫る', scores: { P: 5, M: 2, S: 0, C: 3 } },
-      { id: 'D', text: '「社会人としてありえないですよね」と人としての姿勢を問う', scores: { P: 1, M: 5, S: 0, C: 2 } },
+      { id: 'B', text: '「組織としてどうなんですか?再発防止策を出してください」と求める', scores: { P: 4, M: 3, S: 0, C: 3 } },
+      { id: 'C', text: '「これでうちが損害出たら誰が責任取るの?」と責任論で迫る', scores: { P: 5, M: 2, S: 0, C: 2 } },
+      { id: 'D', text: '「社会人としてありえないですよね」と人としての姿勢を問う', scores: { P: 1, M: 5, S: 0, C: 0 } },
     ],
   },
   {
@@ -107,8 +107,8 @@ export const harassmentQuestions: Question[] = [
     choices: [
       { id: 'A', text: '「いい視点だね」と受け止めて、議論を続ける', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「つまり何が言いたいの?」と質問を重ねる', scores: { P: 5, M: 2, S: 0, C: 0 } },
-      { id: 'C', text: '「君、何年目だっけ?」と経験年数で牽制する', scores: { P: 5, M: 1, S: 1, C: 1 } },
-      { id: 'D', text: '「そういう態度、他の人にやると評価下がるよ」と評価権限を匂わせる', scores: { P: 5, M: 2, S: 0, C: 2 } },
+      { id: 'C', text: '「君、何年目だっけ?」と経験年数で牽制する', scores: { P: 5, M: 1, S: 3, C: 0 } },
+      { id: 'D', text: '「そういう態度、他の人にやると評価下がるよ」と評価権限を匂わせる', scores: { P: 5, M: 2, S: 0, C: 0 } },
     ],
   },
   {
@@ -119,7 +119,7 @@ export const harassmentQuestions: Question[] = [
       { id: 'A', text: '「お大事に、ゆっくり休んで」と返す', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「具体的にどんな症状?病院は行った?」と詳細を聞く', scores: { P: 1, M: 2, S: 4, C: 1 } },
       { id: 'C', text: '「体調管理も仕事のうちだよ」と諭す', scores: { P: 2, M: 5, S: 0, C: 1 } },
-      { id: 'D', text: '「明日の会議どうするの?代わりの人立てた?」と対応を即求める', scores: { P: 4, M: 1, S: 0, C: 5 } },
+      { id: 'D', text: '「明日の会議どうするの?代わりの人立てた?」と対応を即求める', scores: { P: 4, M: 1, S: 0, C: 3 } },
     ],
   },
   {
@@ -128,8 +128,8 @@ export const harassmentQuestions: Question[] = [
     scenario: '異性の同僚と二人で残業することになった',
     choices: [
       { id: 'A', text: 'いつも通り業務に集中する', scores: { P: 0, M: 0, S: 0, C: 0 } },
-      { id: 'B', text: '「せっかくだし、終わったらご飯でも行く?」と誘う', scores: { P: 1, M: 0, S: 5, C: 0 } },
-      { id: 'C', text: '「肩こってない?」と肩に触れる', scores: { P: 1, M: -1, S: 5, C: 0 } },
+      { id: 'B', text: '「せっかくだし、終わったらご飯でも行く?」と誘う', scores: { P: 1, M: 1, S: 5, C: 0 } },
+      { id: 'C', text: '「肩こってない?」と肩に触れる', scores: { P: 0, M: 1, S: 5, C: 0 } },
       { id: 'D', text: '「こういう時間、なんかドキドキするよね」と雰囲気をつくる', scores: { P: 0, M: 0, S: 5, C: 0 } },
     ],
   },
@@ -139,9 +139,9 @@ export const harassmentQuestions: Question[] = [
     scenario: '友人がドタキャンしてきた',
     choices: [
       { id: 'A', text: '「了解、また今度ね」と返す', scores: { P: 0, M: 0, S: 0, C: 0 } },
-      { id: 'B', text: '「前はこんなことしなかったのに、最近変わったよね」と過去と比べる', scores: { P: 0, M: 5, S: 3, C: 2 } },
+      { id: 'B', text: '「前はこんなことしなかったのに、最近変わったよね」と過去と比べる', scores: { P: 0, M: 5, S: 2, C: 3 } },
       { id: 'C', text: '「自分だけ雑に扱われてる気がする……もういいです」と悲しみで返す', scores: { P: -1, M: 3, S: 2, C: 5 } },
-      { id: 'D', text: '「こっちも予定組んでたんだけど、どうしてくれるの?」と詰める', scores: { P: 2, M: 2, S: 0, C: 5 } },
+      { id: 'D', text: '「こっちも予定組んでたんだけど、どうしてくれるの?」と詰める', scores: { P: 2, M: 2, S: 0, C: 3 } },
     ],
   },
   {
@@ -174,7 +174,7 @@ export const harassmentQuestions: Question[] = [
       { id: 'A', text: '起きるのを待つ。あとで体調を気にかける', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '名指しで「起きて。今の議題、どう思う?」と発言を求める', scores: { P: 5, M: 1, S: 0, C: 1 } },
       { id: 'C', text: '「会議で寝るって、社会人としてどうかと思うよ」と諭す', scores: { P: 1, M: 5, S: 0, C: 0 } },
-      { id: 'D', text: '「最近夜遊びでもしてるの?彼氏(彼女)とか?」と私生活を疑う', scores: { P: 0, M: 0, S: 5, C: 1 } },
+      { id: 'D', text: '「最近夜遊びでもしてるの?彼氏(彼女)とか?」と私生活を疑う', scores: { P: 0, M: 2, S: 5, C: 0 } },
     ],
   },
   {
@@ -184,7 +184,7 @@ export const harassmentQuestions: Question[] = [
     choices: [
       { id: 'A', text: '特に触れない', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「最近ジム行ってる?」と軽く聞く', scores: { P: 0, M: 0, S: 2, C: 0 } },
-      { id: 'C', text: '「痩せた?めっちゃ綺麗になったね」と容姿をほめる', scores: { P: 0, M: -1, S: 5, C: 0 } },
+      { id: 'C', text: '「痩せた?めっちゃ綺麗になったね」と容姿をほめる', scores: { P: 0, M: 0, S: 5, C: 0 } },
       { id: 'D', text: '「健康のために運動した方がいいよ」と忠告する', scores: { P: 1, M: 4, S: -1, C: 0 } },
     ],
   },
@@ -195,7 +195,7 @@ export const harassmentQuestions: Question[] = [
     choices: [
       { id: 'A', text: '「そっか、無理しないでね」と引き下がる', scores: { P: 0, M: 0, S: 0, C: 0 } },
       { id: 'B', text: '「これは仕事だから。やってもらわないと困る」と立場で押す', scores: { P: 5, M: 2, S: 0, C: 1 } },
-      { id: 'C', text: '「そういう協調性のなさ、人としてどうかと思うよ」と人格を問う', scores: { P: 2, M: 5, S: 0, C: 1 } },
+      { id: 'C', text: '「そういう協調性のなさ、人としてどうかと思うよ」と人格を問う', scores: { P: 1, M: 5, S: 0, C: 0 } },
       { id: 'D', text: '「冷たくない?私(俺)とあなたの仲じゃん」と関係性を持ち出す', scores: { P: -1, M: 3, S: 4, C: 3 } },
     ],
   },
@@ -205,7 +205,7 @@ export const harassmentQuestions: Question[] = [
     scenario: 'グループチャットで自分の発言だけ誰にも反応されなかった',
     choices: [
       { id: 'A', text: '流れただけだと思い、そのままにする', scores: { P: 0, M: 0, S: 0, C: 0 } },
-      { id: 'B', text: '「みんな見えてる？」と個別に確認し始める', scores: { P: 1, M: 1, S: 5, C: 0 } },
+      { id: 'B', text: '「みんな見えてる？」と個別に確認し始める', scores: { P: 1, M: 2, S: 5, C: 0 } },
       { id: 'C', text: '「ちょっと空気だった気がして落ち込んだ」と伝える', scores: { P: -1, M: 4, S: 2, C: 3 } },
       { id: 'D', text: '「既読だけじゃなく反応くらいした方がよくない？」と言う', scores: { P: 1, M: 2, S: 0, C: 5 } },
     ],
