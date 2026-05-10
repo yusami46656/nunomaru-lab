@@ -1,23 +1,51 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { harassmentTypes, type HarassmentType } from "@/data/harassment-type";
 
 function TypeCard({ type }: { type: HarassmentType }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div
-      className="ht-card p-3 space-y-0.5"
+      className="ht-card overflow-hidden p-0"
       style={{ borderTopWidth: 3, borderTopColor: type.colors.main }}
     >
-      <span
-        className="block text-[10px] font-bold tracking-widest leading-none"
-        style={{ color: type.colors.main }}
+      <div
+        className="relative w-full aspect-[3/4] overflow-hidden"
+        style={{ backgroundColor: type.colors.pale }}
       >
-        {type.attributesLabel
-          ? type.attributesLabel.split("").join(" · ")
-          : "無属性"}
-      </span>
-      <p className="text-sm font-bold leading-snug" style={{ color: type.colors.main }}>
-        {type.name}
-      </p>
+        {!imgError ? (
+          <Image
+            src={type.imagePath}
+            alt={type.name}
+            fill
+            className="object-cover"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="text-4xl font-bold" style={{ color: type.colors.main }}>
+              {type.attributesLabel || "N"}
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="p-2 space-y-0.5">
+        <span
+          className="block text-[10px] font-bold tracking-widest leading-none"
+          style={{ color: type.colors.main }}
+        >
+          {type.attributesLabel
+            ? type.attributesLabel.split("").join(" · ")
+            : "無属性"}
+        </span>
+        <p className="text-xs font-bold leading-snug" style={{ color: type.colors.main }}>
+          {type.name}
+        </p>
+      </div>
     </div>
   );
 }
@@ -48,7 +76,7 @@ export default function HarassmentTypesPage() {
       </section>
 
       <section>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-4 gap-2">
           {harassmentTypes.map((type) => (
             <TypeCard key={type.id} type={type} />
           ))}
