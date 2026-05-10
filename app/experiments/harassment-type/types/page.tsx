@@ -9,8 +9,9 @@ function TypeCard({ type }: { type: HarassmentType }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div
-      className="ht-card overflow-hidden p-0"
+    <Link
+      href={`/experiments/harassment-type/results/${type.id}`}
+      className="ht-card overflow-hidden p-0 block transition-opacity hover:opacity-80"
       style={{ borderTopWidth: 3, borderTopColor: type.colors.main }}
     >
       <div
@@ -38,15 +39,13 @@ function TypeCard({ type }: { type: HarassmentType }) {
           className="block text-[10px] font-bold tracking-widest leading-none"
           style={{ color: type.colors.main }}
         >
-          {type.attributesLabel
-            ? type.attributesLabel.split("").join(" · ")
-            : "無属性"}
+          {type.attributesLabel || "無属性"}
         </span>
         <p className="text-xs font-bold leading-snug" style={{ color: type.colors.main }}>
           {type.name}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 

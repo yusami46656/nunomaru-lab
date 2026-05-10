@@ -164,11 +164,11 @@ export default function HarassmentTypeQuestionsPage() {
                 <button
                   key={choice.id}
                   type="button"
-                  onClick={() => handleSelect(choice.id)}
+                  onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); handleSelect(choice.id); }}
                   className={`w-full flex items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm sm:text-base leading-relaxed transition-colors ${
                     isSelected
                       ? "border-zinc-900 bg-zinc-900 text-white"
-                      : "border-zinc-200 bg-white text-zinc-800 hover:border-zinc-400 hover:bg-zinc-50"
+                      : "border-zinc-200 bg-white text-zinc-800"
                   }`}
                 >
                   <span
