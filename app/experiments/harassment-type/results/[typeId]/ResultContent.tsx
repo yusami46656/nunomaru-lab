@@ -68,7 +68,7 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
   return (
     <div className="space-y-6">
       {/* タイトルロゴ */}
-      <div className="flex justify-center -mt-4 sm:-mt-6 -mb-4 sm:-mb-6">
+      <div className="flex justify-center -mt-8 sm:-mt-12 -mb-4 sm:-mb-6">
         <Image
           src="/experiments/harassment-type/hero/title.png"
           alt="ハラスメントタイプ診断"
