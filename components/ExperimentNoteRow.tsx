@@ -16,28 +16,29 @@ export function ExperimentNoteRow({ experiment }: Props) {
 
       <div className="flex flex-col gap-0 sm:flex-row">
         {comingSoon ? (
-          <div className="block shrink-0 cursor-default sm:w-64 sm:self-start" aria-label={`${title}（近日公開）`}>
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
+          <div className="block shrink-0 cursor-default sm:w-64 sm:self-stretch" aria-label={`${title}（近日公開）`}>
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
               <ThumbnailImage
                 src={thumbnail}
                 alt={title}
-                sizes="(max-width: 640px) 100vw, 192px"
-                imageClassName="object-cover opacity-60"
+                sizes="(max-width: 640px) 100vw, 256px"
+                imageClassName="object-contain opacity-60"
               />
             </div>
           </div>
         ) : (
           <Link
             href={href}
-            className="block shrink-0 sm:w-64 sm:self-start"
+            className="block shrink-0 sm:w-64 sm:self-stretch"
             aria-label={`${title}を開く`}
             tabIndex={-1}
           >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
               <ThumbnailImage
                 src={thumbnail}
                 alt={title}
-                sizes="(max-width: 640px) 100vw, 192px"
+                sizes="(max-width: 640px) 100vw, 256px"
+                imageClassName="object-contain transition duration-500 group-hover:scale-[1.02]"
               />
             </div>
           </Link>
