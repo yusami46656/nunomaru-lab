@@ -21,6 +21,8 @@ const zenMaru = Zen_Maru_Gothic({
 
 const SITE_URL = "https://nunomaru-lab.com";
 const SITE_NAME = "ぬのまるの実験工房";
+const ADSENSE_PUBLISHER_ID =
+  process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? "ca-pub-9671599687662194";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -71,12 +73,12 @@ export default function RootLayout({
   return (
     <html lang="ja" className={zenMaru.variable}>
       <GoogleAnalytics />
-      {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID && (
+      {process.env.NODE_ENV === "production" && (
         <Script
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
       )}
       {/* suppressHydrationWarning: 一部ブラウザ拡張(ColorZilla 等)が body に属性を後付けするため、その差分のみ抑制する。 */}
