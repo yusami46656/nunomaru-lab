@@ -16,8 +16,8 @@ export function ExperimentNoteRow({ experiment }: Props) {
 
       <div className="flex flex-col gap-0 sm:flex-row">
         {comingSoon ? (
-          <div className="block shrink-0 cursor-default sm:w-48 sm:self-stretch" aria-label={`${title}（近日公開）`}>
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
+          <div className="block shrink-0 cursor-default sm:w-64 sm:self-start" aria-label={`${title}（近日公開）`}>
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
               <ThumbnailImage
                 src={thumbnail}
                 alt={title}
@@ -29,11 +29,11 @@ export function ExperimentNoteRow({ experiment }: Props) {
         ) : (
           <Link
             href={href}
-            className="block shrink-0 sm:w-48 sm:self-stretch"
+            className="block shrink-0 sm:w-64 sm:self-start"
             aria-label={`${title}を開く`}
             tabIndex={-1}
           >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200">
               <ThumbnailImage
                 src={thumbnail}
                 alt={title}
