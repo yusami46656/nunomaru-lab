@@ -339,16 +339,28 @@ body {
 }
 
 /* ─── ハラスメントタイプ診断: body 背景オーバーライド ───────── */
-body.ht-page {
-  background-color: #FBF6F1;
-  background-image: none;
+/* .ht-area が DOM に含まれている時、body のテーマを切り替える。
+   server-rendered で .ht-area が初期 HTML に含まれるため、フラッシュなし。 */
+body:has(.ht-area) {
+  background-color: #FBF6F1 !important;
+  background-image: none !important;
   overflow-x: hidden;
 }
 
-/* 診断ページでは走査線・ステータスバーを隠す */
-body.ht-page .sys-scanlines,
-body.ht-page .sys-shell-only {
+body:has(.ht-area) .sys-scanlines,
+body:has(.ht-area) .sys-shell-only {
   display: none !important;
+}
+
+/* 診断ページでは Header/Footer の sys ベージュも白系に寄せる */
+body:has(.ht-area) header.sys-shell {
+  background-color: rgba(251, 246, 241, 0.92) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body:has(.ht-area) footer.sys-shell {
+  background-color: rgba(251, 246, 241, 0.6) !important;
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ─── システムUI モード: body 背景オーバーライド ─────────────── */

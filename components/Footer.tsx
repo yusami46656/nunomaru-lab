@@ -11,7 +11,7 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="relative mt-16 sys-rule border-t" style={{ backgroundColor: "rgba(214, 208, 187, 0.55)" }}>
+    <footer className="sys-shell relative mt-16 sys-rule border-t" style={{ backgroundColor: "rgba(214, 208, 187, 0.55)" }}>
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md space-y-2">

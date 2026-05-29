@@ -22,7 +22,7 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-30 sys-rule border-b"
+      className="sys-shell sticky top-0 z-30 sys-rule border-b"
       style={{ backgroundColor: "rgba(230, 224, 204, 0.92)", backdropFilter: "blur(4px)" }}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 sm:px-6">

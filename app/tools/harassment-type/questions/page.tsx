@@ -9,9 +9,6 @@ import {
   calculateRawScores,
   determineTypeId,
 } from "@/lib/harassment-type/scoring";
-import { AdBanner } from "@/components/AdBanner";
-
-const ADSENSE_SLOT_DIAGNOSING = process.env.NEXT_PUBLIC_ADSENSE_SLOT_DIAGNOSING ?? "";
 
 function shuffleArray<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -103,10 +100,6 @@ export default function HarassmentTypeQuestionsPage() {
           </div>
         </div>
 
-        <div className="w-full max-w-xl px-4">
-          <p className="mb-3 text-center text-xs text-zinc-400">広告</p>
-          <AdBanner slotId={ADSENSE_SLOT_DIAGNOSING} />
-        </div>
       </div>
     );
   }
