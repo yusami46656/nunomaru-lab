@@ -41,7 +41,7 @@ export default function HarassmentTypeQuestionsPage() {
   useEffect(() => {
     if (!diagnosing) return;
     const timer = setTimeout(() => {
-      router.push(`/experiments/harassment-type/results/${typeIdRef.current}`);
+      router.push(`/tools/harassment-type/results/${typeIdRef.current}`);
     }, 3500);
     return () => clearTimeout(timer);
   }, [diagnosing, router]);
@@ -195,7 +195,7 @@ export default function HarassmentTypeQuestionsPage() {
             ← 前の問へ
           </button>
         ) : (
-          <Link href="/experiments/harassment-type" className="ht-btn-ghost">
+          <Link href="/tools/harassment-type" className="ht-btn-ghost">
             ← 診断トップへ
           </Link>
         )}

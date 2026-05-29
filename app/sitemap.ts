@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}/experiments/harassment-type`,
+      url: `${BASE_URL}/tools/harassment-type`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,

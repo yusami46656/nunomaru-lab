@@ -186,7 +186,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「人それぞれ」と流す前に、一度だけ自分の気持ちを確認してみましょう。心の中で「自分は今どう感じた?」と問うだけでいい。気づいておくだけで、あなたの優しさに少しずつ芯が通っていきます。',
     ],
     colors: { main: '#8A4F3A', pale: '#F7EEE7' },
-    imagePath: '/experiments/harassment-type/images/villager.png',
+    imagePath: '/tools/harassment-type/images/villager.png',
   },
   {
     id: 'shogun',
@@ -205,7 +205,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「なぜ?」を、人ではなく仕組みに向けてみましょう。「あなたはなぜできない?」を「この工程のどこが詰まっている?」に置き換えるだけで十分です。問いの矛先を一段ずらすと、追い詰める人から、改善を引き出す人へと評価が変わっていきます。',
     ],
     colors: { main: '#5E4A7C', pale: '#F3EFF8' },
-    imagePath: '/experiments/harassment-type/images/shogun.png',
+    imagePath: '/tools/harassment-type/images/shogun.png',
   },
   {
     id: 'gatekeeper',
@@ -224,7 +224,7 @@ export const harassmentTypes: HarassmentType[] = [
       '裁く前に、「お願い」に翻訳してみましょう。「普通そうでしょ」を「私はこうされると助かる」に言い換えるだけでいい。たったそれだけで、門番から、丁寧に基準を伝えられる先輩へと立ち位置が変わっていきます。',
     ],
     colors: { main: '#3F628E', pale: '#EEF4FA' },
-    imagePath: '/experiments/harassment-type/images/gatekeeper.png',
+    imagePath: '/tools/harassment-type/images/gatekeeper.png',
   },
   {
     id: 'minister',
@@ -243,7 +243,7 @@ export const harassmentTypes: HarassmentType[] = [
       '一歩踏み込む前に、相手の反応を一拍だけ見てみましょう。自分で勝手に親密度を判定するのをやめて、相手の表情や返事の温度を一拍だけ確認する。たったこれだけで、踏み込みすぎる人から、心地よい距離感の人へと印象がガラッと変わります。',
     ],
     colors: { main: '#A03B62', pale: '#FAEEF3' },
-    imagePath: '/experiments/harassment-type/images/minister.png',
+    imagePath: '/tools/harassment-type/images/minister.png',
   },
   {
     id: 'noble',
@@ -262,7 +262,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「困っている事実」と「対応すべき相手」を切り分けてみましょう。自分が困っていることと、目の前の人にその責任があるかは別問題です。一拍置いて「これはこの人に求めることだろうか?」と自問するだけでいい。',
     ],
     colors: { main: '#C4474F', pale: '#FBECEF' },
-    imagePath: '/experiments/harassment-type/images/noble.png',
+    imagePath: '/tools/harassment-type/images/noble.png',
   },
   {
     id: 'commander',
@@ -281,7 +281,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「反省」を求める代わりに、「再設計」を求めてみましょう。ミスの原因を相手の人格に求めるのをやめて、仕組みや手順の再設計に向ける。同じ厳しさでも、向ける先を変えるだけで、追い詰める指導者から、強いチームをつくる指導者へと評価が変わっていきます。',
     ],
     colors: { main: '#3E7168', pale: '#EDF5F3' },
-    imagePath: '/experiments/harassment-type/images/commander.png',
+    imagePath: '/tools/harassment-type/images/commander.png',
   },
   {
     id: 'sergeant',
@@ -300,7 +300,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「断られても評価を下げない」を、自分のルールにしてみましょう。参加・不参加で扱いを変えないと決めるだけでいい。たったそれだけで、断れない場をつくる人から、安心して付き合える先輩へと信頼の質が変わっていきます。',
     ],
     colors: { main: '#707B3A', pale: '#F4F5EA' },
-    imagePath: '/experiments/harassment-type/images/sergeant.png',
+    imagePath: '/tools/harassment-type/images/sergeant.png',
   },
   {
     id: 'knight',
@@ -319,7 +319,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「正しさ」よりも先に「目的」を置いてみましょう。何が正しいかではなく、この場で本当に達成したい目的は何かを先に問う。たったこの一段を踏むだけで、まっすぐ斬り込む人から、状況を読める指揮官へと進化していきます。',
     ],
     colors: { main: '#3478B8', pale: '#ECF5FC' },
-    imagePath: '/experiments/harassment-type/images/knight.png',
+    imagePath: '/tools/harassment-type/images/knight.png',
   },
   {
     id: 'spy',
@@ -338,7 +338,7 @@ export const harassmentTypes: HarassmentType[] = [
       '気づいたことを、言うか言わないかを選んでみましょう。何かを察したからといって、全部口に出す必要はありません。気づいた上で黙っていられる強さを身につけると、覗く人から、信頼される人へと立場が変わっていきます。',
     ],
     colors: { main: '#4A2F66', pale: '#F0EBF6' },
-    imagePath: '/experiments/harassment-type/images/spy.png',
+    imagePath: '/tools/harassment-type/images/spy.png',
   },
   {
     id: 'judge',
@@ -357,7 +357,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「事実」と「感情」と「要望」を切り分けてみましょう。すべて混ぜると裁判文書になってしまいますが、三つを切り分けて伝えるだけで印象が変わります。審判官から、対話できる人へと相手の受け取り方が大きく変わります。',
     ],
     colors: { main: '#9A7D16', pale: '#FCF8E3' },
-    imagePath: '/experiments/harassment-type/images/judge.png',
+    imagePath: '/tools/harassment-type/images/judge.png',
   },
   {
     id: 'priest',
@@ -376,7 +376,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「親しさ」と「ルール」を、別のものとして扱ってみましょう。仲がいいことと、ルールを曲げてもらうことは別問題です。この線引きが自分の中でつくと、依存的に求める人から、対等に大事にし合える人へと関係性の質が変わっていきます。',
     ],
     colors: { main: '#5C7A3C', pale: '#F2F7EA' },
-    imagePath: '/experiments/harassment-type/images/priest.png',
+    imagePath: '/tools/harassment-type/images/priest.png',
   },
   {
     id: 'mage',
@@ -395,7 +395,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「ここからは聞かない」「ここからは口を出さない」を、自分のルールにしてみましょう。心配や指導の名のもとに無自覚に侵入していくのを止めるには、自分の中で線を明文化するのが一番近道です。',
     ],
     colors: { main: '#1F665E', pale: '#EAF5F3' },
-    imagePath: '/experiments/harassment-type/images/mage.png',
+    imagePath: '/tools/harassment-type/images/mage.png',
   },
   {
     id: 'alchemist',
@@ -414,7 +414,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「仕組みを変える」に焦点を絞ってみましょう。同じ分析力でも、「あの人が悪い」で止まると断罪、「この仕組みが悪い」まで進むと改善になります。この一段を踏み越えるだけで、断罪する人から、仕組みを直せる人へと評価が変わっていきます。',
     ],
     colors: { main: '#665A3A', pale: '#F3F0E8' },
-    imagePath: '/experiments/harassment-type/images/alchemist.png',
+    imagePath: '/tools/harassment-type/images/alchemist.png',
   },
   {
     id: 'summoner',
@@ -433,7 +433,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「断りやすさ」を、自分のスタイルに組み込んでみましょう。頼むときに「無理だったら全然OK」を最初に添えるだけでいい。たったそれだけで、ノーリスクで頼める人として信用が積み上がり、圧力で動かす人から、人が自然と協力したくなる人へと変わっていきます。',
     ],
     colors: { main: '#B8540E', pale: '#FFF1E3' },
-    imagePath: '/experiments/harassment-type/images/summoner.png',
+    imagePath: '/tools/harassment-type/images/summoner.png',
   },
   {
     id: 'cursemaster',
@@ -452,7 +452,7 @@ export const harassmentTypes: HarassmentType[] = [
       '気持ちを、呪いではなく言葉で伝えてみましょう。寂しさや不満を、ため息や落ち込みで伝えるのをやめて、「私はこう感じている。だからこうしてほしい」と冷静に言語化する。これだけで、呪う人から、ちゃんと愛し愛される人へと関係性が変わっていきます。',
     ],
     colors: { main: '#6D4A8C', pale: '#F1ECF7' },
-    imagePath: '/experiments/harassment-type/images/cursemaster.png',
+    imagePath: '/tools/harassment-type/images/cursemaster.png',
   },
   {
     id: 'emperor',
@@ -471,7 +471,7 @@ export const harassmentTypes: HarassmentType[] = [
       '「相手の自由」と「自分の権限」を、同じ重さで扱ってみましょう。自分の権限が大きくなるほど、相手の自由を奪う影響力も大きくなる。命令する前に「これは命令か、お願いか、雑談か」を自分で分類してみてください。それができるようになったとき、皇帝から、慕われる王へと立場が変わっていきます。',
     ],
     colors: { main: '#2B2A2E', pale: '#F1F0F2' },
-    imagePath: '/experiments/harassment-type/images/emperor.png',
+    imagePath: '/tools/harassment-type/images/emperor.png',
   },
 ];
 

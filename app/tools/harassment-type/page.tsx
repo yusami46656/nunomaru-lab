@@ -54,7 +54,7 @@ export default function HarassmentTypeTopPage() {
         {/* ── スマホ用（～639px） ── */}
         <div className="relative sm:hidden">
           <Image
-            src="/experiments/harassment-type/hero/hero_phone.png"
+            src="/tools/harassment-type/hero/hero_phone.png"
             alt=""
             width={1080}
             height={1440}
@@ -64,7 +64,7 @@ export default function HarassmentTypeTopPage() {
           />
           <div className="absolute inset-0 flex flex-col items-center justify-start pt-[2%] text-center">
             <Image
-              src="/experiments/harassment-type/hero/title.png"
+              src="/tools/harassment-type/hero/title.png"
               alt="ハラスメントタイプ診断"
               width={2159}
               height={540}
@@ -77,13 +77,13 @@ export default function HarassmentTypeTopPage() {
               <p className="text-xs text-zinc-500">全16問・約5分で完了</p>
               <div className="mt-2 flex flex-col gap-2 w-full max-w-xs">
                 <Link
-                  href="/experiments/harassment-type/questions"
+                  href="/tools/harassment-type/questions"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors"
                 >
                   診断をはじめる →
                 </Link>
                 <Link
-                  href="/experiments/harassment-type/types"
+                  href="/tools/harassment-type/types"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-700/50 px-6 py-3 text-sm font-bold text-zinc-800 hover:bg-zinc-100/60 transition-colors"
                 >
                   全16タイプを見る
@@ -96,7 +96,7 @@ export default function HarassmentTypeTopPage() {
         {/* ── PC用（640px〜） ── */}
         <div className="relative hidden sm:block">
           <Image
-            src="/experiments/harassment-type/hero/hero_pc.png"
+            src="/tools/harassment-type/hero/hero_pc.png"
             alt=""
             width={1920}
             height={794}
@@ -107,7 +107,7 @@ export default function HarassmentTypeTopPage() {
           {/* コンテンツを上半分（キャラクター領域外）に収める */}
           <div className="absolute top-0 inset-x-0 h-[50%] flex flex-col items-center justify-center px-8 text-center gap-4">
             <Image
-              src="/experiments/harassment-type/hero/title.png"
+              src="/tools/harassment-type/hero/title.png"
               alt="ハラスメントタイプ診断"
               width={2159}
               height={540}
@@ -120,13 +120,13 @@ export default function HarassmentTypeTopPage() {
             <p className="text-xs text-zinc-500">全16問・約5分で完了</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/experiments/harassment-type/questions"
+                href="/tools/harassment-type/questions"
                 className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-xs font-bold text-white hover:bg-zinc-700 transition-colors"
               >
                 診断をはじめる →
               </Link>
               <Link
-                href="/experiments/harassment-type/types"
+                href="/tools/harassment-type/types"
                 className="inline-flex items-center gap-2 rounded-full border border-zinc-700/50 px-5 py-2 text-xs font-bold text-zinc-800 hover:bg-zinc-100/60 transition-colors"
               >
                 全16タイプを見る

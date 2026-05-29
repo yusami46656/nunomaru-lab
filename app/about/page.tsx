@@ -1,62 +1,66 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Stamp } from "@/components/decorations/Stamp";
 import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "ぬのまるの実験工房は、AIを活用して制作したコンテンツを、実際に触れる形で公開していく場所です。",
+    "ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。",
 };
 
 export default function AboutPage() {
   return (
-    <div className="space-y-8">
-      <section>
-        <Stamp label="ABOUT" />
-        <h1 className="mt-4 nl-heading-serif text-3xl font-bold sm:text-4xl">
-          ぬのまるの実験工房について
+    <div className="space-y-10 animate-sys-fade-in">
+      <section className="space-y-3">
+        <p className="sys-eyebrow">ABOUT</p>
+        <h1 className="sys-heading text-3xl font-bold sm:text-4xl">
+          About ぬのまる工房
         </h1>
       </section>
 
-      <section className="space-y-5 text-base leading-relaxed text-ink-800">
+      <div className="sys-rule" />
+
+      <section className="space-y-5 text-base leading-relaxed" style={{ color: "var(--sys-text)" }}>
         <p>
-          ぬのまるの実験工房は、AIを活用して制作したコンテンツを、実際に触れる形で公開していく場所です。
+          ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。
         </p>
         <p>
-          ここに置くのは、診断、ミニコンテンツ、Web実験などの「成果物」です。
-          <br />
-          制作の裏側、AI活用メモ、考えたことの記録は、noteで公開しています。
+          学びたいけど少し難しいもの、思いついたけど形にする機会がなかった小ネタを、AIの力を借りながら少しずつ形にしています。
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="nl-plate">
-            <p className="font-serif text-sm font-bold tracking-wider text-brass-700">WEB</p>
-            <p className="mt-1 text-ink-900">Webサイトは触る場所。</p>
+          <div className="sys-panel-flat px-5 py-4">
+            <p className="sys-eyebrow">LEARN</p>
+            <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
+              学びの道具をつくる。
+            </p>
           </div>
-          <div className="nl-plate">
-            <p className="font-serif text-sm font-bold tracking-wider text-brass-700">NOTE</p>
-            <p className="mt-1 text-ink-900">noteは読む場所。</p>
+          <div className="sys-panel-flat px-5 py-4">
+            <p className="sys-eyebrow">PLAY</p>
+            <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
+              遊びの道具をつくる。
+            </p>
           </div>
         </div>
 
-        <p>
-          そんな役割分担で、AI時代の個人制作を少しずつ試していきます。
+        <p className="text-sm" style={{ color: "var(--sys-text-muted)" }}>
+          普段は会社員として働きながら、AIを使った個人制作に取り組んでいます。
+          制作の裏側や試行錯誤は、noteの「制作ログ」にまとめています。
         </p>
       </section>
 
       <section className="flex flex-wrap items-center gap-3 pt-2">
-        <Link href="/experiments" className="nl-btn">
-          実験を見にいく
+        <Link href="/#tools" className="sys-btn-primary">
+          道具を見にいく
           <span aria-hidden>→</span>
         </Link>
         <a
           href={EXTERNAL_LINKS.note}
           target="_blank"
           rel="noopener noreferrer"
-          className="nl-btn-ghost"
+          className="sys-btn-ghost"
         >
-          noteを見る ↗
+          noteで制作ログを読む ↗
         </a>
       </section>
     </div>

@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { NunomaruSystemLayout } from "@/components/system/NunomaruSystemLayout";
+import { NunomaruStatusBar } from "@/components/system/NunomaruStatusBar";
 import Script from "next/script";
 
 // 丸ゴシック (Zen Maru Gothic) をサイト全体で使う。
@@ -20,41 +22,39 @@ const zenMaru = Zen_Maru_Gothic({
 });
 
 const SITE_URL = "https://nunomaru-lab.com";
-const SITE_NAME = "ぬのまるの実験工房";
+const SITE_NAME = "ぬのまる工房";
 const ADSENSE_PUBLISHER_ID =
   process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? "ca-pub-9671599687662194";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ぬのまるの実験工房 | AIで作った小さな企画を公開する場所",
-    template: "%s | ぬのまるの実験工房",
+    default: "ぬのまる工房｜AIでつくる、学びと遊びの小さな道具箱",
+    template: "%s | ぬのまる工房",
   },
   description:
-    "ぬのまるの実験工房は、AIを活用して制作した診断・ミニコンテンツ・Web実験を公開していくサイトです。",
+    "ぬのまる工房は、AIを使って作った学び直しツール、診断、クイズなどの小さなWebコンテンツを並べる個人制作サイトです。",
   applicationName: SITE_NAME,
   openGraph: {
     type: "website",
     locale: "ja_JP",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "ぬのまるの実験工房 | AIで作った小さな企画を公開する場所",
-    description:
-      "ぬのまるの実験工房は、AIを活用して制作した診断・ミニコンテンツ・Web実験を公開していくサイトです。",
+    title: "ぬのまる工房",
+    description: "AIでつくる、学びと遊びの小さな道具箱。",
     images: [
       {
         url: "/ogp-default.png",
         width: 1200,
         height: 630,
-        alt: "ぬのまるの実験工房",
+        alt: "ぬのまる工房",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ぬのまるの実験工房 | AIで作った小さな企画を公開する場所",
-    description:
-      "ぬのまるの実験工房は、AIを活用して制作した診断・ミニコンテンツ・Web実験を公開していくサイトです。",
+    title: "ぬのまる工房",
+    description: "AIでつくる、学びと遊びの小さな道具箱。",
     images: ["/ogp-default.png"],
   },
   icons: {
@@ -82,18 +82,23 @@ export default function RootLayout({
         />
       )}
       {/* suppressHydrationWarning: 一部ブラウザ拡張(ColorZilla 等)が body に属性を後付けするため、その差分のみ抑制する。 */}
-      <body className="min-h-screen font-sans" suppressHydrationWarning>
+      <body className="sys-mode min-h-screen font-sans" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:border focus:border-brass-500 focus:bg-parchment-50 focus:px-3 focus:py-1.5 focus:text-ink-900"
         >
           本文へスキップ
         </a>
-        <Header />
-        <main id="main" className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-          {children}
-        </main>
-        <Footer />
+        <NunomaruSystemLayout>
+          <Header />
+          <div className="sys-shell-only mx-auto w-full max-w-5xl px-4 pt-3 sm:px-6">
+            <NunomaruStatusBar />
+          </div>
+          <main id="main" className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+            {children}
+          </main>
+          <Footer />
+        </NunomaruSystemLayout>
       </body>
     </html>
   );

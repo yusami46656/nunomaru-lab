@@ -70,7 +70,7 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
       {/* タイトルロゴ */}
       <div className="flex justify-center -mt-8 sm:-mt-12 -mb-4 sm:-mb-6">
         <Image
-          src="/experiments/harassment-type/hero/title.png"
+          src="/tools/harassment-type/hero/title.png"
           alt="ハラスメントタイプ診断"
           width={2159}
           height={540}
@@ -236,16 +236,16 @@ export default function ResultContent({ typeData }: { typeData: HarassmentType }
 
       {/* ナビゲーション */}
       <section className="flex flex-wrap gap-3 pt-2">
-        <Link href="/experiments/harassment-type/questions" className="ht-btn-ghost">
+        <Link href="/tools/harassment-type/questions" className="ht-btn-ghost">
           もう一度診断する
         </Link>
-        <Link href="/experiments/harassment-type/types" className="ht-btn-ghost">
+        <Link href="/tools/harassment-type/types" className="ht-btn-ghost">
           他のタイプを見る
         </Link>
-        <Link href="/experiments" className="ht-btn-ghost">
+        <Link href="/tools" className="ht-btn-ghost">
           他のゲームを見る
         </Link>
-        <Link href="/experiments/harassment-type" className="ht-btn-ghost">
+        <Link href="/tools/harassment-type" className="ht-btn-ghost">
           診断トップへ
         </Link>
       </section>

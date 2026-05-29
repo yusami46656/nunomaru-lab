@@ -10,7 +10,7 @@ function TypeCard({ type }: { type: HarassmentType }) {
 
   return (
     <Link
-      href={`/experiments/harassment-type/results/${type.id}`}
+      href={`/tools/harassment-type/results/${type.id}`}
       className="ht-card overflow-hidden p-0 block transition-opacity hover:opacity-80"
       style={{ borderTopWidth: 3, borderTopColor: type.colors.main }}
     >
@@ -54,10 +54,10 @@ export default function HarassmentTypesPage() {
     <div className="space-y-10">
       <section className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/experiments/harassment-type" className="ht-btn-ghost">
+          <Link href="/tools/harassment-type" className="ht-btn-ghost">
             ← 診断トップへ
           </Link>
-          <Link href="/experiments/harassment-type/questions" className="ht-btn">
+          <Link href="/tools/harassment-type/questions" className="ht-btn">
             診断をはじめる →
           </Link>
         </div>

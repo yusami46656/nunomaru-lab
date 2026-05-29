@@ -1,39 +1,47 @@
 import Link from "next/link";
-import type { Experiment } from "@/data/experiments";
-import { Rivets } from "@/components/decorations/Rivets";
+import type { Experiment, ToolStatus } from "@/data/experiments";
 import { ThumbnailImage } from "@/components/ThumbnailImage";
+import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 type Props = {
   experiment: Experiment;
 };
 
+const STATUS_LABEL: Record<ToolStatus, string> = {
+  published: "READY",
+  comingSoon: "SOON",
+  inProgress: "BUILD",
+  planning: "DRAFT",
+};
+
+const STATUS_BUTTON: Record<ToolStatus, string> = {
+  published: "触ってみる",
+  comingSoon: "準備中…",
+  inProgress: "制作中…",
+  planning: "構想中…",
+};
+
 export function ExperimentNoteRow({ experiment }: Props) {
-  const { title, description, thumbnail, publishedAt, href, ctaLabel, noteArticles, comingSoon } = experiment;
+  const { title, description, thumbnail, publishedAt, href, ctaLabel, noteArticles, status, noteUrl } = experiment;
+  const isActive = status === "published" && !!href;
+  const linkHref = href ?? "#";
+  const noteHref = noteUrl ?? EXTERNAL_LINKS.note;
 
   return (
-    <article className="nl-card group overflow-hidden p-0">
-      <Rivets />
-
+    <article className="sys-panel-flat sys-corner-full group">
+      <span className="sys-corner-mark tl" aria-hidden />
+      <span className="sys-corner-mark tr" aria-hidden />
+      <span className="sys-corner-mark bl" aria-hidden />
+      <span className="sys-corner-mark br" aria-hidden />
       <div className="flex flex-col gap-0 sm:flex-row">
-        {comingSoon ? (
-          <div className="block shrink-0 cursor-default sm:w-64 sm:self-stretch" aria-label={`${title}（近日公開）`}>
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
-              <ThumbnailImage
-                src={thumbnail}
-                alt={title}
-                sizes="(max-width: 640px) 100vw, 256px"
-                imageClassName="object-contain opacity-60"
-              />
-            </div>
-          </div>
-        ) : (
+        {isActive ? (
           <Link
-            href={href}
+            href={linkHref}
             className="block shrink-0 sm:w-64 sm:self-stretch"
             aria-label={`${title}を開く`}
             tabIndex={-1}
           >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-parchment-200 sm:aspect-auto sm:h-full">
+            <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-auto sm:h-full" style={{ backgroundColor: "rgba(214, 208, 187, 0.45)" }}>
               <ThumbnailImage
                 src={thumbnail}
                 alt={title}
@@ -42,46 +50,70 @@ export function ExperimentNoteRow({ experiment }: Props) {
               />
             </div>
           </Link>
+        ) : (
+          <div className="block shrink-0 cursor-default sm:w-64 sm:self-stretch" aria-label={`${title}（${STATUS_LABEL[status]}）`}>
+            <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-auto sm:h-full" style={{ backgroundColor: "rgba(214, 208, 187, 0.45)" }}>
+              <ThumbnailImage
+                src={thumbnail}
+                alt={title}
+                sizes="(max-width: 640px) 100vw, 256px"
+                imageClassName="object-contain opacity-50"
+              />
+            </div>
+          </div>
         )}
 
         <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-          <div className="flex items-center gap-2 text-xs text-ink-700">
-            {comingSoon ? (
-              <span className="nl-tag bg-parchment-300 text-ink-500">近日公開</span>
-            ) : (
-              <span className="nl-tag">公開日 {publishedAt}</span>
-            )}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`sys-tag ${isActive ? "sys-tag-accent" : ""}`}>
+              {STATUS_LABEL[status]}
+            </span>
+            {publishedAt ? (
+              <span className="text-[10px] uppercase tracking-[0.22em]" style={{ color: "var(--sys-text-muted)" }}>
+                {publishedAt}
+              </span>
+            ) : null}
           </div>
 
-          <h3 className="nl-heading-serif text-xl font-bold leading-snug sm:text-2xl">
-            {comingSoon ? (
-              <span className="text-ink-500">{title}</span>
-            ) : (
-              <Link href={href} className="hover:text-brass-700">
+          <h3 className="sys-heading text-xl font-bold leading-snug sm:text-2xl">
+            {isActive ? (
+              <Link href={linkHref} className="hover:opacity-80">
                 {title}
               </Link>
+            ) : (
+              <span style={{ color: "var(--sys-text-muted)" }}>{title}</span>
             )}
           </h3>
 
-          <p className="text-sm leading-relaxed text-ink-700">{description}</p>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--sys-text)" }}>
+            {description}
+          </p>
 
           <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
-            {comingSoon ? (
-              <span className="nl-btn cursor-not-allowed opacity-50 pointer-events-none">
-                準備中…
-              </span>
-            ) : (
-              <Link href={href} className="nl-btn">
-                {ctaLabel}
+            {isActive ? (
+              <Link href={linkHref} className="sys-btn-primary">
+                {ctaLabel ?? "触ってみる"}
                 <span aria-hidden>→</span>
               </Link>
+            ) : (
+              <span className="sys-btn-ghost cursor-not-allowed opacity-60 pointer-events-none">
+                {STATUS_BUTTON[status]}
+              </span>
             )}
+            <a
+              href={noteHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sys-btn-ghost"
+            >
+              note ↗
+            </a>
           </div>
 
           {noteArticles && noteArticles.length > 0 ? (
-            <div className="border-t border-parchment-300 pt-4">
-              <p className="mb-2 text-xs font-semibold tracking-widest text-ink-600 uppercase">
-                制作ノート
+            <div className="sys-rule-soft border-t pt-4">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em]" style={{ color: "var(--sys-text-muted)" }}>
+                Making Note
               </p>
               <ul className="flex flex-col gap-1">
                 {noteArticles.map((article) => (
@@ -90,7 +122,7 @@ export function ExperimentNoteRow({ experiment }: Props) {
                       href={article.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="nl-link text-sm"
+                      className="sys-link text-sm"
                     >
                       {article.title} ↗
                     </a>

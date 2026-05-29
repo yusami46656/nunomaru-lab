@@ -31,10 +31,16 @@ const config: Config = {
           800: "#42301f",
           900: "#2b1d10",
         },
+        sys: {
+          bg: "#d8d2bd",
+          "bg-soft": "#e6e0cc",
+          "panel-dark": "#5b584d",
+          text: "#3f3d36",
+          "text-muted": "#777263",
+          accent: "#b96f4a",
+        },
       },
       fontFamily: {
-        // サイト全体を丸ゴシックに統一。font-serif も同じフォントにマップして、
-        // 既存の font-serif 指定箇所(見出しなど)を編集せずに丸ゴシック化する。
         sans: [
           "var(--font-zen-maru)",
           "Hiragino Maru Gothic ProN",
@@ -68,6 +74,18 @@ const config: Config = {
       animation: {
         "spin-slow": "spin 18s linear infinite",
         "spin-slower": "spin 32s linear infinite reverse",
+        "sys-fade-in": "sys-fade-in 320ms ease-out both",
+        "sys-scan": "sys-scan 60s linear infinite",
+      },
+      keyframes: {
+        "sys-fade-in": {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "sys-scan": {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "0 100vh" },
+        },
       },
     },
   },

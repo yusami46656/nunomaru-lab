@@ -79,7 +79,7 @@ export default function ShareButtons({ typeData, scores }: Props) {
   };
 
   const handleInstagram = async () => {
-    const imagePath = `/experiments/harassment-type/share/${typeData.id}.png`;
+    const imagePath = `/tools/harassment-type/share/${typeData.id}.png`;
 
     // Web Share API（モバイル共有シート）
     if (typeof navigator !== "undefined" && navigator.canShare) {
