@@ -48,9 +48,9 @@ export default function HomePage() {
             <Image
               src="/character/nunomaru-hero.png"
               alt="ぬのまる"
-              width={200}
-              height={205}
-              className="opacity-90"
+              width={280}
+              height={287}
+              className="opacity-90 w-[200px] h-auto sm:w-[280px]"
               priority
             />
           </div>
