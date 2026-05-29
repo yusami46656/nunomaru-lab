@@ -59,7 +59,7 @@ export function NunomaruMenuPanel({
             style={{ backgroundColor: "var(--sys-accent)" }}
             aria-hidden
           />
-          <div className="flex items-baseline gap-5 sm:block">
+          <div className="flex items-baseline gap-3 sm:flex-col sm:items-start sm:gap-4">
             {index ? (
               <span
                 className="font-sans text-3xl font-bold leading-none tracking-tight sm:text-4xl"
@@ -69,7 +69,7 @@ export function NunomaruMenuPanel({
                 {index}
               </span>
             ) : null}
-            <p className="sys-eyebrow mt-0 sm:mt-5">{label}</p>
+            <p className="sys-eyebrow">{label}</p>
           </div>
         </header>
 
