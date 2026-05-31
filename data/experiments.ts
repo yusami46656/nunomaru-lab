@@ -44,6 +44,7 @@ export const experiments: Experiment[] = [
     href: "/tools/harassment-type",
     ctaLabel: "診断してみる",
     priceType: "free",
+    noteUrl: "https://note.com/nunomaru0x0u/n/n9860c5ede581",
   },
   {
     slug: "learn-tool-tbd",
