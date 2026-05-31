@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { harassmentTypes } from '@/data/harassment-type';
+import { harassmentQuestions, harassmentTypes } from '@/data/harassment-type';
 
 const VALID_TYPE_IDS = new Set(harassmentTypes.map((t) => t.id));
 
@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
     if (
       !VALID_TYPE_IDS.has(typeId) ||
       typeof answers !== 'string' ||
-      answers.length !== 16 ||
-      !/^[A-D]{16}$/.test(answers) ||
+      answers.length !== harassmentQuestions.length ||
+      !new RegExp(`^[A-D]{${harassmentQuestions.length}}$`).test(answers) ||
       !scores ||
       (['P', 'M', 'S', 'C'] as const).some(
         (k) => typeof scores[k] !== 'number' || scores[k] < 0 || scores[k] > 100,
