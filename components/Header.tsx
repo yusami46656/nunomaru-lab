@@ -22,15 +22,41 @@ export function Header() {
 
   return (
     <header
-      className="sys-shell sticky top-0 z-30 sys-rule border-b"
-      style={{ backgroundColor: "rgba(230, 224, 204, 0.92)", backdropFilter: "blur(4px)" }}
+      className="sys-shell sticky top-0 z-30 border-b"
+      style={{
+        backgroundColor: "rgba(74, 71, 62, 0.95)",
+        backdropFilter: "blur(4px)",
+        borderColor: "rgba(240, 237, 224, 0.18)",
+        "--sys-text": "#f0ede0",
+        "--sys-text-muted": "#b8af9c",
+        "--sys-line": "rgba(240, 237, 224, 0.18)",
+        "--sys-line-soft": "rgba(240, 237, 224, 0.10)",
+      } as React.CSSProperties}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <Link
           href="/"
-          className="group inline-flex items-baseline gap-3"
+          className="group inline-flex items-center gap-3"
           aria-label="ぬのまる工房 トップへ"
         >
+          <span
+            aria-hidden
+            className="shrink-0"
+            style={{
+              display: "inline-block",
+              width: 32,
+              height: 32,
+              backgroundColor: "var(--sys-text)",
+              maskImage: "url('/icon.svg')",
+              maskSize: "contain",
+              maskRepeat: "no-repeat",
+              maskPosition: "center",
+              WebkitMaskImage: "url('/icon.svg')",
+              WebkitMaskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+            } as React.CSSProperties}
+          />
           <span
             className="font-sans text-base font-bold tracking-[0.06em] sm:text-lg"
             style={{ color: "var(--sys-text)" }}
@@ -41,7 +67,7 @@ export function Header() {
             className="hidden sm:inline text-[10px] uppercase tracking-[0.32em]"
             style={{ color: "var(--sys-text-muted)" }}
           >
-            : NUNOMARU KOBO
+            : NUNOMARU LABO
           </span>
         </Link>
 
@@ -85,7 +111,7 @@ export function Header() {
           aria-controls="mobile-nav"
           aria-label="メニューを開閉する"
           className="inline-flex h-10 w-10 items-center justify-center md:hidden"
-          style={{ color: "var(--sys-text)", border: "1px solid var(--sys-line)" }}
+          style={{ color: "var(--sys-text)", border: "1px solid rgba(240, 237, 224, 0.3)" }}
         >
           <svg
             viewBox="0 0 24 24"
@@ -116,8 +142,8 @@ export function Header() {
       {open && (
         <div
           id="mobile-nav"
-          className="sys-rule border-t md:hidden"
-          style={{ backgroundColor: "rgba(230, 224, 204, 0.97)" }}
+          className="border-t md:hidden"
+          style={{ backgroundColor: "rgba(74, 71, 62, 0.97)", borderColor: "rgba(240, 237, 224, 0.18)" }}
         >
           <nav className="mx-auto flex max-w-5xl flex-col px-4 py-2 sm:px-6" aria-label="メインナビゲーション(モバイル)">
             {NAV.map((item) => (

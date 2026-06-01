@@ -58,8 +58,12 @@ export const metadata: Metadata = {
     images: ["/ogp-default.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: { url: "/icon.png", sizes: "180x180" },
   },
+  manifest: "/site.webmanifest",
   other: {
     "google-adsense-account": "ca-pub-9671599687662194",
   },

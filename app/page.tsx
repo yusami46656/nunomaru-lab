@@ -12,7 +12,7 @@ export default function HomePage() {
           <div className="sm:col-span-8 space-y-5">
             <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.32em]" style={{ color: "var(--sys-text-muted)" }}>
               <span className="sys-marker" aria-hidden />
-              <span>NUNOMARU KOBO</span>
+              <span>NUNOMARU LABO</span>
               <span className="opacity-50">·</span>
               <span>INDEX // 00</span>
             </div>

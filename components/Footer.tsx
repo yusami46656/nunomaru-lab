@@ -15,8 +15,26 @@ export function Footer() {
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md space-y-2">
-            <p className="sys-eyebrow">NUNOMARU KOBO</p>
-            <p className="font-sans text-lg font-bold" style={{ color: "var(--sys-text)" }}>
+            <p className="sys-eyebrow">NUNOMARU LABO</p>
+            <p className="flex items-center gap-2 font-sans text-lg font-bold" style={{ color: "var(--sys-text)" }}>
+              <span
+                aria-hidden
+                className="shrink-0"
+                style={{
+                  display: "inline-block",
+                  width: 24,
+                  height: 24,
+                  backgroundColor: "var(--sys-text)",
+                  maskImage: "url('/icon.svg')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                  WebkitMaskImage: "url('/icon.svg')",
+                  WebkitMaskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                } as React.CSSProperties}
+              />
               ぬのまる工房
             </p>
             <p className="text-sm leading-relaxed" style={{ color: "var(--sys-text-muted)" }}>
@@ -60,7 +78,7 @@ export function Footer() {
           className="mt-8 sys-rule flex items-center justify-between gap-3 border-t pt-4 text-[10px] uppercase tracking-[0.28em]"
           style={{ color: "var(--sys-text-muted)" }}
         >
-          <span>© 2026 NUNOMARU KOBO</span>
+          <span>© 2026 NUNOMARU LABO</span>
           <span>SYS // 001</span>
         </div>
       </div>
