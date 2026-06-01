@@ -12,9 +12,30 @@ const NAV = [
   { href: "/about", label: "About" },
 ];
 
+const DARK_STYLE: React.CSSProperties = {
+  backgroundColor: "rgba(74, 71, 62, 0.95)",
+  backdropFilter: "blur(4px)",
+  borderColor: "rgba(240, 237, 224, 0.18)",
+  "--sys-text": "#f0ede0",
+  "--sys-text-muted": "#b8af9c",
+  "--sys-line": "rgba(240, 237, 224, 0.18)",
+  "--sys-line-soft": "rgba(240, 237, 224, 0.10)",
+} as React.CSSProperties;
+
+const LIGHT_STYLE: React.CSSProperties = {
+  backgroundColor: "rgba(251, 246, 241, 0.95)",
+  backdropFilter: "blur(4px)",
+  borderColor: "rgba(0, 0, 0, 0.10)",
+  "--sys-text": "#2c2a24",
+  "--sys-text-muted": "#6b665c",
+  "--sys-line": "rgba(44, 42, 36, 0.22)",
+  "--sys-line-soft": "rgba(44, 42, 36, 0.12)",
+} as React.CSSProperties;
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isHtPage = pathname.startsWith("/tools/harassment-type");
 
   useEffect(() => {
     setOpen(false);
@@ -23,15 +44,7 @@ export function Header() {
   return (
     <header
       className="sys-shell sticky top-0 z-30 border-b"
-      style={{
-        backgroundColor: "rgba(74, 71, 62, 0.95)",
-        backdropFilter: "blur(4px)",
-        borderColor: "rgba(240, 237, 224, 0.18)",
-        "--sys-text": "#f0ede0",
-        "--sys-text-muted": "#b8af9c",
-        "--sys-line": "rgba(240, 237, 224, 0.18)",
-        "--sys-line-soft": "rgba(240, 237, 224, 0.10)",
-      } as React.CSSProperties}
+      style={isHtPage ? LIGHT_STYLE : DARK_STYLE}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <Link
@@ -74,8 +87,7 @@ export function Header() {
         <nav className="hidden items-center gap-1 md:flex" aria-label="メインナビゲーション">
           {NAV.map((item) => {
             const active =
-              !item.href.startsWith("/#") &&
-              (pathname === item.href || pathname.startsWith(`${item.href}/`));
+              !item.href.startsWith("/#") && pathname === item.href;
             return (
               <Link
                 key={item.href}
@@ -111,7 +123,7 @@ export function Header() {
           aria-controls="mobile-nav"
           aria-label="メニューを開閉する"
           className="inline-flex h-10 w-10 items-center justify-center md:hidden"
-          style={{ color: "var(--sys-text)", border: "1px solid rgba(240, 237, 224, 0.3)" }}
+          style={{ color: "var(--sys-text)", border: `1px solid ${isHtPage ? "rgba(0, 0, 0, 0.18)" : "rgba(240, 237, 224, 0.3)"}` }}
         >
           <svg
             viewBox="0 0 24 24"
@@ -143,7 +155,9 @@ export function Header() {
         <div
           id="mobile-nav"
           className="border-t md:hidden"
-          style={{ backgroundColor: "rgba(74, 71, 62, 0.97)", borderColor: "rgba(240, 237, 224, 0.18)" }}
+          style={isHtPage
+            ? { backgroundColor: "rgba(251, 246, 241, 0.98)", borderColor: "rgba(0, 0, 0, 0.10)" }
+            : { backgroundColor: "rgba(74, 71, 62, 0.97)", borderColor: "rgba(240, 237, 224, 0.18)" }}
         >
           <nav className="mx-auto flex max-w-5xl flex-col px-4 py-2 sm:px-6" aria-label="メインナビゲーション(モバイル)">
             {NAV.map((item) => (
