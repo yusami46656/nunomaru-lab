@@ -6,7 +6,7 @@ type Props = {
 const DEFAULT_ITEMS = [
   "NUNOMARU LABO",
   "SYS // 001",
-  "LEARN / PLAY",
+  "MYSTERY / FORTUNE",
   "v 2026.05",
 ];
 
