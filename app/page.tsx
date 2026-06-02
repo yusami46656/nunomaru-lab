@@ -26,7 +26,7 @@ export default function HomePage() {
               className="text-lg font-medium leading-relaxed sm:text-2xl"
               style={{ color: "var(--sys-text)", letterSpacing: "0.02em" }}
             >
-              AIでつくる、謎解きと占い・診断の小さな道具箱
+              AIとつくる、おもちゃ箱
             </p>
             <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
               ぬのまる工房は、AIを使って作った小さなWebツールやコンテンツを並べる場所です。
@@ -38,7 +38,7 @@ export default function HomePage() {
                 道具を見る
                 <span aria-hidden>→</span>
               </Link>
-              <Link href="/tools" className="sys-btn-ghost">
+              <Link href="/contents" className="sys-btn-ghost">
                 制作ログを読む →
               </Link>
             </div>
@@ -106,7 +106,7 @@ export default function HomePage() {
         title="制作ログ"
         description="AIで何を作り、どこで詰まり、何を考えたのか。制作の裏側や試行錯誤はnoteにまとめています。"
         actions={
-          <Link href="/tools" className="sys-btn-primary">
+          <Link href="/contents" className="sys-btn-primary">
             制作ログを読む
             <span aria-hidden>→</span>
           </Link>

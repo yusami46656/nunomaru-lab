@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation";
 import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 const NAV = [
-  { href: "/#mystery", label: "Mystery" },
-  { href: "/#fortune", label: "Fortune" },
-  { href: "/tools", label: "Making Note" },
+  { href: "/contents", label: "Contents" },
   { href: "/about", label: "About" },
 ];
 
@@ -35,7 +33,7 @@ const LIGHT_STYLE: React.CSSProperties = {
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isHtPage = pathname.startsWith("/tools/harassment-type");
+  const isHtPage = pathname.startsWith("/contents/harassment-type");
 
   useEffect(() => {
     setOpen(false);

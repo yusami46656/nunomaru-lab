@@ -22,30 +22,16 @@ export default function AboutPage() {
 
       <section className="space-y-5 text-base leading-relaxed" style={{ color: "var(--sys-text)" }}>
         <p>
-          ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。
+          ぬのまる工房は、コンサルタントとして働くぬのまるが、AIを使って遊べるWebコンテンツを作る個人制作サイトです。
         </p>
         <p>
-          謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。
+          AIは「仕事を速くする道具」だけではなく、これまで個人では難しかったものを形にできる道具だと気づいてから、ロジックで働きながら、感性でものをつくる実験をはじめました。
         </p>
-
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="sys-panel-flat px-5 py-4">
-            <p className="sys-eyebrow">MYSTERY</p>
-            <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
-              謎解きをつくる。
-            </p>
-          </div>
-          <div className="sys-panel-flat px-5 py-4">
-            <p className="sys-eyebrow">FORTUNE</p>
-            <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
-              占い・診断をつくる。
-            </p>
-          </div>
-        </div>
-
+        <p>
+          謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。制作の裏側はnoteで発信しています。
+        </p>
         <p className="text-sm" style={{ color: "var(--sys-text-muted)" }}>
           普段は会社員として働きながら、AIを使った個人制作に取り組んでいます。
-          制作の裏側や試行錯誤は、noteの「制作ログ」にまとめています。
         </p>
       </section>
 
@@ -60,7 +46,15 @@ export default function AboutPage() {
           rel="noopener noreferrer"
           className="sys-btn-ghost"
         >
-          noteで制作ログを読む ↗
+          noteを読む ↗
+        </a>
+        <a
+          href={EXTERNAL_LINKS.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sys-btn-ghost"
+        >
+          Xをフォロー ↗
         </a>
       </section>
     </div>

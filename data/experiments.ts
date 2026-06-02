@@ -41,7 +41,7 @@ export const experiments: Experiment[] = [
     status: "published",
     thumbnail: "/tools/harassment-type/thumb.png",
     publishedAt: "2026年5月",
-    href: "/tools/harassment-type",
+    href: "/contents/harassment-type",
     ctaLabel: "診断してみる",
     priceType: "free",
     noteUrl: "https://note.com/nunomaru0x0u/n/n9860c5ede581",

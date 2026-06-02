@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 const FOOTER_LINKS = [
-  { href: "/tools", label: "制作ログ" },
+  { href: "/contents", label: "Contents" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },
@@ -38,7 +38,7 @@ export function Footer() {
               ぬのまる工房
             </p>
             <p className="text-sm leading-relaxed" style={{ color: "var(--sys-text-muted)" }}>
-              AIでつくる、学びと遊びの小さな道具箱。
+              AIとつくる、おもちゃ箱。
             </p>
           </div>
 
