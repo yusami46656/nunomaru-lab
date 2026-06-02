@@ -12,8 +12,8 @@ export default function ContentsPage() {
   return (
     <div className="space-y-10 animate-sys-fade-in">
       <section className="space-y-3">
-        <p className="sys-eyebrow">CONTENTS</p>
-        <h1 className="sys-heading text-3xl font-bold sm:text-4xl">Contents</h1>
+        <p className="sys-eyebrow">MAKING NOTE</p>
+        <h1 className="sys-heading text-3xl font-bold sm:text-4xl">制作ログ</h1>
         <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
           AIで何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤をまとめています。
         </p>
