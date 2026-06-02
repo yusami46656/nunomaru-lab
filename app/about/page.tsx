@@ -25,20 +25,20 @@ export default function AboutPage() {
           ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。
         </p>
         <p>
-          学びたいけど少し難しいもの、思いついたけど形にする機会がなかった小ネタを、AIの力を借りながら少しずつ形にしています。
+          謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="sys-panel-flat px-5 py-4">
-            <p className="sys-eyebrow">LEARN</p>
+            <p className="sys-eyebrow">MYSTERY</p>
             <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
-              学びの道具をつくる。
+              謎解きをつくる。
             </p>
           </div>
           <div className="sys-panel-flat px-5 py-4">
-            <p className="sys-eyebrow">PLAY</p>
+            <p className="sys-eyebrow">FORTUNE</p>
             <p className="mt-1.5 font-bold" style={{ color: "var(--sys-text)" }}>
-              遊びの道具をつくる。
+              占い・診断をつくる。
             </p>
           </div>
         </div>

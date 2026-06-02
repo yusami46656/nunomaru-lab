@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 const NAV = [
-  { href: "/#learn", label: "Learn" },
-  { href: "/#play", label: "Play" },
+  { href: "/#mystery", label: "Mystery" },
+  { href: "/#fortune", label: "Fortune" },
   { href: "/tools", label: "Making Note" },
   { href: "/about", label: "About" },
 ];

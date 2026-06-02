@@ -3,7 +3,7 @@ export type NoteArticle = {
   url: string;
 };
 
-export type ToolCategory = "learn" | "play";
+export type ToolCategory = "mystery" | "fortune";
 export type ToolStatus = "published" | "comingSoon" | "inProgress" | "planning";
 export type ToolPriceType = "free" | "paid" | "undecided";
 
@@ -12,7 +12,7 @@ export type Experiment = {
   slug: string;
   title: string;
   description: string;
-  /** 学びの道具 / 遊びの道具 のどちらに並べるか。 */
+  /** 謎解き / 占い・診断 のどちらに並べるか。 */
   category: ToolCategory;
   /** 公開状態。カードの表示・リンクの活性を切り替える。 */
   status: ToolStatus;
@@ -37,7 +37,7 @@ export const experiments: Experiment[] = [
     title: "ハラスメントタイプ診断",
     description:
       "職場や日常のコミュニケーションにおけるあなたの危険なクセを、16タイプであぶり出す診断です。実はあなたも無自覚なうちにハラスメントをしてしまっているかも！？",
-    category: "play",
+    category: "fortune",
     status: "published",
     thumbnail: "/tools/harassment-type/thumb.png",
     publishedAt: "2026年5月",
@@ -47,15 +47,15 @@ export const experiments: Experiment[] = [
     noteUrl: "https://note.com/nunomaru0x0u/n/n9860c5ede581",
   },
   {
-    slug: "learn-tool-tbd",
-    title: "構想中",
+    slug: "mystery-tbd",
+    title: "謎解き（構想中）",
     description:
-      "学びの道具の第一弾を構想中です。世界史・神話・哲学などのテーマで準備しています。",
-    category: "learn",
+      "謎解きコンテンツの第一弾を構想中です。近日公開予定。",
+    category: "mystery",
     status: "planning",
     priceType: "undecided",
   },
 ];
 
-export const learnTools = experiments.filter((e) => e.category === "learn");
-export const playTools = experiments.filter((e) => e.category === "play");
+export const mysteryTools = experiments.filter((e) => e.category === "mystery");
+export const fortuneTools = experiments.filter((e) => e.category === "fortune");

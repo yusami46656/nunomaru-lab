@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExperimentCard } from "@/components/ExperimentCard";
 import { NunomaruMenuPanel } from "@/components/system/NunomaruMenuPanel";
-import { learnTools, playTools } from "@/data/experiments";
+import { mysteryTools, fortuneTools } from "@/data/experiments";
 
 export default function HomePage() {
   return (
@@ -26,11 +26,11 @@ export default function HomePage() {
               className="text-lg font-medium leading-relaxed sm:text-2xl"
               style={{ color: "var(--sys-text)", letterSpacing: "0.02em" }}
             >
-              AIでつくる、学びと遊びの小さな道具箱
+              AIでつくる、謎解きと占い・診断の小さな道具箱
             </p>
             <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
               ぬのまる工房は、AIを使って作った小さなWebツールやコンテンツを並べる場所です。
-              世界史・神話・哲学などを楽しく学ぶための道具や、診断・クイズなど気軽に遊べるコンテンツを制作しています。
+              謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -65,40 +65,34 @@ export default function HomePage() {
       </div>
 
       <NunomaruMenuPanel
-        id="learn"
+        id="mystery"
         index="01"
-        label="LEARN"
-        title="学びの道具"
-        description="世界史・神話・哲学など、面白いけれど少しとっつきにくいテーマを、Webならではの形で学びやすくするための道具です。"
+        label="MYSTERY"
+        title="謎解き"
+        description="閃き、推理、発見の楽しさを詰め込んだ謎解きコンテンツです。現在、第一弾を構想中です。"
         noTopRule
       >
-        {learnTools.length === 0 ? (
-          <div className="sys-panel-flat p-6 text-center text-sm" style={{ color: "var(--sys-text-muted)" }}>
-            準備中です。
-          </div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2">
-            {learnTools.map((tool) => (
-              <ExperimentCard key={tool.slug} experiment={tool} />
-            ))}
-          </div>
-        )}
+        <div className="grid gap-6 sm:grid-cols-2">
+          {mysteryTools.map((tool) => (
+            <ExperimentCard key={tool.slug} experiment={tool} />
+          ))}
+        </div>
       </NunomaruMenuPanel>
 
       <NunomaruMenuPanel
-        id="play"
+        id="fortune"
         index="02"
-        label="PLAY"
-        title="遊びの道具"
-        description="診断、クイズ、友人同士で遊べるネタ系コンテンツなど、思いついた小さなアイデアを気軽に形にした道具です。"
+        label="FORTUNE"
+        title="占い・診断"
+        description="診断、タイプ分け、友人同士で遊べるコンテンツなど、思いついた小さなアイデアを気軽に形にした道具です。"
       >
-        {playTools.length === 0 ? (
+        {fortuneTools.length === 0 ? (
           <div className="sys-panel-flat p-6 text-center text-sm" style={{ color: "var(--sys-text-muted)" }}>
             準備中です。
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2">
-            {playTools.map((tool) => (
+            {fortuneTools.map((tool) => (
               <ExperimentCard key={tool.slug} experiment={tool} />
             ))}
           </div>
@@ -124,7 +118,7 @@ export default function HomePage() {
         index="04"
         label="ABOUT"
         title="About ぬのまる工房"
-        description="ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。学びたいけど少し難しいもの、思いついたけど形にする機会がなかった小ネタを、AIの力を借りながら少しずつ形にしています。"
+        description="ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。"
         actions={
           <Link href="/about" className="sys-btn-ghost">
             もっと詳しく →
