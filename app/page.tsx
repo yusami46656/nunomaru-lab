@@ -29,13 +29,13 @@ export default function HomePage() {
               AIとつくる、おもちゃ箱
             </p>
             <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
-              ぬのまる工房は、AIを使って作った小さなWebツールやコンテンツを並べる場所です。
-              謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。
+              ぬのまる工房は、AIを使って作ったコンテンツを並べる個人制作サイトです。
+              謎解きや占い・診断など、思いついたアイデアをAIと一緒に形にしています。
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link href="#tools" className="sys-btn-primary">
-                道具を見る
+                コンテンツを見る
                 <span aria-hidden>→</span>
               </Link>
               <Link href="/contents" className="sys-btn-ghost">
@@ -58,7 +58,7 @@ export default function HomePage() {
       </section>
 
       <div id="tools" className="sys-section-bar">
-        <span className="sys-divider-label" style={{ color: "var(--sys-text)" }}>TOOLS</span>
+        <span className="sys-divider-label" style={{ color: "var(--sys-text)" }}>CONTENTS</span>
         <span className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "var(--sys-text-muted)" }}>
           04 ITEMS
         </span>
@@ -84,7 +84,7 @@ export default function HomePage() {
         index="02"
         label="FORTUNE"
         title="占い・診断"
-        description="診断、タイプ分け、友人同士で遊べるコンテンツなど、思いついた小さなアイデアを気軽に形にした道具です。"
+        description="診断、タイプ分け、友人同士で遊べるコンテンツなど、思いついた小さなアイデアを気軽に形にしています。"
       >
         {fortuneTools.length === 0 ? (
           <div className="sys-panel-flat p-6 text-center text-sm" style={{ color: "var(--sys-text-muted)" }}>
@@ -118,7 +118,7 @@ export default function HomePage() {
         index="04"
         label="ABOUT"
         title="About ぬのまる工房"
-        description="ぬのまる工房は、ぬのまるがAIを使って小さなWebツールやコンテンツを作る個人制作サイトです。謎解きや占い・診断など、思いついた小さなアイデアをAIの力を借りながら少しずつ形にしています。"
+        description="ぬのまる工房は、ぬのまるがAIを使って作ったコンテンツを公開する個人制作サイトです。謎解きや占い・診断など、思いついたアイデアをAIと一緒に形にしています。"
         actions={
           <Link href="/about" className="sys-btn-ghost">
             もっと詳しく →
