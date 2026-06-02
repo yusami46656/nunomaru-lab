@@ -39,7 +39,7 @@ export const experiments: Experiment[] = [
       "職場や日常のコミュニケーションにおけるあなたの危険なクセを、16タイプであぶり出す診断です。実はあなたも無自覚なうちにハラスメントをしてしまっているかも！？",
     category: "fortune",
     status: "published",
-    thumbnail: "/tools/harassment-type/thumb.png",
+    thumbnail: "/contents/harassment-type/thumb.png",
     publishedAt: "2026年5月",
     href: "/contents/harassment-type",
     ctaLabel: "診断してみる",

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function SamplePage() {
-  redirect("/tools/harassment-type");
+  redirect("/contents/harassment-type");
 }

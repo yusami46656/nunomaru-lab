@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `あなたは「${typeData.name}」| ハラスメントタイプ診断`;
   const description = typeData.caption;
-  const ogImage = `/tools/harassment-type/og/${typeId}.png`;
+  const ogImage = `/contents/harassment-type/og/${typeId}.png`;
 
   return {
     title,
