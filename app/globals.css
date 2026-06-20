@@ -357,6 +357,142 @@ body:has(.ht-area) footer.sys-shell {
   border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
 
+/* ─── 家謎 (ienazo) 特設テーマ: body 背景＆親シェルの上書き ───── */
+/* /ienazo 配下は .ienazo-area が初期HTMLに含まれるため、フラッシュなし。
+   親の NieR システムUI（走査線・グローバルHeader/Footer/StatusBar）を消し、
+   親 main の幅制限・余白を解除して、生成り地の全幅レイアウトに切り替える。 */
+body:has(.ienazo-area) {
+  background-color: #f7f6f2 !important; /* 白に寄せた地（ギャラリー白） */
+  background-image: none !important; /* ギャラリー的にフラット。線で構成する */
+  /* overflow-x:hidden は position:sticky(ヘッダー)を壊すため付けない。
+     横はみ出しは各セクション側(overflow-hidden)でクリップする。 */
+}
+
+body:has(.ienazo-area) .sys-scanlines,
+body:has(.ienazo-area) .sys-shell-only,
+body:has(.ienazo-area) header.sys-shell,
+body:has(.ienazo-area) footer.sys-shell {
+  display: none !important;
+}
+
+/* 親レイアウトの <main> の幅制限・余白を解除して全幅にする */
+body:has(.ienazo-area) main {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+/* 家謎: キーボード操作のフォーカス可視化（赤のアウトライン） */
+body:has(.ienazo-area) a:focus-visible,
+body:has(.ienazo-area) button:focus-visible {
+  outline: 2px solid #a23a35;
+  outline-offset: 2px;
+}
+
+/* 家謎: ヒーローのゆっくりズーム(Ken Burns) */
+@keyframes ienazo-kenburns {
+  from { transform: scale(1.06); }
+  to { transform: scale(1.16); }
+}
+.ienazo-kenburns {
+  animation: ienazo-kenburns 8s ease-out both;
+}
+
+/* 家謎: カードウォール(横に流れるカード列・順番に入れ替わる) */
+@keyframes ienazo-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ienazo-cardrow {
+  animation: ienazo-slide 56s linear infinite;
+}
+.ienazo-cardrow-rev {
+  animation-direction: reverse;
+  animation-duration: 72s; /* 速度差でパララックスの奥行きを出す */
+}
+.ienazo-wall:hover .ienazo-cardrow {
+  animation-play-state: paused;
+}
+
+/* 家謎: ヘッダーの登場（上からスライド＋フェード。Stellar Blade風） */
+@keyframes ienazo-header-in {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.ienazo-header-in {
+  animation: ienazo-header-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+/* 家謎: ナビのアンダーライン(左から伸びる) */
+.ienazo-navlink {
+  position: relative;
+}
+.ienazo-navlink::after {
+  content: "";
+  position: absolute;
+  /* px-4(1rem)分インセットして、下線幅を文字幅に合わせる */
+  left: 1rem;
+  right: 1rem;
+  bottom: 2px;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ienazo-navlink:hover::after,
+.ienazo-navlink:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* 家謎: スクロール誘導(More ↓)のゆれ */
+@keyframes ienazo-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.ienazo-scrollcue {
+  animation: ienazo-bounce 1.6s ease-in-out infinite;
+}
+
+/* 家謎: 装飾の鍵穴が"視界に入った瞬間に一度だけ"くるっと回って解錠（GeoDecor お試し）
+   行き過ぎてバネのように戻り定位置へ。1回のみ（B：常時回転をやめる）。 */
+@keyframes ienazo-spring-once {
+  0% { transform: rotate(0deg); }
+  55% { transform: rotate(372deg); }   /* くるっと＋行き過ぎ */
+  74% { transform: rotate(353deg); }   /* バネで戻り過ぎ */
+  88% { transform: rotate(363deg); }   /* 揺り戻し */
+  100% { transform: rotate(360deg); }  /* 定位置(=0)で静止 */
+}
+.ienazo-spin-once {
+  animation: ienazo-spring-once 1.5s ease-in-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ienazo-kenburns,
+  .ienazo-cardrow,
+  .ienazo-header-in,
+  .ienazo-scrollcue,
+  .ienazo-spin-once {
+    animation: none !important;
+  }
+}
+
+/* 家謎: 微テクスチャ（紙・布目）。ベタ面の安っぽさを消す。
+   濃色の面(黒ヒーロー/マロン帯)の上に絶対配置の子要素として重ねる。 */
+.ienazo-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* fractalNoise の極薄グレイン。色面を“紙の上の印刷”に近づける */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+/* 家謎: 額装ヘアライン。画像の内側に1pxの線を落として“額に入った絵”の精度を出す。 */
+.ienazo-frame {
+  box-shadow: inset 0 0 0 1px rgba(24, 24, 24, 0.08);
+}
+
 /* ─── システムUI モード: body 背景オーバーライド ─────────────── */
 body.sys-mode {
   color: var(--sys-text);

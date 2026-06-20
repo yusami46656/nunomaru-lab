@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="ダミーヒーロー 03">
+  <rect width="1600" height="900" fill="#a23a35"/>
+  <g stroke="#f7f6f2" stroke-opacity="0.10" stroke-width="1">
+    <line x1="533.3333333333334" y1="0" x2="533.3333333333334" y2="900"/>
+    <line x1="1066.6666666666667" y1="0" x2="1066.6666666666667" y2="900"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+  </g>
+  <rect x="22" y="22" width="1556" height="856" fill="none" stroke="#f7f6f2" stroke-opacity="0.5"/>
+  <rect x="34" y="34" width="1532" height="832" fill="none" stroke="#f7f6f2" stroke-opacity="0.16"/>
+  <text x="64" y="150" fill="#f7f6f2" font-family="'Zen Maru Gothic',sans-serif" font-size="96" font-weight="700">03</text>
+  <rect x="66" y="180" width="96" height="9" fill="#f7f6f2"/>
+  
+    <circle cx="800" cy="412" r="160" fill="none" stroke="#f7f6f2" stroke-opacity="0.22" stroke-width="2"/>
+    <circle cx="800" cy="412" r="204" fill="none" stroke="#f7f6f2" stroke-opacity="0.10" stroke-width="2"/>
+    <g fill="#f7f6f2">
+      <circle cx="800" cy="368" r="80"/>
+      <path d="M 760 412 L 726.4 580 L 873.6 580 L 840 412 Z"/>
+    </g>
+  <text x="64" y="804" fill="#f7f6f2" font-family="'Zen Maru Gothic',sans-serif" font-size="44" font-weight="700">作品タイトル（ダミー）</text>
+  <text x="64" y="848" fill="#f7f6f2" fill-opacity="0.55" font-family="'Zen Maru Gothic',sans-serif" font-size="24" letter-spacing="6">DUMMY HERO — 03</text>
+</svg>
