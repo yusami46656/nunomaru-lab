@@ -26,11 +26,11 @@ export default function HomePage() {
               className="text-lg font-medium leading-relaxed sm:text-2xl"
               style={{ color: "var(--sys-text)", letterSpacing: "0.02em" }}
             >
-              AIとつくる、おもちゃ箱
+              ひらめきを、形に。
             </p>
             <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
-              ぬのまる工房は、AIを使って作ったコンテンツを並べる個人制作サイトです。
-              謎解きや占い・診断など、思いついたアイデアをAIと一緒に形にしています。
+              ぬのまる工房は、ぬのまるが作った小さなWebコンテンツを並べていく個人制作サイトです。
+              謎解きや診断、ちょっとした試作品など、思いついたものを少しずつ形にしています。
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -69,7 +69,7 @@ export default function HomePage() {
         index="01"
         label="MYSTERY"
         title="謎解き"
-        description="閃き、推理、発見の楽しさを詰め込んだ謎解きコンテンツです。現在、第一弾を構想中です。"
+        description="Webで遊べる謎解きコンテンツを制作中です。物語と謎がつながる体験を目指して、第一弾を構想しています。"
         noTopRule
       >
         <div className="grid gap-6 sm:grid-cols-2">
@@ -84,7 +84,7 @@ export default function HomePage() {
         index="02"
         label="FORTUNE"
         title="占い・診断"
-        description="診断、タイプ分け、友人同士で遊べるコンテンツなど、思いついた小さなアイデアを気軽に形にしています。"
+        description="診断、タイプ分け、友人同士で話題にできるような小さなコンテンツを制作しています。"
       >
         {fortuneTools.length === 0 ? (
           <div className="sys-panel-flat p-6 text-center text-sm" style={{ color: "var(--sys-text-muted)" }}>
@@ -104,7 +104,7 @@ export default function HomePage() {
         index="03"
         label="MAKING NOTE"
         title="制作ログ"
-        description="AIで何を作り、どこで詰まり、何を考えたのか。制作の裏側や試行錯誤はnoteにまとめています。"
+        description="何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤をnoteにまとめています。"
         actions={
           <Link href="/contents" className="sys-btn-primary">
             制作ログを読む
@@ -118,7 +118,7 @@ export default function HomePage() {
         index="04"
         label="ABOUT"
         title="About ぬのまる工房"
-        description="ぬのまる工房は、ぬのまるがAIを使って作ったコンテンツを公開する個人制作サイトです。謎解きや占い・診断など、思いついたアイデアをAIと一緒に形にしています。"
+        description="ぬのまる工房は、ぬのまるが個人で作っている小さなコンテンツの置き場です。謎解きや診断、ちょっとしたWeb体験など、完成したものも構想中のものも、この場所に並べていきます。"
         actions={
           <Link href="/about" className="sys-btn-ghost">
             もっと詳しく →

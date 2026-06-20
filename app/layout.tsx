@@ -29,11 +29,11 @@ const ADSENSE_PUBLISHER_ID =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ぬのまる工房｜AIとつくる、おもちゃ箱",
+    default: "ぬのまる工房｜小さな作品を、少しずつ。",
     template: "%s | ぬのまる工房",
   },
   description:
-    "ぬのまる工房は、AIを使って謎解きや占い・診断など、遊べるWebコンテンツを作る個人制作サイトです。",
+    "ぬのまる工房は、ぬのまるが作った小さなWebコンテンツを並べていく個人制作サイトです。謎解きや診断、ちょっとした試作品などを少しずつ形にしています。",
   applicationName: SITE_NAME,
   openGraph: {
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     title: "ぬのまる工房",
-    description: "AIとつくる、おもちゃ箱。",
+    description: "小さな作品を、少しずつ。",
     images: [
       {
         url: "/ogp-default.png",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ぬのまる工房",
-    description: "AIとつくる、おもちゃ箱。",
+    description: "小さな作品を、少しずつ。",
     images: ["/ogp-default.png"],
   },
   icons: {

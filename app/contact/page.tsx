@@ -51,7 +51,7 @@ export default function ContactPage() {
               noteで連絡する
             </p>
             <p className="mt-1 text-xs" style={{ color: "var(--sys-text-muted)" }}>
-              制作ログ・AI活用メモはこちら。
+              制作の裏側・試行錯誤の記録はこちら。
             </p>
           </div>
           <span aria-hidden style={{ color: "var(--sys-accent)" }}>↗</span>

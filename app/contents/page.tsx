@@ -15,7 +15,7 @@ export default function ContentsPage() {
         <p className="sys-eyebrow">MAKING NOTE</p>
         <h1 className="sys-heading text-3xl font-bold sm:text-4xl">制作ログ</h1>
         <p className="text-sm leading-relaxed sm:text-base" style={{ color: "var(--sys-text)" }}>
-          AIで何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤をまとめています。
+          何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤をnoteにまとめています。
         </p>
       </section>
 
