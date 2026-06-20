@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ienazo/Reveal";
 import { FREE_TRIAL } from "@/data/ienazo/works";
 import { ICONS } from "@/data/ienazo/icons";
 import { SectionIcon } from "@/components/ienazo/SectionIcon";
+import { CardSlider } from "@/components/ienazo/CardSlider";
 
 export const metadata: Metadata = {
   title: "遊び方",
@@ -28,20 +29,20 @@ export default function HowToPage() {
 
       {/* 3ステップ */}
       <Reveal>
-        <div className="mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-ienazo-rule sm:overflow-visible sm:pb-0">
-          {STEPS.map((s) => (
-            <div key={s.n} className="w-[80%] shrink-0 snap-start sm:w-auto">
-              <div className="px-0 py-6 sm:px-8">
+        <div className="mt-14">
+          <CardSlider>
+            {STEPS.map((s) => (
+              <div key={s.n} className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-7 sm:p-8">
                 <div className="flex items-center gap-4">
                   <span className="text-4xl font-bold leading-none tracking-tight sm:text-5xl">{s.n}</span>
                   <span className="h-px flex-1 bg-ienazo-rule" />
                 </div>
-                <h3 className="mt-5 text-lg font-bold tracking-wide">{s.title}</h3>
-                <SectionIcon src={s.icon} fallback="none" className="mx-auto mt-5 h-16 w-16 text-ienazo-ink" />
+                <h3 className="mt-5 text-xl font-bold tracking-wide sm:text-2xl">{s.title}</h3>
+                <SectionIcon src={s.icon} fallback="none" className="mx-auto mt-5 h-40 w-40 text-ienazo-ink sm:h-52 sm:w-52" />
                 <p className="mt-4 text-sm leading-relaxed text-ienazo-ink-soft">{s.body}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </CardSlider>
         </div>
       </Reveal>
 

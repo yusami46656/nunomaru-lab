@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ienazo/Reveal";
 import { MaskReveal } from "@/components/ienazo/MaskReveal";
 import { WorkCard } from "@/components/ienazo/WorkCard";
 import { SectionIcon } from "@/components/ienazo/SectionIcon";
+import { CardSlider } from "@/components/ienazo/CardSlider";
 import { GeoDecor } from "@/components/ienazo/GeoDecor"; // お試し装飾（削除可）
 import { WORKS, FREE_TRIAL } from "@/data/ienazo/works";
 import { ICONS } from "@/data/ienazo/icons";
@@ -111,19 +112,19 @@ export default function IenazoTopPage() {
           description="家謎は、おうちで気軽に遊べる謎解き・脱出ゲームです。あなたは物語の登場人物として、おうちのなかの世界をめぐりながら謎を解いていきます。"
         />
 
-        {/* 3つの価値（見出し→赤線→中央の大アイコン→本文。スマホは横スワイプ） */}
+        {/* 3つの価値（スマホ＝ページめくり／PC＝白カード3列） */}
         <Reveal>
-          <div className="mt-16 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 sm:gap-7 sm:overflow-visible sm:pb-0">
-            {VALUES.map((v) => (
-              <div key={v.title} className="w-[80%] shrink-0 snap-start sm:w-auto">
-                <div className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-7 sm:p-8">
+          <div className="mt-16">
+            <CardSlider>
+              {VALUES.map((v) => (
+                <div key={v.title} className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-7 sm:p-8">
                   <h3 className="text-xl font-bold tracking-wide sm:text-2xl">{v.title}</h3>
                   <span className="mt-4 block h-0.5 w-10 bg-ienazo-red" aria-hidden />
-                  <SectionIcon src={v.icon} fallback="keyhole" className="mx-auto my-7 h-20 w-20 text-ienazo-ink" />
+                  <SectionIcon src={v.icon} fallback="keyhole" className="mx-auto my-7 h-44 w-44 text-ienazo-ink sm:h-56 sm:w-56" />
                   <p className="text-sm leading-loose text-ienazo-ink-soft">{v.body}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </CardSlider>
           </div>
         </Reveal>
       </section>
@@ -236,22 +237,22 @@ export default function IenazoTopPage() {
         <div className="mx-auto max-w-6xl px-4 py-28 sm:px-6 sm:py-40">
           <SectionHeading label="HOW TO PLAY" title="遊び方は、3ステップ" />
           <Reveal>
-            <div className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-ienazo-rule sm:overflow-visible sm:pb-0">
-              {STEPS.map((s) => (
-                <div key={s.n} className="w-[80%] shrink-0 snap-start sm:w-auto">
-                  <div className="px-0 py-6 sm:px-8">
+            <div className="mt-12">
+              <CardSlider>
+                {STEPS.map((s) => (
+                  <div key={s.n} className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-7 sm:p-8">
                     <div className="flex items-center gap-4">
                       <span className="text-4xl font-bold leading-none tracking-tight text-ienazo-ink sm:text-5xl">
                         {s.n}
                       </span>
                       <span className="h-px flex-1 bg-ienazo-rule" />
                     </div>
-                    <h3 className="mt-5 text-lg font-bold tracking-wide">{s.title}</h3>
-                    <SectionIcon src={s.icon} fallback="none" className="mx-auto mt-5 h-16 w-16 text-ienazo-ink" />
+                    <h3 className="mt-5 text-xl font-bold tracking-wide sm:text-2xl">{s.title}</h3>
+                    <SectionIcon src={s.icon} fallback="none" className="mx-auto mt-5 h-40 w-40 text-ienazo-ink sm:h-52 sm:w-52" />
                     <p className="mt-4 text-sm leading-relaxed text-ienazo-ink-soft">{s.body}</p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </CardSlider>
             </div>
           </Reveal>
           <Reveal delay={120}>
