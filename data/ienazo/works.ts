@@ -36,8 +36,37 @@ export interface Work {
    * その場で price_data を組んで Checkout する（テスト用フォールバック）。
    */
   stripePriceId?: string;
+  /**
+   * 準備中（未公開）。タイトル・価格・あらすじ・購入/プレイ導線をすべて伏せ、
+   * 「準備中」プレースホルダとして棚に出す。詳細・プレイページは 404。
+   */
+  comingSoon?: boolean;
 }
 
+// 準備中プレースホルダ。タイトル等は伏せ、棚では「準備中」カードで描画する。
+// 中身（slug/価格/あらすじ）はUIに出さないが、型を満たすため最小値を入れる。
+function comingSoonWork(slug: string): Work {
+  return {
+    slug,
+    title: "準備中",
+    tagline: "近日公開",
+    summary: "",
+    type: "paid",
+    priceJPY: 0,
+    minutes: 0,
+    difficulty: 1,
+    players: "",
+    environment: "",
+    needs: "",
+    cover: "",
+    hero: "",
+    playUrl: "",
+    comingSoon: true,
+  };
+}
+
+// 公開カタログ＝3作品（無料体験1＋準備中2）。
+// 未完成作（本コピー・本番アセット・法務が未整備）は伏せ、完成次第ここへ昇格する。
 export const WORKS: Work[] = [
   {
     slug: "broken-android",
@@ -56,6 +85,16 @@ export const WORKS: Work[] = [
     hero: "/ienazo/dummy/hero-01.svg",
     playUrl: "/ienazo/play/broken-android",
   },
+  comingSoonWork("coming-soon-1"),
+  comingSoonWork("coming-soon-2"),
+];
+
+/**
+ * 公開前の制作中作品の控え。完成したら該当エントリを WORKS の準備中枠と
+ * 差し替えて公開する（タイトル・本コピー・本番アセット・法務の整備が前提）。
+ * ※ここにある作品は UI には一切出ない。
+ */
+export const DRAFT_WORKS: Work[] = [
   {
     slug: "heart-no-inai-kuni",
     title: "ハートのいない国",

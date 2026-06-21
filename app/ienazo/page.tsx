@@ -12,9 +12,9 @@ import { WORKS, FREE_TRIAL } from "@/data/ienazo/works";
 import { ICONS } from "@/data/ienazo/icons";
 
 const FLOW_ITEMS: FlowItem[] = WORKS.map((w) => ({
-  image: w.cover, // 縦長3:4カバーを使い、中央を大きく描画
-  title: w.title,
-  href: `/ienazo/works/${w.slug}`,
+  image: w.comingSoon ? "" : w.cover, // 縦長3:4カバー。準備中は空＝プレースホルダ描画
+  title: w.comingSoon ? "準備中" : w.title, // 準備中はタイトルを伏せる
+  href: w.comingSoon ? "" : `/ienazo/works/${w.slug}`,
 }));
 
 const VALUES = [

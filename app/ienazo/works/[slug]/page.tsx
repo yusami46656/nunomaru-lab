@@ -9,7 +9,7 @@ import { BuyButton } from "@/components/ienazo/BuyButton";
 import { WORKS, FREE_TRIAL, difficultyStars, type Work } from "@/data/ienazo/works";
 
 export function generateStaticParams() {
-  return WORKS.map((w) => ({ slug: w.slug }));
+  return WORKS.filter((w) => !w.comingSoon).map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +30,7 @@ export default async function WorkDetailPage({
 }) {
   const { slug } = await params;
   const work = WORKS.find((w) => w.slug === slug);
-  if (!work) notFound();
+  if (!work || work.comingSoon) notFound();
 
   const isFree = work.type === "free";
   const others: Work[] = WORKS.filter((w) => w.slug !== work.slug).slice(0, 3);

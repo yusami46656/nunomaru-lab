@@ -6,7 +6,7 @@ import { getUser, hasEntitlement } from "@/lib/ienazo/entitlements";
 import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 
 export function generateStaticParams() {
-  return WORKS.map((w) => ({ slug: w.slug }));
+  return WORKS.filter((w) => !w.comingSoon).map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -21,7 +21,7 @@ export const dynamic = "force-dynamic";
 export default async function PlayGatePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const work = WORKS.find((w) => w.slug === slug);
-  if (!work) notFound();
+  if (!work || work.comingSoon) notFound();
   const isFree = work.type === "free";
 
   return (

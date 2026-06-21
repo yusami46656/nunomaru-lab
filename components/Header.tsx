@@ -8,6 +8,7 @@ import { EXTERNAL_LINKS } from "@/lib/external-links";
 const NAV = [
   { href: "/#tools", label: "Contents" },
   { href: "/contents", label: "Making Note" },
+  { href: "/ienazo", label: "家謎" },
   { href: "/about", label: "About" },
 ];
 

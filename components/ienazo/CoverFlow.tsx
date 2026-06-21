@@ -40,6 +40,15 @@ function styleFor(off: number): React.CSSProperties {
  * 中央は正面で大きく、左右は2枚ずつ台形で待機。自動で順に切替。
  * 親要素の幅にフィットする（ヒーロー右カラム等に配置可能）。
  */
+/** 準備中カバー（画像未設定時のプレースホルダ）。タイトルは伏せる。 */
+function ComingSoonTile() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-ienazo-ink">
+      <span className="text-xs font-bold tracking-[0.4em] text-white/45">準備中</span>
+    </div>
+  );
+}
+
 export function CoverFlow({ items }: { items: FlowItem[] }) {
   const n = items.length;
   const visible = Math.max(1, Math.min(2, Math.ceil(n / 2) - 1));
@@ -77,7 +86,7 @@ export function CoverFlow({ items }: { items: FlowItem[] }) {
           const isCenter = off === 0;
           return (
             <div
-              key={it.image}
+              key={i}
               className="absolute left-1/2 top-1/2 aspect-[3/4] w-[56%] transition-[transform,opacity] duration-[600ms] ease-out"
               style={styleFor(off)}
               aria-hidden={!isCenter}
@@ -85,8 +94,12 @@ export function CoverFlow({ items }: { items: FlowItem[] }) {
               {isCenter ? (
                 /* ダミー画像は押せない（作品詳細は後日LP化）。リンクなし */
                 <div className="block h-full w-full border border-white/25 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.85)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={it.image} alt={it.title} className="h-full w-full object-cover" draggable={false} />
+                  {it.image ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={it.image} alt={it.title} className="h-full w-full object-cover" draggable={false} />
+                  ) : (
+                    <ComingSoonTile />
+                  )}
                 </div>
               ) : (
                 <button
@@ -96,8 +109,12 @@ export function CoverFlow({ items }: { items: FlowItem[] }) {
                   className="block h-full w-full border border-white/15"
                   tabIndex={-1}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={it.image} alt="" className="h-full w-full object-cover" draggable={false} />
+                  {it.image ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={it.image} alt="" className="h-full w-full object-cover" draggable={false} />
+                  ) : (
+                    <ComingSoonTile />
+                  )}
                 </button>
               )}
             </div>
@@ -125,9 +142,9 @@ export function CoverFlow({ items }: { items: FlowItem[] }) {
 
       {/* インジケータ */}
       <div className="mt-5 flex items-center justify-center gap-2">
-        {items.map((it, i) => (
+        {items.map((_it, i) => (
           <button
-            key={it.image}
+            key={i}
             type="button"
             onClick={() => go(i)}
             aria-label={`${i + 1}番目を表示`}

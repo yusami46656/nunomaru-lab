@@ -8,6 +8,24 @@ import { difficultyStars, type Work } from "@/data/ienazo/works";
  */
 export function WorkCard({ work, showPrice = false }: { work: Work; showPrice?: boolean }) {
   const isFree = work.type === "free";
+
+  // 準備中：タイトル・価格・あらすじを伏せ、無地の「準備中」タイルで描画。
+  if (work.comingSoon) {
+    return (
+      <div className="block border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft">
+        <div className="ienazo-frame relative flex aspect-[3/4] items-center justify-center overflow-hidden border-b border-ienazo-rule bg-ienazo-ink">
+          <span className="text-xs font-bold tracking-[0.4em] text-white/55">準備中</span>
+        </div>
+        <div className="px-4 py-4">
+          <h3 className="font-bold leading-snug tracking-wide text-ienazo-ink-soft">近日公開</h3>
+          <p className="mt-1.5 text-xs leading-relaxed text-ienazo-ink-soft">
+            あたらしい物語を準備しています。
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="group block border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft transition-[transform,box-shadow] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-ienazo-card">
       {/* カバー（縦3:4・スマホでも収まりやすい）。ienazo-frame で額装ヘアライン */}
