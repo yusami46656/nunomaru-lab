@@ -6,6 +6,8 @@ import { Reveal } from "@/components/ienazo/Reveal";
 import { WorkCard } from "@/components/ienazo/WorkCard";
 import { WorkSpecTable } from "@/components/ienazo/WorkSpecTable";
 import { BuyButton } from "@/components/ienazo/BuyButton";
+import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
+import { StoryGallery } from "@/components/ienazo/StoryGallery";
 import { WORKS, FREE_TRIAL, difficultyStars, type Work } from "@/data/ienazo/works";
 
 export function generateStaticParams() {
@@ -20,7 +22,30 @@ export async function generateMetadata({
   const { slug } = await params;
   const work = WORKS.find((w) => w.slug === slug);
   if (!work) return { title: "作品が見つかりません" };
-  return { title: work.title, description: work.summary };
+  const description = work.summary.replace(/\s*\n+\s*/g, " ").trim();
+  // 1200×630 のOGPカード（SNS共有時のサムネ）。作品ごとに public/ienazo/og/og_<slug>.png を用意した場合のみ付与。
+  const ogImage = `/ienazo/og/og_${slug}.png`;
+  const hasOg = slug === "broken-android";
+  return {
+    title: work.title,
+    description,
+    ...(hasOg
+      ? {
+          openGraph: {
+            title: work.title,
+            description,
+            type: "article",
+            images: [{ url: ogImage, width: 1200, height: 630, alt: work.title }],
+          },
+          twitter: {
+            card: "summary_large_image",
+            title: work.title,
+            description,
+            images: [ogImage],
+          },
+        }
+      : {}),
+  };
 }
 
 export default async function WorkDetailPage({
@@ -34,10 +59,6 @@ export default async function WorkDetailPage({
 
   const isFree = work.type === "free";
   const others: Work[] = WORKS.filter((w) => w.slug !== work.slug).slice(0, 3);
-  // 有料は購入(ログイン)へ、無料はそのままプレイへ
-  const primaryHref = isFree
-    ? work.playUrl
-    : `/ienazo/account/login?next=${encodeURIComponent(`/ienazo/play/${work.slug}`)}`;
 
   return (
     <div>
@@ -47,7 +68,7 @@ export default async function WorkDetailPage({
           <Reveal>
             <div className="relative aspect-video w-full overflow-hidden border border-ienazo-rule">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={work.hero} alt={work.title} className="h-full w-full object-cover" />
+              <img src={work.hero} alt={work.title} className="h-full w-full object-cover object-center" />
               {isFree && (
                 <span className="absolute left-0 top-0 bg-ienazo-red px-3 py-1 text-xs font-bold tracking-wide text-white">
                   無料体験
@@ -84,12 +105,7 @@ export default async function WorkDetailPage({
                 </p>
                 <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
                   {isFree ? (
-                    <Link
-                      href={primaryHref}
-                      className="inline-flex items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
-                    >
-                      無料で遊ぶ
-                    </Link>
+                    <PlayLauncher slug={work.slug} mode="free" label="PLAY" />
                   ) : (
                     <BuyButton slug={work.slug} />
                   )}
@@ -111,15 +127,24 @@ export default async function WorkDetailPage({
         </div>
       </section>
 
-      {/* ── ② あらすじ（ネタバレなし） ── */}
+      {/* ── ② あらすじ（左：画像ギャラリー／右：物語の説明文）── */}
       <section className="border-t border-ienazo-line">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading label="STORY" title="どんな物語？" />
-          <Reveal delay={120}>
-            <p className="mt-8 max-w-2xl text-sm leading-loose text-ienazo-ink sm:text-base">
-              {work.summary}
-            </p>
-          </Reveal>
+          <div className="mt-10 grid items-start gap-8 md:grid-cols-2 md:gap-12">
+            {/* 左：ギャラリー（大きな1枚＋サムネ） */}
+            {work.storyShots && work.storyShots.length > 0 && (
+              <Reveal>
+                <StoryGallery shots={work.storyShots} />
+              </Reveal>
+            )}
+            {/* 右：物語の説明文（改行を活かして雰囲気を出す） */}
+            <Reveal delay={120}>
+              <p className="whitespace-pre-line text-sm leading-[2.1] tracking-wide text-ienazo-ink sm:text-base">
+                {work.summary}
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 

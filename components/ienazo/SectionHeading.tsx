@@ -22,8 +22,8 @@ export function SectionHeading({
       {/* 英字サブ（eyebrow） */}
       <Reveal>
         <p className="flex items-center gap-3 text-sm font-bold tracking-[0.28em] text-ienazo-ink-soft sm:text-base">
-          {/* 【#2試作】赤の反復を抑え、マーカーはインク色に。赤はCTA/無料体験帯へ集中 */}
-          <span className="inline-block h-2 w-2 bg-ienazo-ink" aria-hidden />
+          {/* 英字ラベル前のマーカーは赤に統一（全ページ共通） */}
+          <span className="inline-block h-2 w-2 bg-ienazo-red" aria-hidden />
           {label}
           {sub && <span className="text-ienazo-ink-soft/70">／ {sub}</span>}
         </p>

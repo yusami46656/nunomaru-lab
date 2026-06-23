@@ -7,9 +7,11 @@ type Props = {
   slug: string;
   /** "free" = トークンなしで直接起動 / "owned" = 所有検証→短命チケットで起動 */
   mode: "free" | "owned";
+  /** ボタン表記（既定「プレイを開始する」） */
+  label?: string;
 };
 
-export function PlayLauncher({ slug, mode }: Props) {
+export function PlayLauncher({ slug, mode, label = "プレイを開始する" }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +20,9 @@ export function PlayLauncher({ slug, mode }: Props) {
       setError("プレイエンジンは準備中です（別タブで起動予定）。");
       return;
     }
-    window.open(`${ENGINE_BASE_URL}/${slug}`, "_blank", "noopener");
+    // クリア画面の「作品一覧へ戻る」用に戻り先URLを渡す。
+    const ret = encodeURIComponent(`${window.location.origin}/ienazo/works`);
+    window.open(`${ENGINE_BASE_URL}/${slug}?return=${ret}`, "_blank", "noopener");
   }
 
   async function launchOwned() {
@@ -55,7 +59,7 @@ export function PlayLauncher({ slug, mode }: Props) {
         disabled={loading}
         className="inline-flex items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep disabled:opacity-60"
       >
-        {loading ? "起動中…" : "プレイを開始する"}
+        {loading ? "起動中…" : label}
       </button>
       {error && <p className="mt-5 text-xs text-ienazo-ink-soft">＊ {error}</p>}
     </div>

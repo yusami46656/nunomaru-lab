@@ -29,6 +29,8 @@ export interface Work {
   cover: string;
   /** ヒーロー画像（横16:9・カバーフロー/詳細ヒーロー用） */
   hero: string;
+  /** STORY 章で見せるプレイ画面の抜粋（ネタバレなしの背景など） */
+  storyShots?: { src: string; caption: string }[];
   /** プレイエンジンの入口（別タブ全画面で起動。有料はゲートを通す） */
   playUrl: string;
   /**
@@ -73,16 +75,26 @@ export const WORKS: Work[] = [
     title: "壊れたアンドロイド",
     tagline: "はじめての人へ。15分でひと巡りできる無料体験。",
     summary:
-      "目を覚ましたあなたの前にいるのは、記憶を失くした一体のアンドロイド。短い物語のなかで、家謎の遊び方にそっと触れられる入口の一篇です。",
+      "あなたは、アンドロイドの整備士。\n「故障した一体を、引き取ってほしい」——\nそんな依頼で、人気のない研究施設を訪れます。\n\n椅子に座らせた世話型アンドロイドは、\n電源が落ちたまま、ぴくりとも動きません。\n\n薄暗い部屋に残された手がかりを集め、\n彼女を目覚めさせる『起動コード』を、\nひとつずつ組み上げていく。\n\n——けれど、コードを入力しても。\n彼女は、目を覚ましません。\n\nこの子は、本当に“壊れて”いるのでしょうか。\n\n15分でひと巡りできる、家謎の入口となる無料体験です。",
     type: "free",
     priceJPY: 0,
     minutes: 15,
-    difficulty: 1,
+    difficulty: 2,
     players: "1人〜",
     environment: "PC・タブレット推奨（スマホも可）",
     needs: "特になし",
-    cover: "/ienazo/dummy/cover-01.svg",
-    hero: "/ienazo/dummy/hero-01.svg",
+    // 作品画像はサイト側 public/ienazo/works/<slug>/ に置く規約（エンジンのアセットとは別管理＝別デプロイ・別オリジンのため）。
+    cover: "/ienazo/works/broken-android/kv_cover.webp",
+    hero: "/ienazo/works/broken-android/title.webp",
+    // STORY のギャラリー（左に大きく1枚＋下にサムネ）。caption は alt 用（画面には出さない）。
+    storyShots: [
+      { src: "/ienazo/works/broken-android/bg_lab.webp", caption: "薄暗い研究室と、停止したアンドロイド" },
+      { src: "/ienazo/works/broken-android/bg_exterior.webp", caption: "引き取りに訪れた、古びた施設" },
+      { src: "/ienazo/works/broken-android/ui_screen.webp", caption: "胸の制御画面（起動コードの入力）" },
+      { src: "/ienazo/works/broken-android/fig_sheets_set.webp", caption: "透明シートの手がかり" },
+      { src: "/ienazo/works/broken-android/fig_phone.webp", caption: "外部との連絡が絶えた、古い電話" },
+      { src: "/ienazo/works/broken-android/fig_diary.webp", caption: "棚に残された、古い日誌" },
+    ],
     playUrl: "/ienazo/play/broken-android",
   },
   comingSoonWork("coming-soon-1"),

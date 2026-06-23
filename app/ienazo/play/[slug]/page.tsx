@@ -5,8 +5,9 @@ import { WORKS } from "@/data/ienazo/works";
 import { getUser, hasEntitlement } from "@/lib/ienazo/entitlements";
 import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 
+// 無料作品は作品ページから直接プレイ起動するため、このゲートは有料のみ。
 export function generateStaticParams() {
-  return WORKS.filter((w) => !w.comingSoon).map((w) => ({ slug: w.slug }));
+  return WORKS.filter((w) => !w.comingSoon && w.type !== "free").map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -21,27 +22,14 @@ export const dynamic = "force-dynamic";
 export default async function PlayGatePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const work = WORKS.find((w) => w.slug === slug);
-  if (!work || work.comingSoon) notFound();
-  const isFree = work.type === "free";
+  // 無料作品は作品ページから直接起動する方針のため、このゲートは有料専用（無料は 404）。
+  if (!work || work.comingSoon || work.type === "free") notFound();
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
-      <p className="text-xs font-bold tracking-[0.3em] text-ienazo-ink-soft">{isFree ? "FREE TRIAL" : "PLAY"}</p>
+      <p className="text-xs font-bold tracking-[0.3em] text-ienazo-ink-soft">PLAY</p>
       <h1 className="mt-3 text-3xl font-black tracking-wide">{work.title}</h1>
-
-      {isFree ? (
-        // 無料：登録不要・トークンなしで直接起動
-        <>
-          <p className="mt-5 text-sm leading-relaxed text-ienazo-ink-soft">
-            登録不要。下のボタンから、別タブで物語が始まります。
-          </p>
-          <div className="flex justify-center">
-            <PlayLauncher slug={work.slug} mode="free" />
-          </div>
-        </>
-      ) : (
-        <PaidGate slug={work.slug} />
-      )}
+      <PaidGate slug={work.slug} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type FlowItem = {
@@ -92,15 +93,26 @@ export function CoverFlow({ items }: { items: FlowItem[] }) {
               aria-hidden={!isCenter}
             >
               {isCenter ? (
-                /* ダミー画像は押せない（作品詳細は後日LP化）。リンクなし */
-                <div className="block h-full w-full border border-white/25 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.85)]">
-                  {it.image ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
+                // 中央カバー：作品ページがある（href有）ならクリックで遷移。準備中(href無)は非リンク。
+                it.href ? (
+                  <Link
+                    href={it.href}
+                    className="block h-full w-full border border-white/25 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.85)]"
+                    aria-label={`${it.title} の作品ページへ`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={it.image} alt={it.title} className="h-full w-full object-cover" draggable={false} />
-                  ) : (
-                    <ComingSoonTile />
-                  )}
-                </div>
+                  </Link>
+                ) : (
+                  <div className="block h-full w-full border border-white/25 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.85)]">
+                    {it.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={it.image} alt={it.title} className="h-full w-full object-cover" draggable={false} />
+                    ) : (
+                      <ComingSoonTile />
+                    )}
+                  </div>
+                )
               ) : (
                 <button
                   type="button"

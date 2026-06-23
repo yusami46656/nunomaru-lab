@@ -97,7 +97,7 @@ export default function HowToPage() {
       <Reveal delay={120}>
         <div className="mt-16">
           <Link
-            href={FREE_TRIAL.playUrl}
+            href={`/ienazo/works/${FREE_TRIAL.slug}`}
             className="inline-flex items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
           >
             無料で体験してみる

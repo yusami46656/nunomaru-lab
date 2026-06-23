@@ -1,7 +1,7 @@
 {
   "name": "ぬのまる工房",
   "short_name": "ぬのまる工房",
-  "description": "AIでつくる、学びと遊びの小さな道具箱。",
+  "description": "ぬのまるが作った小さなWebコンテンツを並べていく個人制作サイト。謎解きや診断、ちょっとした試作品などを少しずつ形にしています。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fdfaf3",

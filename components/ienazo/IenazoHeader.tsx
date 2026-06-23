@@ -11,8 +11,8 @@ const NAV = [
   { href: "/ienazo/faq", label: "FAQ" },
 ];
 
-// 無料体験の入口（暫定：体験作品のプレイへ）。作品レジストリ確定後に集約する。
-const FREE_TRIAL_HREF = "/ienazo/play/broken-android";
+// 無料体験の入口（まず作品ページへ。そこから PLAY で起動）。
+const FREE_TRIAL_HREF = "/ienazo/works/broken-android";
 
 export function IenazoHeader() {
   const [open, setOpen] = useState(false);

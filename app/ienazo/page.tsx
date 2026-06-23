@@ -68,7 +68,7 @@ export default function IenazoTopPage() {
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row lg:justify-start">
               <Link
-                href={FREE_TRIAL.playUrl}
+                href={`/ienazo/works/${FREE_TRIAL.slug}`}
                 className="inline-flex items-center justify-center bg-ienazo-red px-7 py-3.5 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
               >
                 無料で体験する
@@ -136,7 +136,7 @@ export default function IenazoTopPage() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-24 sm:px-6 sm:py-32 md:grid-cols-[auto_1fr] md:gap-14">
           {/* ポスター（額装・ダミー画像は押せない） */}
           <Reveal className="mx-auto md:mx-0">
-            <div className="block aspect-[3/4] w-44 border border-white/30 shadow-ienazo-card sm:w-56">
+            <div className="block aspect-[3/4] w-60 border border-white/30 shadow-ienazo-card sm:w-72 lg:w-80">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={FREE_TRIAL.cover} alt={`${FREE_TRIAL.title}（無料体験）`} className="h-full w-full object-cover" draggable={false} />
             </div>
@@ -154,9 +154,10 @@ export default function IenazoTopPage() {
               <MaskReveal>まずは、登録なしで</MaskReveal>
             </h2>
             <Reveal delay={120}>
-              <p className="mx-auto mt-5 max-w-md text-sm leading-loose text-white/85 sm:text-base md:mx-0">
-                無料体験『{FREE_TRIAL.title}』は、{FREE_TRIAL.minutes}分でひと巡りできる最初の一篇。
-                会員登録もメールも不要です。
+              <p className="mx-auto mt-5 max-w-md text-sm leading-loose text-white/85 [word-break:keep-all] sm:text-base md:mx-0">
+                <span className="whitespace-nowrap">無料体験『{FREE_TRIAL.title}』</span>は、
+                <span className="whitespace-nowrap">約{FREE_TRIAL.minutes}分でひと巡りできる</span>最初の一篇。
+                <wbr />会員登録もメールも不要です。
               </p>
             </Reveal>
 
@@ -179,7 +180,7 @@ export default function IenazoTopPage() {
             <Reveal delay={220}>
               <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
                 <Link
-                  href={FREE_TRIAL.playUrl}
+                  href={`/ienazo/works/${FREE_TRIAL.slug}`}
                   className="inline-flex items-center justify-center bg-white px-8 py-4 font-bold tracking-wide text-ienazo-ink transition-colors hover:bg-white/90"
                 >
                   無料で遊んでみる
