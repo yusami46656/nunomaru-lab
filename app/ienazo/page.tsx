@@ -49,28 +49,37 @@ export default function IenazoTopPage() {
       <section className="relative isolate -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-ienazo-ink pt-16 text-white">
         {/* 微テクスチャ：黒ベタを“紙の上の黒”に寄せる（高級感） */}
         <span className="ienazo-grain" aria-hidden />
-        {/* モバイル＝ロゴ→カバーフロー→見出し の順。PC＝左カラム(ロゴ＋見出し)／右カラム(カバーフロー) */}
-        <div className="mx-auto grid w-full max-w-6xl grow items-center gap-6 px-4 py-12 sm:gap-8 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-x-12 lg:gap-y-4">
-          {/* ① 家謎ロゴ（モバイル最上部 / PC左カラム上段） */}
-          <div className="order-1 text-center lg:order-none lg:col-start-1 lg:row-start-1 lg:text-left">
+        {/* PCは従来どおり（左：ロゴ＋見出し／右：カバーフロー）。スマホだけ ロゴ→カバーフロー→見出し に並べ替える。
+            ロゴは表示位置がSP/PCで違うため、SP用(最上部)とPC用(左カラム内)に分けて出し分ける。 */}
+        <div className="mx-auto grid w-full max-w-6xl grow items-center gap-7 px-4 py-12 sm:gap-8 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+          {/* ① 家謎ロゴ（スマホ最上部のみ。PCでは非表示＝左カラム内のロゴを使う） */}
+          <div className="order-1 lg:hidden">
             <Image
               src="/ienazo/logo_lockup.png"
               alt="家謎"
               width={1139}
               height={450}
               priority
-              className="mx-auto h-16 w-auto invert sm:h-20 lg:mx-0 lg:h-36"
+              className="mx-auto h-14 w-auto invert sm:h-16"
             />
           </div>
 
-          {/* ② カバーフロー（モバイル中段 / PC右カラム） */}
-          <div className="order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          {/* ② カバーフロー（スマホ中段 / PC右カラム） */}
+          <div className="order-2 lg:order-2">
             <CoverFlow items={FLOW_ITEMS} />
           </div>
 
-          {/* ③ コンセプト＋CTA（モバイル下段 / PC左カラム下段） */}
-          <div className="order-3 text-center lg:order-none lg:col-start-1 lg:row-start-2 lg:text-left">
-            <h1 className="text-2xl font-bold tracking-[0.02em] sm:text-3xl">
+          {/* ③ 左カラム：ロゴ(PCのみ)＋コンセプト＋CTA（スマホ下段 / PC左カラム） */}
+          <div className="order-3 text-center lg:order-1 lg:text-left">
+            <Image
+              src="/ienazo/logo_lockup.png"
+              alt="家謎"
+              width={1139}
+              height={450}
+              priority
+              className="hidden h-36 w-auto invert lg:block"
+            />
+            <h1 className="text-2xl font-bold tracking-[0.02em] sm:text-3xl lg:mt-7">
               おうちで気軽に、謎解きを
             </h1>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70 sm:text-base lg:mx-0">
