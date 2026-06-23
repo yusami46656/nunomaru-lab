@@ -150,7 +150,7 @@ export default function IenazoTopPage() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-24 sm:px-6 sm:py-32 md:grid-cols-[auto_1fr] md:gap-14">
           {/* ポスター（額装・ダミー画像は押せない）。他セクションと揃えて左寄せ */}
           <Reveal>
-            <div className="block aspect-[3/4] w-60 border border-white/30 shadow-ienazo-card sm:w-72 lg:w-80">
+            <div className="mx-auto block aspect-[3/4] w-60 border border-white/30 shadow-ienazo-card sm:w-72 md:mx-0 lg:w-80">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={FREE_TRIAL.cover} alt={`${FREE_TRIAL.title}（無料体験）`} className="h-full w-full object-cover" draggable={false} />
             </div>
