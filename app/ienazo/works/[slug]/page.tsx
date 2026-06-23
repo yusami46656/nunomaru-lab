@@ -105,11 +105,6 @@ export default async function WorkDetailPage({
             <div className="relative aspect-video w-full overflow-hidden border border-ienazo-rule">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={work.hero} alt={work.title} className="h-full w-full object-cover object-center" />
-              {isFree && (
-                <span className="absolute left-0 top-0 bg-ienazo-red px-3 py-1 text-xs font-bold tracking-wide text-white">
-                  無料体験
-                </span>
-              )}
             </div>
           </Reveal>
 
