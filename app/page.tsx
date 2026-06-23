@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExperimentCard } from "@/components/ExperimentCard";
 import { NunomaruMenuPanel } from "@/components/system/NunomaruMenuPanel";
-import { mysteryTools, fortuneTools } from "@/data/experiments";
+import { fortuneTools } from "@/data/experiments";
 
 export default function HomePage() {
   return (
@@ -38,8 +38,8 @@ export default function HomePage() {
                 コンテンツを見る
                 <span aria-hidden>→</span>
               </Link>
-              <Link href="/contents" className="sys-btn-ghost">
-                制作ログを読む →
+              <Link href="/ienazo" className="sys-btn-ghost">
+                家謎で遊ぶ →
               </Link>
             </div>
           </div>
@@ -65,18 +65,30 @@ export default function HomePage() {
       </div>
 
       <NunomaruMenuPanel
-        id="mystery"
+        id="ienazo"
         index="01"
-        label="MYSTERY"
-        title="謎解き"
-        description="Webで遊べる謎解きコンテンツを制作中です。物語と謎がつながる体験を目指して、第一弾を構想しています。"
+        label="IENAZO"
+        title="家謎"
+        description="家謎は、おうちで気軽に遊べる謎解き・脱出ゲームです。あなたは物語の登場人物として、おうちのなかの世界をめぐりながら謎を解いていきます。無料体験から遊べます。"
         noTopRule
       >
-        <div className="grid gap-6 sm:grid-cols-2">
-          {mysteryTools.map((tool) => (
-            <ExperimentCard key={tool.slug} experiment={tool} />
-          ))}
-        </div>
+        <Link
+          href="/ienazo"
+          className="sys-panel-flat group flex flex-col items-center gap-6 p-8 transition-colors hover:bg-[var(--sys-bg-soft)] sm:flex-row sm:justify-between"
+          aria-label="家謎のサイトへ"
+        >
+          <Image
+            src="/ienazo/logo_lockup.png"
+            alt="家謎"
+            width={1139}
+            height={450}
+            className="h-16 w-auto sm:h-20"
+          />
+          <span className="sys-btn-primary shrink-0">
+            家謎を見る
+            <span aria-hidden>→</span>
+          </span>
+        </Link>
       </NunomaruMenuPanel>
 
       <NunomaruMenuPanel
@@ -104,14 +116,12 @@ export default function HomePage() {
         index="03"
         label="MAKING NOTE"
         title="制作ログ"
-        description="何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤をnoteにまとめています。"
-        actions={
-          <Link href="/contents" className="sys-btn-primary">
-            制作ログを読む
-            <span aria-hidden>→</span>
-          </Link>
-        }
-      />
+        description="何を作り、どこで詰まり、何を考えたのか。各コンテンツの制作の裏側や試行錯誤を、これからまとめていく予定です。"
+      >
+        <div className="sys-panel-flat p-6 text-center text-sm" style={{ color: "var(--sys-text-muted)" }}>
+          準備中です。
+        </div>
+      </NunomaruMenuPanel>
 
       <NunomaruMenuPanel
         id="about"

@@ -20,7 +20,7 @@ export function LoginForm() {
     e.preventDefault();
     setError(null);
     if (!supabaseReady) {
-      setError("認証機能は準備中です（Supabase 未設定）。");
+      setError("認証機能は準備中です。");
       return;
     }
     setLoading(true);
@@ -80,7 +80,7 @@ export function LoginForm() {
 
       {!supabaseReady && (
         <p className="mt-4 rounded border border-ienazo-line bg-ienazo-paper-deep px-3 py-2 text-xs text-ienazo-ink-soft">
-          ＊ 認証機能は準備中（Supabase 未設定）です。
+          ＊ 認証機能は準備中です。
         </p>
       )}
 
