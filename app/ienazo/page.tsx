@@ -51,7 +51,7 @@ export default function IenazoTopPage() {
         <span className="ienazo-grain" aria-hidden />
         {/* PCは従来どおり（左：ロゴ＋見出し／右：カバーフロー）。スマホだけ ロゴ→カバーフロー→見出し に並べ替える。
             ロゴは表示位置がSP/PCで違うため、SP用(最上部)とPC用(左カラム内)に分けて出し分ける。 */}
-        <div className="mx-auto grid w-full max-w-6xl grow items-center gap-7 px-4 py-12 sm:gap-8 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+        <div className="mx-auto grid w-full max-w-6xl grow items-start gap-6 px-4 pb-12 pt-4 sm:gap-8 sm:px-6 sm:pt-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-12 lg:py-12">
           {/* ① 家謎ロゴ（スマホ最上部のみ。PCでは非表示＝左カラム内のロゴを使う） */}
           <div className="order-1 lg:hidden">
             <Image

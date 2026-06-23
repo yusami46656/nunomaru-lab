@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "家謎は、おうちで気軽に遊べる謎解き・脱出ゲーム。ブラウザだけで物語の世界に入り込みながら謎を解きます。まずは無料体験から。",
+  // /ienazo 専用のWebマニフェスト。親(ぬのまる工房)の manifest を上書きし、
+  // ホーム画面追加時の名前を「家謎」、起動URLを /ienazo にする。
+  manifest: "/ienazo/site.webmanifest",
   // 家謎セクションのファビコン（SPマーク由来）。/ienazo 配下で親のfaviconを上書き。
   // apple-touch-icon＝iPhone等のホーム画面追加時のアイコン。
   icons: {
