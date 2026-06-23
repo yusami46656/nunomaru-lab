@@ -60,7 +60,7 @@ export default function IenazoTopPage() {
               width={1139}
               height={450}
               priority
-              className="mx-auto h-14 w-auto invert sm:h-16"
+              className="mx-auto h-24 w-auto invert sm:h-28"
             />
           </div>
 
