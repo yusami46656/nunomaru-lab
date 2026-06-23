@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Experiment, ToolStatus } from "@/data/experiments";
 import { ThumbnailImage } from "@/components/ThumbnailImage";
-import { EXTERNAL_LINKS } from "@/lib/external-links";
 
 type Props = {
   experiment: Experiment;
@@ -25,7 +24,9 @@ export function ExperimentNoteRow({ experiment }: Props) {
   const { title, description, thumbnail, publishedAt, href, ctaLabel, noteArticles, status, noteUrl } = experiment;
   const isActive = status === "published" && !!href;
   const linkHref = href ?? "#";
-  const noteHref = noteUrl ?? EXTERNAL_LINKS.note;
+  // 制作ログ（note）が用意できているものだけ活性。未執筆は「準備中」。
+  const noteTopHref = noteUrl ?? noteArticles?.[0]?.url;
+  const hasNote = !!noteTopHref;
 
   return (
     <article className="sys-panel-flat sys-corner-full group">
@@ -100,14 +101,20 @@ export function ExperimentNoteRow({ experiment }: Props) {
                 {STATUS_BUTTON[status]}
               </span>
             )}
-            <a
-              href={noteHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sys-btn-ghost"
-            >
-              note ↗
-            </a>
+            {hasNote ? (
+              <a
+                href={noteTopHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sys-btn-ghost"
+              >
+                note ↗
+              </a>
+            ) : (
+              <span className="sys-btn-ghost cursor-not-allowed opacity-60 pointer-events-none">
+                note（準備中）
+              </span>
+            )}
           </div>
 
           {noteArticles && noteArticles.length > 0 ? (

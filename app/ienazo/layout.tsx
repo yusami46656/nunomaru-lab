@@ -12,8 +12,16 @@ export const metadata: Metadata = {
   description:
     "家謎は、おうちで気軽に遊べる謎解き・脱出ゲーム。ブラウザだけで物語の世界に入り込みながら謎を解きます。まずは無料体験から。",
   // 家謎セクションのファビコン（SPマーク由来）。/ienazo 配下で親のfaviconを上書き。
+  // apple-touch-icon＝iPhone等のホーム画面追加時のアイコン。
   icons: {
     icon: [{ url: "/ienazo/favicon.png", type: "image/png" }],
+    apple: [{ url: "/ienazo/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  // ホーム画面に追加したときの名称を「家謎」に（iOS）。
+  appleWebApp: {
+    title: "家謎",
+    capable: false,
+    statusBarStyle: "default",
   },
 };
 

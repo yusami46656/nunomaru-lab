@@ -47,13 +47,18 @@ export const experiments: Experiment[] = [
     noteUrl: "https://note.com/nunomaru0x0u/n/n9860c5ede581",
   },
   {
-    slug: "mystery-tbd",
-    title: "謎解き（構想中）",
+    slug: "ienazo",
+    title: "家謎",
     description:
-      "謎解きコンテンツの第一弾を構想中です。近日公開予定。",
+      "家謎は、おうちで気軽に遊べる謎解き・脱出ゲームです。あなたは物語の登場人物として、おうちのなかの世界をめぐりながら謎を解いていきます。まずは無料体験から。",
     category: "mystery",
-    status: "planning",
-    priceType: "undecided",
+    status: "published",
+    thumbnail: "/contents/ienazo/thumb.png",
+    publishedAt: "2026年6月",
+    href: "/ienazo",
+    ctaLabel: "家謎で遊ぶ",
+    priceType: "free",
+    // noteUrl は未設定＝制作ログ（note）は準備中
   },
 ];
 

@@ -10,6 +10,42 @@ import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 import { StoryGallery } from "@/components/ienazo/StoryGallery";
 import { WORKS, FREE_TRIAL, difficultyStars, type Work } from "@/data/ienazo/works";
 
+// 要点表示のフラットなラインアイコン（絵文字の置き換え）。
+function MetaIcon({ name }: { name: "clock" | "user" | "monitor" }) {
+  const p = {
+    width: 16,
+    height: 16,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    className: "shrink-0 text-ienazo-ink-soft",
+    "aria-hidden": true,
+  };
+  if (name === "clock")
+    return (
+      <svg {...p}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7.5V12l3 1.8" />
+      </svg>
+    );
+  if (name === "user")
+    return (
+      <svg {...p}>
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" />
+      </svg>
+    );
+  return (
+    <svg {...p}>
+      <rect x="3" y="4" width="18" height="12" rx="1.5" />
+      <path d="M8 20h8M12 16v4" />
+    </svg>
+  );
+}
+
 export function generateStaticParams() {
   return WORKS.filter((w) => !w.comingSoon).map((w) => ({ slug: w.slug }));
 }
@@ -89,12 +125,18 @@ export default async function WorkDetailPage({
                 {work.tagline}
               </p>
 
-              {/* 要点 */}
+              {/* 要点（フラットなラインアイコン） */}
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ienazo-ink">
-                <span>⏱ 約{work.minutes}分</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MetaIcon name="clock" />約{work.minutes}分
+                </span>
                 <span>難易度 {difficultyStars(work.difficulty)}</span>
-                <span>👤 {work.players}</span>
-                <span>🖥 {work.environment}</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MetaIcon name="user" />{work.players}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MetaIcon name="monitor" />{work.environment}
+                </span>
               </div>
 
               {/* 価格＋CTA */}

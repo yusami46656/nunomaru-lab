@@ -49,18 +49,28 @@ export default function IenazoTopPage() {
       <section className="relative isolate -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-ienazo-ink pt-16 text-white">
         {/* 微テクスチャ：黒ベタを“紙の上の黒”に寄せる（高級感） */}
         <span className="ienazo-grain" aria-hidden />
-        <div className="mx-auto grid w-full max-w-6xl grow items-center gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          {/* LEFT: 家謎ロゴ（主役）＋コンセプト＋CTA */}
-          <div className="order-2 text-center lg:order-1 lg:text-left">
+        {/* モバイル＝ロゴ→カバーフロー→見出し の順。PC＝左カラム(ロゴ＋見出し)／右カラム(カバーフロー) */}
+        <div className="mx-auto grid w-full max-w-6xl grow items-center gap-6 px-4 py-12 sm:gap-8 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-x-12 lg:gap-y-4">
+          {/* ① 家謎ロゴ（モバイル最上部 / PC左カラム上段） */}
+          <div className="order-1 text-center lg:order-none lg:col-start-1 lg:row-start-1 lg:text-left">
             <Image
               src="/ienazo/logo_lockup.png"
               alt="家謎"
               width={1139}
               height={450}
               priority
-              className="mx-auto h-20 w-auto invert sm:h-24 lg:mx-0 lg:h-36"
+              className="mx-auto h-16 w-auto invert sm:h-20 lg:mx-0 lg:h-36"
             />
-            <h1 className="mt-7 text-2xl font-bold tracking-[0.02em] sm:text-3xl">
+          </div>
+
+          {/* ② カバーフロー（モバイル中段 / PC右カラム） */}
+          <div className="order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <CoverFlow items={FLOW_ITEMS} />
+          </div>
+
+          {/* ③ コンセプト＋CTA（モバイル下段 / PC左カラム下段） */}
+          <div className="order-3 text-center lg:order-none lg:col-start-1 lg:row-start-2 lg:text-left">
+            <h1 className="text-2xl font-bold tracking-[0.02em] sm:text-3xl">
               おうちで気軽に、謎解きを
             </h1>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70 sm:text-base lg:mx-0">
@@ -81,11 +91,6 @@ export default function IenazoTopPage() {
               </Link>
             </div>
             <p className="mt-4 text-xs tracking-wide text-white/55">＊ 無料体験は登録不要</p>
-          </div>
-
-          {/* RIGHT: 画像切替（カバーフロー） */}
-          <div className="order-1 lg:order-2">
-            <CoverFlow items={FLOW_ITEMS} />
           </div>
         </div>
 
@@ -134,18 +139,18 @@ export default function IenazoTopPage() {
         {/* 微テクスチャ：マロンのベタ面を布目のように沈める */}
         <span className="ienazo-grain" aria-hidden />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-24 sm:px-6 sm:py-32 md:grid-cols-[auto_1fr] md:gap-14">
-          {/* ポスター（額装・ダミー画像は押せない） */}
-          <Reveal className="mx-auto md:mx-0">
+          {/* ポスター（額装・ダミー画像は押せない）。他セクションと揃えて左寄せ */}
+          <Reveal>
             <div className="block aspect-[3/4] w-60 border border-white/30 shadow-ienazo-card sm:w-72 lg:w-80">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={FREE_TRIAL.cover} alt={`${FREE_TRIAL.title}（無料体験）`} className="h-full w-full object-cover" draggable={false} />
             </div>
           </Reveal>
 
-          {/* テキスト＋ベネフィット＋CTA */}
-          <div className="text-center md:text-left">
+          {/* テキスト＋ベネフィット＋CTA（左揃え） */}
+          <div className="text-left">
             <Reveal>
-              <p className="flex items-center justify-center gap-3 text-sm font-bold tracking-[0.28em] text-white/85 sm:text-base md:justify-start">
+              <p className="flex items-center justify-start gap-3 text-sm font-bold tracking-[0.28em] text-white/85 sm:text-base">
                 <span className="inline-block h-2 w-2 bg-white" aria-hidden />
                 FREE TRIAL
               </p>
@@ -154,7 +159,7 @@ export default function IenazoTopPage() {
               <MaskReveal>まずは、登録なしで</MaskReveal>
             </h2>
             <Reveal delay={120}>
-              <p className="mx-auto mt-5 max-w-md text-sm leading-loose text-white/85 [word-break:keep-all] sm:text-base md:mx-0">
+              <p className="mt-5 max-w-md text-sm leading-loose text-white/85 [word-break:keep-all] sm:text-base">
                 <span className="whitespace-nowrap">無料体験『{FREE_TRIAL.title}』</span>は、
                 <span className="whitespace-nowrap">約{FREE_TRIAL.minutes}分でひと巡りできる</span>最初の一篇。
                 <wbr />会員登録もメールも不要です。
@@ -163,7 +168,7 @@ export default function IenazoTopPage() {
 
             {/* 安心のベネフィット（買う前の不安潰し） */}
             <Reveal delay={180}>
-              <ul className="mx-auto mt-7 inline-block space-y-3 text-left text-sm sm:text-base md:mx-0">
+              <ul className="mt-7 inline-block space-y-3 text-left text-sm sm:text-base">
                 {[
                   "会員登録・メール不要。ブラウザですぐ開始",
                   `所要 約${FREE_TRIAL.minutes}分。スキマ時間で遊べる`,
@@ -178,7 +183,7 @@ export default function IenazoTopPage() {
             </Reveal>
 
             <Reveal delay={220}>
-              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
+              <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-start">
                 <Link
                   href={`/ienazo/works/${FREE_TRIAL.slug}`}
                   className="inline-flex items-center justify-center bg-white px-8 py-4 font-bold tracking-wide text-ienazo-ink transition-colors hover:bg-white/90"
