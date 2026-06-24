@@ -199,13 +199,13 @@ export default async function WorkDetailPage({
       <section className="border-t border-ienazo-line">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <SectionHeading label="MORE" title="ほかの作品も" />
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-            {others.map((w, i) => (
-              <Reveal key={w.slug} delay={i * 70}>
-                <WorkCard work={w} showPrice />
-              </Reveal>
-            ))}
-          </div>
+          <Reveal>
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+              {others.map((w) => (
+                <WorkCard key={w.slug} work={w} showPrice />
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

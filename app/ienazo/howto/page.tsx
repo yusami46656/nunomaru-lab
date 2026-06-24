@@ -47,13 +47,11 @@ export default function HowToPage() {
         </div>
       </Reveal>
 
-      {/* 無料と有料のちがい */}
-      <div className="mt-16">
-        <Reveal>
+      {/* 無料と有料のちがい（見出し＋2カードを一括でせり上げる） */}
+      <Reveal>
+        <div className="mt-16">
           <h2 className="text-xl font-bold tracking-wide sm:text-2xl">無料体験と有料作品のちがい</h2>
-        </Reveal>
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <Reveal>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
             <div className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-6 sm:p-7">
               <p className="text-sm font-bold tracking-[0.2em] text-ienazo-red">無料体験</p>
               <ul className="mt-4 space-y-2 text-sm leading-relaxed text-ienazo-ink">
@@ -61,8 +59,6 @@ export default function HowToPage() {
                 <li>・進捗はこの端末・ブラウザ内に保存</li>
               </ul>
             </div>
-          </Reveal>
-          <Reveal delay={100}>
             <div className="h-full border border-ienazo-rule bg-ienazo-paper-soft p-6 sm:p-7">
               <p className="text-sm font-bold tracking-[0.2em] text-ienazo-red">有料作品</p>
               <ul className="mt-4 space-y-2 text-sm leading-relaxed text-ienazo-ink">
@@ -70,13 +66,13 @@ export default function HowToPage() {
                 <li>・進捗はアカウントに保存。どの端末でも再開できます</li>
               </ul>
             </div>
-          </Reveal>
+          </div>
         </div>
-      </div>
+      </Reveal>
 
-      {/* 必要なもの・安心 */}
-      <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
-        <Reveal>
+      {/* 必要なもの・安心（左右2カラムを一括でせり上げる） */}
+      <Reveal>
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
             <h2 className="text-xl font-bold tracking-wide sm:text-2xl">遊ぶのに必要なもの</h2>
             <ul className="mt-5 space-y-3 text-sm leading-relaxed text-ienazo-ink">
@@ -95,16 +91,14 @@ export default function HowToPage() {
             </ul>
             <p className="mt-4 text-sm leading-relaxed text-ienazo-ink-soft">特別な準備は要りません。</p>
           </div>
-        </Reveal>
-        <Reveal delay={100}>
           <div>
             <h2 className="text-xl font-bold tracking-wide sm:text-2xl">行き詰まっても大丈夫</h2>
             <p className="mt-4 text-sm leading-loose text-ienazo-ink-soft">
               すべての作品にヒントがあります。詰まっても前に進めるので、謎解きが初めての方も安心して遊べます。
             </p>
           </div>
-        </Reveal>
-      </div>
+        </div>
+      </Reveal>
 
       {/* CTA */}
       <Reveal delay={120}>

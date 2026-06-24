@@ -158,12 +158,11 @@ export default function IenazoTopPage() {
 
           {/* テキスト＋ベネフィット＋CTA（左揃え） */}
           <div className="text-left">
-            <Reveal>
-              <p className="flex items-center justify-start gap-3 text-sm font-bold tracking-[0.28em] text-white/85 sm:text-base">
-                <span className="inline-block h-2 w-2 bg-white" aria-hidden />
-                FREE TRIAL
-              </p>
-            </Reveal>
+            {/* eyebrow は静かに置き、直下の見出しワイプを主役に */}
+            <p className="flex items-center justify-start gap-3 text-sm font-bold tracking-[0.28em] text-white/85 sm:text-base">
+              <span className="inline-block h-2 w-2 bg-white" aria-hidden />
+              FREE TRIAL
+            </p>
             <h2 className="mt-4 text-3xl font-black leading-[1.18] tracking-wide sm:text-4xl">
               <MaskReveal>まずは、登録なしで</MaskReveal>
             </h2>
@@ -214,14 +213,12 @@ export default function IenazoTopPage() {
             title="家謎の作品一覧"
             description="世界観で選ぶもよし、体験時間で選ぶもよし。気になった物語から、どうぞ。"
           />
-          <Reveal>
-            <Link
-              href="/ienazo/works"
-              className="hidden shrink-0 border border-ienazo-rule px-5 py-2.5 text-sm font-medium tracking-wide transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper sm:inline-block"
-            >
-              すべて見る →
-            </Link>
-          </Reveal>
+          <Link
+            href="/ienazo/works"
+            className="hidden shrink-0 border border-ienazo-rule px-5 py-2.5 text-sm font-medium tracking-wide transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper sm:inline-block"
+          >
+            すべて見る →
+          </Link>
         </div>
 
         <Reveal>
@@ -268,13 +265,11 @@ export default function IenazoTopPage() {
               </CardSlider>
             </div>
           </Reveal>
-          <Reveal delay={120}>
-            <div className="mt-12">
-              <Link href="/ienazo/howto" className="text-sm font-medium tracking-wide text-ienazo-ink hover:text-ienazo-red">
-                遊び方をもっと詳しく →
-              </Link>
-            </div>
-          </Reveal>
+          <div className="mt-12">
+            <Link href="/ienazo/howto" className="text-sm font-medium tracking-wide text-ienazo-ink hover:text-ienazo-red">
+              遊び方をもっと詳しく →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -300,13 +295,11 @@ export default function IenazoTopPage() {
             ))}
           </div>
         </Reveal>
-        <Reveal delay={100}>
-          <div className="mt-10">
-            <Link href="/ienazo/faq" className="text-sm font-medium tracking-wide text-ienazo-ink hover:text-ienazo-red">
-              よくある質問をすべて見る →
-            </Link>
-          </div>
-        </Reveal>
+        <div className="mt-10">
+          <Link href="/ienazo/faq" className="text-sm font-medium tracking-wide text-ienazo-ink hover:text-ienazo-red">
+            よくある質問をすべて見る →
+          </Link>
+        </div>
         </div>
       </section>
     </div>

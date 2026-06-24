@@ -18,13 +18,13 @@ export default function WorksPage() {
         description="世界観で選ぶもよし、体験時間で選ぶもよし。気になった物語から、どうぞ。"
       />
 
-      <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-        {WORKS.map((w, i) => (
-          <Reveal key={w.slug} delay={i * 60}>
-            <WorkCard work={w} showPrice />
-          </Reveal>
-        ))}
-      </div>
+      <Reveal>
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+          {WORKS.map((w) => (
+            <WorkCard key={w.slug} work={w} showPrice />
+          ))}
+        </div>
+      </Reveal>
     </div>
   );
 }
