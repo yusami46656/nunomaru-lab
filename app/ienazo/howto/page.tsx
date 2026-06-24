@@ -6,6 +6,7 @@ import { FREE_TRIAL } from "@/data/ienazo/works";
 import { ICONS } from "@/data/ienazo/icons";
 import { SectionIcon } from "@/components/ienazo/SectionIcon";
 import { CardSlider } from "@/components/ienazo/CardSlider";
+import { MonitorIcon, BrowserIcon, PencilIcon } from "@/components/ienazo/RequirementIcons";
 
 export const metadata: Metadata = {
   title: "遊び方",
@@ -78,9 +79,21 @@ export default function HowToPage() {
         <Reveal>
           <div>
             <h2 className="text-xl font-bold tracking-wide sm:text-2xl">遊ぶのに必要なもの</h2>
-            <p className="mt-4 text-sm leading-loose text-ienazo-ink-soft">
-              🖥 PC・タブレット推奨（スマホも可）／ 🌐 ブラウザ／ ✏ 紙とペンがあると便利。特別な準備は要りません。
-            </p>
+            <ul className="mt-5 space-y-3 text-sm leading-relaxed text-ienazo-ink">
+              <li className="flex items-center gap-3">
+                <MonitorIcon className="h-5 w-5 shrink-0 text-ienazo-ink-soft" />
+                <span>PC・タブレット推奨（スマホも可）</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <BrowserIcon className="h-5 w-5 shrink-0 text-ienazo-ink-soft" />
+                <span>ブラウザ</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <PencilIcon className="h-5 w-5 shrink-0 text-ienazo-ink-soft" />
+                <span>紙とペンがあると便利</span>
+              </li>
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-ienazo-ink-soft">特別な準備は要りません。</p>
           </div>
         </Reveal>
         <Reveal delay={100}>

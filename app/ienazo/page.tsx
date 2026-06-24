@@ -167,16 +167,16 @@ export default function IenazoTopPage() {
             <h2 className="mt-4 text-3xl font-black leading-[1.18] tracking-wide sm:text-4xl">
               <MaskReveal>まずは、登録なしで</MaskReveal>
             </h2>
+
+            {/* 本文・ベネフィット・CTA は一括で静かにせり上げる（段差フェードを廃し主役を明確に） */}
             <Reveal delay={120}>
               <p className="mt-5 max-w-md text-sm leading-loose text-white/85 [word-break:keep-all] sm:text-base">
                 <span className="whitespace-nowrap">無料体験『{FREE_TRIAL.title}』</span>は、
                 <span className="whitespace-nowrap">約{FREE_TRIAL.minutes}分でひと巡りできる</span>最初の一篇。
                 <wbr />会員登録もメールも不要です。
               </p>
-            </Reveal>
 
-            {/* 安心のベネフィット（買う前の不安潰し） */}
-            <Reveal delay={180}>
+              {/* 安心のベネフィット（買う前の不安潰し） */}
               <ul className="mt-7 inline-block space-y-3 text-left text-sm sm:text-base">
                 {[
                   "会員登録・メール不要。ブラウザですぐ開始",
@@ -189,9 +189,7 @@ export default function IenazoTopPage() {
                   </li>
                 ))}
               </ul>
-            </Reveal>
 
-            <Reveal delay={220}>
               <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-start">
                 <Link
                   href={`/ienazo/works/${FREE_TRIAL.slug}`}
@@ -226,13 +224,13 @@ export default function IenazoTopPage() {
           </Reveal>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-          {WORKS.map((w, i) => (
-            <Reveal key={w.slug} delay={i * 70}>
-              <WorkCard work={w} />
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+            {WORKS.map((w) => (
+              <WorkCard key={w.slug} work={w} />
+            ))}
+          </div>
+        </Reveal>
 
         <div className="mt-10 sm:hidden">
           <Link
@@ -286,10 +284,10 @@ export default function IenazoTopPage() {
         <GeoDecor variant="b" className="hidden -bottom-12 -right-16 origin-bottom-right sm:block sm:scale-75 lg:scale-100" />
         <div className="mx-auto max-w-6xl px-4 py-28 sm:px-6 sm:py-40">
         <SectionHeading label="FAQ" title="はじめての方へ" />
-        <div className="mt-12 border-t border-ienazo-rule">
-          {FAQ_EXCERPT.map((f, i) => (
-            <Reveal key={f.q} delay={i * 80}>
-              <div className="border-b border-ienazo-rule py-7">
+        <Reveal>
+          <div className="mt-12 border-t border-ienazo-rule">
+            {FAQ_EXCERPT.map((f) => (
+              <div key={f.q} className="border-b border-ienazo-rule py-7">
                 <div className="flex items-start gap-4 sm:gap-5">
                   <span className="w-5 shrink-0 text-xl font-bold leading-7 text-ienazo-red">Q</span>
                   <p className="font-bold leading-7 tracking-wide sm:text-lg">{f.q}</p>
@@ -299,9 +297,9 @@ export default function IenazoTopPage() {
                   <p className="text-sm leading-7 text-ienazo-ink-soft">{f.a}</p>
                 </div>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
         <Reveal delay={100}>
           <div className="mt-10">
             <Link href="/ienazo/faq" className="text-sm font-medium tracking-wide text-ienazo-ink hover:text-ienazo-red">
