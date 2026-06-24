@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
 import { getUser, getOwnedSlugs } from "@/lib/ienazo/entitlements";
 import { WORKS, difficultyStars } from "@/data/ienazo/works";
+import { ClockIcon } from "@/components/ienazo/RequirementIcons";
 
 export const metadata: Metadata = {
   title: "ライブラリ",
@@ -88,7 +89,7 @@ export default async function LibraryPage() {
                 <div className="px-4 py-4">
                   <h3 className="font-bold leading-snug tracking-wide">{work.title}</h3>
                   <div className="mt-2 flex items-center gap-3 text-xs text-ienazo-ink-soft">
-                    <span>⏱ {work.minutes}分</span>
+                    <span className="inline-flex items-center gap-1"><ClockIcon className="h-3.5 w-3.5" />{work.minutes}分</span>
                     <span aria-label={`難易度 ${work.difficulty}`}>{difficultyStars(work.difficulty)}</span>
                   </div>
                   <span className="mt-3 inline-block text-xs font-bold tracking-wide text-ienazo-red">

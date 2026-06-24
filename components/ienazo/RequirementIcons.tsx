@@ -1,6 +1,6 @@
 /**
- * 「遊ぶのに必要なもの」用のフラット・ラインアイコン群。
- * 絵文字（🖥 🌐 ✏）の代替。currentColor で着色し、stroke ベースで線の太さを統一。
+ * 家謎サイト共通のフラット・ラインアイコン群（絵文字の代替）。
+ * 🖥 🌐 ✏ ⏱ などの代替。currentColor で着色し、stroke ベースで線の太さを統一。
  */
 
 type IconProps = { className?: string };
@@ -33,6 +33,16 @@ export function BrowserIcon({ className }: IconProps) {
       <circle cx="12" cy="12" r="9" />
       <path d="M3 12h18" />
       <ellipse cx="12" cy="12" rx="4" ry="9" />
+    </svg>
+  );
+}
+
+/** 所要時間（時計） */
+export function ClockIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5V12l3 1.8" />
     </svg>
   );
 }

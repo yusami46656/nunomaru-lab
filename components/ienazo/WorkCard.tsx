@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { difficultyStars, type Work } from "@/data/ienazo/works";
+import { ClockIcon } from "@/components/ienazo/RequirementIcons";
 
 /**
  * 作品カード。
@@ -48,7 +49,7 @@ export function WorkCard({ work, showPrice = false }: { work: Work; showPrice?: 
       <div className="flex flex-1 flex-col px-4 py-4">
         <h3 className="font-bold leading-snug tracking-wide">{work.title}</h3>
         <div className="mt-2 flex items-center gap-3 text-xs text-ienazo-ink-soft">
-          <span>⏱ {work.minutes}分</span>
+          <span className="inline-flex items-center gap-1"><ClockIcon className="h-3.5 w-3.5" />{work.minutes}分</span>
           <span aria-label={`難易度 ${work.difficulty}`}>{difficultyStars(work.difficulty)}</span>
           {showPrice && (
             <span className="ml-auto font-bold text-ienazo-ink">
