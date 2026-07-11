@@ -5,6 +5,9 @@ import { SignJWT, jwtVerify, type JWTPayload } from "jose";
 import { clean } from "@/lib/ienazo/config";
 
 const AUDIENCE = "ienazo-engine";
+// プレイセッション（長命）：90秒チケットを verify した後に発行し、
+// プレイ中の進捗 API（数時間）を認可する。契約：ienazo/docs/IENAZO_PLAY_GATE_CONTRACT.md
+const AUDIENCE_SESSION = "ienazo-engine-session";
 const ISSUER = "ienazo-site";
 
 function secretKey(): Uint8Array {
@@ -27,10 +30,31 @@ export async function issueTicket(userId: string, slug: string, ttlSeconds = 90)
     .sign(secretKey());
 }
 
-/** チケットを検証する（後日プレイエンジン側 verify-ticket API で使う）。 */
+/** チケットを検証する（プレイエンジンの verify-ticket API で使う）。 */
 export async function verifyTicket(token: string): Promise<JWTPayload & { slug?: string }> {
   const { payload } = await jwtVerify(token, secretKey(), {
     audience: AUDIENCE,
+    issuer: ISSUER,
+  });
+  return payload;
+}
+
+/** プレイセッショントークンを発行する（既定 12 時間）。verify-ticket 成功時に返す。 */
+export async function issueSession(userId: string, slug: string, ttlSeconds = 60 * 60 * 12): Promise<string> {
+  return await new SignJWT({ slug })
+    .setProtectedHeader({ alg: "HS256" })
+    .setSubject(userId)
+    .setIssuer(ISSUER)
+    .setAudience(AUDIENCE_SESSION)
+    .setIssuedAt()
+    .setExpirationTime(`${ttlSeconds}s`)
+    .sign(secretKey());
+}
+
+/** プレイセッショントークンを検証する（progress API で使う）。 */
+export async function verifySession(token: string): Promise<JWTPayload & { slug?: string }> {
+  const { payload } = await jwtVerify(token, secretKey(), {
+    audience: AUDIENCE_SESSION,
     issuer: ISSUER,
   });
   return payload;

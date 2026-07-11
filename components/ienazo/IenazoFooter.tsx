@@ -11,7 +11,7 @@ const NAV = [
 const LEGAL = [
   { href: "/ienazo/legal/tokushoho", label: "特定商取引法に基づく表記" },
   { href: "/ienazo/legal/terms", label: "利用規約" },
-  { href: "/privacy", label: "プライバシーポリシー" }, // 親サイトを流用
+  { href: "/ienazo/legal/privacy", label: "プライバシーポリシー" },
 ];
 
 export function IenazoFooter() {

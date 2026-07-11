@@ -33,3 +33,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# local work outputs
+/tmp/
+/scripts/shots/
+scripts/*backup*.txt
+scripts/page-fix-backup.txt
