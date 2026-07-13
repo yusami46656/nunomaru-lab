@@ -114,7 +114,7 @@ export const DRAFT_WORKS: Work[] = [
     summary:
       "夕暮れの庭で、姉アリサは今日も、体の弱い妹ハートの世話をしている。\nふたりのお気に入りは、『不思議の国のアリス』のごっこ遊び。\n\n「お姉ちゃん。お庭の奥に、不思議の国へ続く穴があるの。知ってた?」\n\nそう言って、妹ハートは笑いながら、暗い穴へ飛び込んでいく。\n慌てて追いかけた、その先は——\n\n白い薔薇がどこまでも続く、見知らぬ庭。\nハートの姿は、もう、どこにもない。\n\n「待っててね、ハート。すぐに、見つけるから」\n\n木の上で笑う猫、逆さまの茶会、霧のチェス盤。\nあべこべの国をめぐり、いくつもの謎を解きながら、妹の行方を追っていく。\n\n——アリサは、ハートを見つけ出せるだろうか。\n\nたっぷり60分、歯ごたえのある謎に浸る、本格の一作です。",
     type: "paid",
-    priceJPY: 1500,
+    priceJPY: 500,
     minutes: 60,
     difficulty: 3,
     players: "1人〜2人",
@@ -203,6 +203,9 @@ export const DRAFT_WORKS: Work[] = [
     playUrl: "/ienazo/play/wasureji-no-tegami",
   },
 ];
+
+// heart を公開カタログへ昇格：準備中枠（coming-soon-1）と差し替えて公開（2026-07-14 公開）。
+WORKS.splice(1, 1, DRAFT_WORKS[0]);
 
 /** 無料体験作品（入口） */
 export const FREE_TRIAL: Work = WORKS.find((w) => w.type === "free")!;

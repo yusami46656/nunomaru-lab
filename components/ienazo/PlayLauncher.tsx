@@ -20,8 +20,8 @@ export function PlayLauncher({ slug, mode, label = "プレイを開始する" }:
       setError("プレイエンジンは準備中です（別タブで起動予定）。");
       return;
     }
-    // クリア画面の「作品一覧へ戻る」用に戻り先URLを渡す。
-    const ret = encodeURIComponent(`${window.location.origin}/ienazo/works`);
+    // クリア画面の戻る導線用に、この作品の紹介ページを戻り先として渡す。
+    const ret = encodeURIComponent(`${window.location.origin}/ienazo/works/${slug}`);
     window.open(`${ENGINE_BASE_URL}/${slug}?return=${ret}`, "_blank", "noopener");
   }
 

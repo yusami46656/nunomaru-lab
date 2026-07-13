@@ -39,3 +39,5 @@ next-env.d.ts
 /scripts/shots/
 scripts/*backup*.txt
 scripts/page-fix-backup.txt
+
+.env*

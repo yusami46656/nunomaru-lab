@@ -2,7 +2,7 @@
 // 無料作品はトークンなしで起動できるため、このAPIは有料作品の所有者専用。
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/ienazo/supabase/server";
-import { supabaseReady, ENGINE_BASE_URL } from "@/lib/ienazo/config";
+import { supabaseReady, ENGINE_BASE_URL, SITE_URL } from "@/lib/ienazo/config";
 import { issueTicket, ticketReady } from "@/lib/ienazo/ticket";
 import { WORKS } from "@/data/ienazo/works";
 
@@ -53,8 +53,10 @@ export async function POST(req: Request) {
   const ticket = await issueTicket(user.id, work.slug);
 
   // エンジン未デプロイ（BASE 未設定）のうちは ready:false を返し、UI 側で準備中表示。
+  // クリア画面の戻る導線用に、この作品の紹介ページを戻り先として渡す。
+  const ret = encodeURIComponent(`${SITE_URL}/ienazo/works/${work.slug}`);
   const url = ENGINE_BASE_URL
-    ? `${ENGINE_BASE_URL}/${work.slug}?ticket=${encodeURIComponent(ticket)}`
+    ? `${ENGINE_BASE_URL}/${work.slug}?ticket=${encodeURIComponent(ticket)}&return=${ret}`
     : null;
 
   return NextResponse.json({ ticket, url, ready: Boolean(url) });

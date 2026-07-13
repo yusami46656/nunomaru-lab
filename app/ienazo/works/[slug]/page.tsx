@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { Reveal } from "@/components/ienazo/Reveal";
 import { WorkCard } from "@/components/ienazo/WorkCard";
 import { WorkSpecTable } from "@/components/ienazo/WorkSpecTable";
-import { BuyButton } from "@/components/ienazo/BuyButton";
+import { WorkCta } from "@/components/ienazo/WorkCta";
 import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 import { StoryGallery } from "@/components/ienazo/StoryGallery";
 import { WORKS, FREE_TRIAL, difficultyStars, type Work } from "@/data/ienazo/works";
@@ -61,7 +61,9 @@ export async function generateMetadata({
   const description = work.summary.replace(/\s*\n+\s*/g, " ").trim();
   // 1200×630 のOGPカード（SNS共有時のサムネ）。作品ごとに public/ienazo/og/og_<slug>.png を用意した場合のみ付与。
   const ogImage = `/ienazo/og/og_${slug}.png`;
-  const hasOg = slug === "broken-android";
+  // OGPカードを用意済みの作品（public/ienazo/og/og_<slug>.png）
+  const OG_READY = new Set(["broken-android", "heart-no-inai-kuni"]);
+  const hasOg = OG_READY.has(slug);
   return {
     title: work.title,
     description,
@@ -144,7 +146,7 @@ export default async function WorkDetailPage({
                   {isFree ? (
                     <PlayLauncher slug={work.slug} mode="free" label="PLAY" />
                   ) : (
-                    <BuyButton slug={work.slug} />
+                    <WorkCta slug={work.slug} />
                   )}
                   {!isFree && (
                     <Link
