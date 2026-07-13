@@ -65,6 +65,8 @@ export default function IenazoPrivacyPage() {
           </section>
         ))}
       </div>
+
+      <p className="mt-12 text-xs text-ienazo-ink-soft">制定日：2026年7月14日</p>
     </div>
   );
 }

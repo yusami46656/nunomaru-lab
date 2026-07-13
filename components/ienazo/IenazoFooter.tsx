@@ -32,7 +32,7 @@ export function IenazoFooter() {
               />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-ienazo-ink-soft">
-              おうちで気軽に遊べる、謎解き・脱出ゲーム。{/* 仮コピー */}
+              おうちで気軽に遊べる、謎解き・脱出ゲーム。
             </p>
           </div>
 

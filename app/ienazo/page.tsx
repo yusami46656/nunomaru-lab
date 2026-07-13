@@ -83,7 +83,7 @@ export default function IenazoTopPage() {
               おうちで気軽に、謎解きを
             </h1>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/70 sm:text-base lg:mx-0">
-              家謎は、おうちで遊べる謎解き・脱出ゲームです。物語の世界に入り込みながら謎解きをお楽しみいただけます。{/* 仮コピー */}
+              家謎は、おうちで遊べる謎解き・脱出ゲームです。物語の世界に入り込みながら謎解きをお楽しみいただけます。
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row lg:justify-start">
               <Link
