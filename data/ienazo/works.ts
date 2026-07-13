@@ -124,6 +124,7 @@ export const DRAFT_WORKS: Work[] = [
     cover: "/ienazo/works/heart-no-inai-kuni/cover.webp",
     hero: "/ienazo/works/heart-no-inai-kuni/hero.webp",
     storyShots: [
+      { src: "/ienazo/works/heart-no-inai-kuni/key_sisters.webp", caption: "白い薔薇の庭を駆けぬける、ふたりの少女" },
       { src: "/ienazo/works/heart-no-inai-kuni/cg_ch1_1.webp", caption: "木の上でニヤリと笑う猫と、見上げる少女" },
       { src: "/ienazo/works/heart-no-inai-kuni/bg_trump_garden.webp", caption: "白い薔薇が咲きみだれる、トランプの庭" },
       { src: "/ienazo/works/heart-no-inai-kuni/cg_ch2_1.webp", caption: "霧のチェス盤の森で、黒のナイトと向きあう" },
