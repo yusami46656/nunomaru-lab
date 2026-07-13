@@ -112,7 +112,7 @@ export const DRAFT_WORKS: Work[] = [
     title: "ハートのいない国",
     tagline: "あべこべの国をめぐる、歯ごたえのある物語。",
     summary:
-      "ハートを失くした不思議の国。逆さまの茶会や玉座の間をめぐりながら、いくつもの謎を解き、最後の大きな謎へと辿り着く本格的な一作です。",
+      "夕暮れの庭で、姉アリサは今日も、体の弱い妹ハートの世話をしている。\nふたりのお気に入りは、『不思議の国のアリス』のごっこ遊び。\n\n「お姉ちゃん。お庭の奥に、不思議の国へ続く穴があるの。知ってた?」\n\nそう言って、妹ハートは笑いながら、暗い穴へ飛び込んでいく。\n慌てて追いかけた、その先は——\n\n白い薔薇がどこまでも続く、見知らぬ庭。\nハートの姿は、もう、どこにもない。\n\n「待っててね、ハート。すぐに、見つけるから」\n\n木の上で笑う猫、逆さまの茶会、霧のチェス盤。\nあべこべの国をめぐり、いくつもの謎を解きながら、妹の行方を追っていく。\n\n——アリサは、ハートを見つけ出せるだろうか。\n\nたっぷり60分、歯ごたえのある謎に浸る、本格の一作です。",
     type: "paid",
     priceJPY: 1500,
     minutes: 60,
@@ -120,8 +120,17 @@ export const DRAFT_WORKS: Work[] = [
     players: "1人〜2人",
     environment: "PC・タブレット推奨（スマホも可）",
     needs: "紙とペンがあると便利",
-    cover: "/ienazo/dummy/cover-02.svg",
-    hero: "/ienazo/dummy/hero-02.svg",
+    // 本番アセット（エンジン採用画像から合成／scripts/build-heart-site-assets.mjs）。
+    cover: "/ienazo/works/heart-no-inai-kuni/cover.webp",
+    hero: "/ienazo/works/heart-no-inai-kuni/hero.webp",
+    storyShots: [
+      { src: "/ienazo/works/heart-no-inai-kuni/cg_ch1_1.webp", caption: "木の上でニヤリと笑う猫と、見上げる少女" },
+      { src: "/ienazo/works/heart-no-inai-kuni/bg_trump_garden.webp", caption: "白い薔薇が咲きみだれる、トランプの庭" },
+      { src: "/ienazo/works/heart-no-inai-kuni/cg_ch2_1.webp", caption: "霧のチェス盤の森で、黒のナイトと向きあう" },
+      { src: "/ienazo/works/heart-no-inai-kuni/bg_tea_party.webp", caption: "上も下もあべこべの、逆さまの茶会" },
+      { src: "/ienazo/works/heart-no-inai-kuni/cg_ch3_1.webp", caption: "帽子屋たちが出迎える、にぎやかで少し寂しい茶会" },
+      { src: "/ienazo/works/heart-no-inai-kuni/bg_world_map.webp", caption: "いくつもの国をめぐる、不思議の国の地図" },
+    ],
     playUrl: "/ienazo/play/heart-no-inai-kuni",
   },
   {
