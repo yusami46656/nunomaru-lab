@@ -57,9 +57,9 @@ export function DeleteAccountButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-xs font-medium tracking-wide text-ienazo-ink-soft underline-offset-4 hover:text-ienazo-red hover:underline"
+        className="text-sm text-ienazo-ink hover:text-ienazo-red"
       >
-        アカウントを削除
+        アカウント削除
       </button>
     );
   }
