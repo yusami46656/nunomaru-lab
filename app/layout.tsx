@@ -29,7 +29,7 @@ const ADSENSE_PUBLISHER_ID =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ぬのまる工房｜小さな作品を、少しずつ。",
+    default: "ぬのまる工房｜ひらめきを、形に。",
     template: "%s | ぬのまる工房",
   },
   description:
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     title: "ぬのまる工房",
-    description: "小さな作品を、少しずつ。",
+    description: "ひらめきを、形に。",
     images: [
       {
         url: "/ogp-default.png",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ぬのまる工房",
-    description: "小さな作品を、少しずつ。",
+    description: "ひらめきを、形に。",
     images: ["/ogp-default.png"],
   },
   icons: {

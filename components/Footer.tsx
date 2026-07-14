@@ -38,7 +38,7 @@ export function Footer() {
               ぬのまる工房
             </p>
             <p className="text-sm leading-relaxed" style={{ color: "var(--sys-text-muted)" }}>
-              小さな作品を、少しずつ。
+              ひらめきを、形に。
             </p>
           </div>
 
