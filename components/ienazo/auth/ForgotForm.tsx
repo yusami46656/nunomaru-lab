@@ -1,19 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/ienazo/supabase/client";
-import { supabaseReady } from "@/lib/ienazo/config";
+import { supabaseReady, SITE_URL } from "@/lib/ienazo/config";
 
-export function LoginForm() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const next = params.get("next") || "/ienazo/account/library";
-
+// パスワード再設定の入口。メール宛に復旧リンクを送る。
+// 成否は明かさない（登録の有無を外部に開示しない＝メール列挙対策）。
+export function ForgotForm() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -25,14 +22,26 @@ export function LoginForm() {
     }
     setLoading(true);
     const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    // 復旧リンクはコールバック経由で /reset へ。エラーでも同じ完了表示にする（列挙対策）。
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${SITE_URL}/ienazo/account/callback?next=${encodeURIComponent("/ienazo/account/reset")}`,
+    });
     setLoading(false);
-    if (error) {
-      setError("メールアドレスかパスワードが正しくありません。");
-      return;
-    }
-    router.push(next);
-    router.refresh();
+    setSent(true);
+  }
+
+  if (sent) {
+    return (
+      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+        <p className="text-sm leading-relaxed text-ienazo-ink-soft">
+          <span className="font-bold text-ienazo-ink">{email}</span> 宛に
+          <br />
+          パスワード再設定用のリンクを送りました（登録がある場合）。
+          <br />
+          メール内のリンクを開いて、新しいパスワードを設定してください。
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -50,18 +59,6 @@ export function LoginForm() {
             className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
           />
         </div>
-        <div>
-          <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">パスワード</label>
-          <input
-            type="password"
-            required
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
-          />
-        </div>
 
         {error && (
           <p className="rounded border border-ienazo-red/40 bg-ienazo-red/5 px-3 py-2 text-xs text-ienazo-red">
@@ -74,7 +71,7 @@ export function LoginForm() {
           disabled={loading}
           className="w-full bg-ienazo-red px-6 py-3.5 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep disabled:opacity-60"
         >
-          {loading ? "ログイン中…" : "ログイン"}
+          {loading ? "送信中…" : "再設定リンクを送る"}
         </button>
       </form>
 
@@ -85,14 +82,9 @@ export function LoginForm() {
       )}
 
       <p className="mt-6 text-sm text-ienazo-ink-soft">
-        はじめての方は{" "}
-        <Link href="/ienazo/account/register" className="font-medium text-ienazo-ink hover:text-ienazo-red">
-          会員登録
-        </Link>
-      </p>
-      <p className="mt-2 text-sm text-ienazo-ink-soft">
-        <Link href="/ienazo/account/forgot" className="font-medium text-ienazo-ink hover:text-ienazo-red">
-          パスワードをお忘れですか？
+        パスワードを思い出した方は{" "}
+        <Link href="/ienazo/account/login" className="font-medium text-ienazo-ink hover:text-ienazo-red">
+          ログイン
         </Link>
       </p>
     </>

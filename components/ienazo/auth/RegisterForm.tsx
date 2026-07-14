@@ -14,7 +14,7 @@ export function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState<"session" | "confirm" | null>(null);
+  const [done, setDone] = useState<"confirm" | "exists" | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -39,7 +39,18 @@ export function RegisterForm() {
     });
     setLoading(false);
     if (error) {
+      // 確認メールOFF時は既存メールを "User already registered" で返す。
+      if (/already\s*registered|already\s*exists/i.test(error.message)) {
+        setDone("exists");
+        return;
+      }
       setError(error.message);
+      return;
+    }
+    // 確認メールON時、既存メールはエラーを出さず user.identities が空配列で返る
+    // （Supabase のメール列挙対策）。新規は identities に要素が入る。これで既存を判別する。
+    if (data.user && (data.user.identities?.length ?? 0) === 0 && !data.session) {
+      setDone("exists");
       return;
     }
     // メール確認が無効ならその場でセッションが張られる。
@@ -49,6 +60,24 @@ export function RegisterForm() {
     } else {
       setDone("confirm");
     }
+  }
+
+  if (done === "exists") {
+    return (
+      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+        <p className="text-sm leading-relaxed text-ienazo-ink-soft">
+          このメールアドレス（<span className="font-bold text-ienazo-ink">{email}</span>）は
+          <br />
+          すでに登録されています。
+        </p>
+        <Link
+          href={`/ienazo/account/login?next=${encodeURIComponent(next)}`}
+          className="mt-6 inline-flex items-center justify-center bg-ienazo-red px-6 py-3 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
+        >
+          ログインへ進む
+        </Link>
+      </div>
+    );
   }
 
   if (done === "confirm") {
