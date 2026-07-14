@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // 有料作品の購入ボタン。クリック時に Checkout セッションを作って Stripe へ遷移する。
 // 未ログイン（401）なら戻り先を作品ページにしてログインへ送る。
-export function BuyButton({ slug, label = "購入して遊ぶ" }: { slug: string; label?: string }) {
+export function BuyButton({ slug, label = "購入する" }: { slug: string; label?: string }) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export function BuyButton({ slug, label = "購入して遊ぶ" }: { slug: string
         type="button"
         onClick={buy}
         disabled={loading}
-        className="inline-flex items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep disabled:opacity-60"
+        className="inline-flex min-w-[11rem] items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep disabled:opacity-60"
       >
         {loading ? "手続き中…" : label}
       </button>

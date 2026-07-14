@@ -2,7 +2,7 @@
 
 // 有料作品の CTA を所有状態で出し分ける。
 // ページ自体は静的のまま保ち、マウント後に所有判定APIを叩いて切り替える。
-// 既定（判定中・未ログイン・未所有）は「購入して遊ぶ」。所有者だけ「プレイを開始する」に差し替わる。
+// 既定（判定中・未ログイン・未所有）は「購入する」。所有者だけ「PLAY」に差し替わる。
 // ＝匿名/未所有が大多数の販売ページで、既定表示に遅延を出さない方針。
 //
 // ログイン/ログアウトやブラウザの戻る(bfcache)で判定が陳腐化しないよう、
@@ -59,7 +59,7 @@ export function WorkCta({ slug }: { slug: string }) {
   }, [slug]);
 
   if (owned) {
-    return <PlayLauncher slug={slug} mode="owned" label="プレイを開始する" />;
+    return <PlayLauncher slug={slug} mode="owned" label="PLAY" />;
   }
   return <BuyButton slug={slug} />;
 }

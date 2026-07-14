@@ -13,7 +13,6 @@ const pages = [
   ["faq", "/ienazo/faq"],
   ["tokushoho", "/ienazo/legal/tokushoho"],
   ["login", "/ienazo/account/login"],
-  ["play", "/ienazo/play/heart-no-inai-kuni"],
 ];
 
 const browser = await chromium.launch({ channel: "msedge" });

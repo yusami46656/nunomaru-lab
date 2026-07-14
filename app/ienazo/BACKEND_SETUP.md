@@ -61,6 +61,6 @@ openssl rand -base64 32
 1. `/ienazo/account/register` で登録 → `/ienazo/account/library`。
 2. 有料作品の詳細で「購入して遊ぶ」→ Stripe テストカード `4242 4242 4242 4242`。
 3. Webhook が `checkout.session.completed` を受けて entitlement を付与。
-4. `/ienazo/play/[slug]` で所有確認 →「プレイを開始する」でチケット発行。
+4. 作品詳細 `/ienazo/works/[slug]` が所有者向けに「プレイを開始する」を表示 → チケット発行。
 
 > dev: `npx next dev -p 3411`。`.env.local` 変更後は再起動。

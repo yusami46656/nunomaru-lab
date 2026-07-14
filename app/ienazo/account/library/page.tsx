@@ -79,7 +79,7 @@ export default async function LibraryPage() {
           {ownedWorks.map((work) => (
             <li key={work.slug}>
               <Link
-                href={`/ienazo/play/${work.slug}`}
+                href={`/ienazo/works/${work.slug}`}
                 className="group block border border-ienazo-rule bg-ienazo-paper-soft transition-colors hover:border-ienazo-ink"
               >
                 <div className="relative aspect-[3/4] overflow-hidden border-b border-ienazo-rule">

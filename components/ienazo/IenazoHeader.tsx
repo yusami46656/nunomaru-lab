@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { createClient } from "@/lib/ienazo/supabase/client";
+import { supabaseReady } from "@/lib/ienazo/config";
 
 const NAV = [
   { href: "/ienazo/works", label: "作品" },
@@ -11,17 +13,35 @@ const NAV = [
   { href: "/ienazo/faq", label: "FAQ" },
 ];
 
+// 認証状態でアカウント導線を出し分ける（未ログイン＝ログイン / ログイン中＝マイページ）。
+const ACCOUNT_LOGGED_OUT = { href: "/ienazo/account/login", label: "ログイン" };
+const ACCOUNT_LOGGED_IN = { href: "/ienazo/account/library", label: "マイページ" };
+
 // 無料体験の入口（まず作品ページへ。そこから PLAY で起動）。
 const FREE_TRIAL_HREF = "/ienazo/works/broken-android";
 
 export function IenazoHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [authed, setAuthed] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  // 認証状態を購読（初回セッションと以降の変化を反映）。
+  // 未設定・未ログイン時は「ログイン」表示のまま（安全側）。
+  useEffect(() => {
+    if (!supabaseReady) return;
+    const supabase = createClient();
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthed(Boolean(session?.user));
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  const account = authed ? ACCOUNT_LOGGED_IN : ACCOUNT_LOGGED_OUT;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -82,10 +102,10 @@ export function IenazoHeader() {
             );
           })}
           <Link
-            href="/ienazo/account/login"
+            href={account.href}
             className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
           >
-            ログイン
+            {account.label}
           </Link>
           <Link
             href={FREE_TRIAL_HREF}
@@ -146,7 +166,7 @@ export function IenazoHeader() {
           className="border-t border-ienazo-rule bg-ienazo-paper-soft md:hidden"
         >
           <nav className="mx-auto flex max-w-6xl flex-col" aria-label="メインナビゲーション(モバイル)">
-            {[...NAV, { href: "/ienazo/account/login", label: "ログイン" }].map((item) => (
+            {[...NAV, account].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
