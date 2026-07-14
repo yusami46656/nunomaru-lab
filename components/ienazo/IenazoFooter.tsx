@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FooterAccountDelete } from "@/components/ienazo/auth/FooterAccountDelete";
 
 const NAV = [
   { href: "/ienazo/works", label: "作品" },
@@ -51,6 +52,8 @@ export function IenazoFooter() {
                 </li>
               ))}
             </ul>
+            {/* ログイン中だけ、ログインの下にさりげなく削除導線を出す */}
+            <FooterAccountDelete />
           </nav>
 
           {/* 法務 */}

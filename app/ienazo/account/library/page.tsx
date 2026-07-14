@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
-import { DeleteAccountButton } from "@/components/ienazo/auth/DeleteAccountButton";
 import { getUser, getOwnedSlugs } from "@/lib/ienazo/entitlements";
 import { WORKS, difficultyStars } from "@/data/ienazo/works";
 import { ClockIcon } from "@/components/ienazo/RequirementIcons";
@@ -101,15 +100,6 @@ export default async function LibraryPage() {
             </li>
           ))}
         </ul>
-      )}
-
-      {user && (
-        <section className="mt-20 border-t border-ienazo-line pt-8">
-          <h2 className="text-xs font-bold tracking-[0.28em] text-ienazo-ink-soft">ACCOUNT</h2>
-          <div className="mt-4 max-w-md">
-            <DeleteAccountButton />
-          </div>
-        </section>
       )}
     </div>
   );
