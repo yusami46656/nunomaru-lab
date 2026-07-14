@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/ienazo/supabase/client";
 import { supabaseReady } from "@/lib/ienazo/config";
-import { DeleteAccountButton } from "./DeleteAccountButton";
 
-// フッターのSITE列に、ログイン中だけ「アカウントを削除」をさりげなく出す。
-// 未ログイン・未設定時は何も表示しない。
+// フッターのSITE列に、ログイン中だけ「アカウント削除」リンクをさりげなく出す。
+// クリックで確認ページ（/ienazo/account/delete）へ遷移。未ログイン・未設定時は非表示。
 export function FooterAccountDelete() {
   const [authed, setAuthed] = useState(false);
 
@@ -23,7 +23,9 @@ export function FooterAccountDelete() {
 
   return (
     <div className="mt-2.5">
-      <DeleteAccountButton />
+      <Link href="/ienazo/account/delete" className="text-sm text-ienazo-ink hover:text-ienazo-red">
+        アカウント削除
+      </Link>
     </div>
   );
 }
