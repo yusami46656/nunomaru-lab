@@ -42,19 +42,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
-  // 関連データを先に削除（購入・進捗）。どちらか失敗したら中断（ユーザー本体は残す＝再試行可能）。
+  // 購入(entitlements)を先に削除。auth.users への FK があるため、ユーザー本体削除の前に必要。
   const delEnt = await admin.from("ienazo_entitlements").delete().eq("user_id", user.id);
   if (delEnt.error) {
+    console.error("[account/delete] entitlements cleanup failed", delEnt.error);
     return NextResponse.json({ error: "cleanup_failed" }, { status: 500 });
   }
+
+  // 進捗(progress)は未整備(テーブル未作成)でも致命扱いにしない。ログのみ残して続行する。
   const delProg = await admin.from("ienazo_progress").delete().eq("user_id", user.id);
   if (delProg.error) {
-    return NextResponse.json({ error: "cleanup_failed" }, { status: 500 });
+    console.error("[account/delete] progress cleanup skipped", delProg.error);
   }
 
   // 認証ユーザー本体を削除。
   const { error } = await admin.auth.admin.deleteUser(user.id);
   if (error) {
+    console.error("[account/delete] deleteUser failed", {
+      message: error.message,
+      status: (error as { status?: number }).status,
+    });
     return NextResponse.json({ error: "delete_failed" }, { status: 500 });
   }
 
