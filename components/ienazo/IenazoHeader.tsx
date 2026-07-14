@@ -13,7 +13,8 @@ const NAV = [
   { href: "/ienazo/faq", label: "FAQ" },
 ];
 
-// 認証状態でアカウント導線を出し分ける（未ログイン＝ログイン / ログイン中＝マイページ）。
+// 認証状態でアカウント導線を出し分ける（未ログイン＝会員登録＋ログイン / ログイン中＝マイページ）。
+const ACCOUNT_REGISTER = { href: "/ienazo/account/register", label: "会員登録" };
 const ACCOUNT_LOGGED_OUT = { href: "/ienazo/account/login", label: "ログイン" };
 const ACCOUNT_LOGGED_IN = { href: "/ienazo/account/library", label: "マイページ" };
 
@@ -101,6 +102,14 @@ export function IenazoHeader() {
               </Link>
             );
           })}
+          {!authed && (
+            <Link
+              href={ACCOUNT_REGISTER.href}
+              className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
+            >
+              {ACCOUNT_REGISTER.label}
+            </Link>
+          )}
           <Link
             href={account.href}
             className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
@@ -166,7 +175,7 @@ export function IenazoHeader() {
           className="border-t border-ienazo-rule bg-ienazo-paper-soft md:hidden"
         >
           <nav className="mx-auto flex max-w-6xl flex-col" aria-label="メインナビゲーション(モバイル)">
-            {[...NAV, account].map((item) => (
+            {[...NAV, ...(authed ? [account] : [ACCOUNT_REGISTER, account])].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
