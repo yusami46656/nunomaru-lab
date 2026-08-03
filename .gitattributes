@@ -1,2 +1,23 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# 行末の統一。リポジトリ内は常に LF、作業ツリーにも LF で置く。
+# グローバル設定 core.autocrlf=true による CRLF 変換をこの指定で打ち消す。
+* text=auto eol=lf
+
+# Windows のバッチは CRLF でないと動かない
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# バイナリ（行末変換も行差分もしない）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.mp4 binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
