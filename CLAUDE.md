@@ -2,27 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
-
-```bash
-npm run dev      # 開発サーバー起動 (http://localhost:3000)
-npm run build    # プロダクションビルド
-npm run lint     # ESLint
-```
-
-テストは未導入。
-
 ## アーキテクチャ
-
-Next.js 15 App Router + TypeScript + Tailwind CSS v3。Vercel デプロイ前提。
-
-### ディレクトリ構成の意図
-
-- `app/` — ページ・レイアウト・API Route。App Router 規約に従う。
-- `components/` — 汎用 UI (`Header`, `Footer`, `ExperimentCard`...) と実験ごとのサブフォルダ (`harassment-type/`)。
-- `data/` — 純粋なデータ定数。サーバー/クライアント両方から import される。
-- `lib/` — ビジネスロジック（スコア計算・シェアテキスト生成など）。
-- `public/experiments/<slug>/` — 実験ごとの静的アセット（`images/`, `og/`, `share/`）。
 
 ### 実験の追加方法
 
@@ -31,13 +11,6 @@ Next.js 15 App Router + TypeScript + Tailwind CSS v3。Vercel デプロイ前提
 ### ハラスメントタイプ診断 (`/experiments/harassment-type/`)
 
 唯一の実装済み実験。設計の全詳細は `harassment_type_design.md` を参照。
-
-**データフロー:**
-1. `data/harassment-type.ts` — `harassmentQuestions`（16問）・`harassmentTypes`（16タイプ）・`typeMap`（属性キー→typeId）を一元管理。
-2. `lib/harassment-type/scoring.ts` — 回答からスコア計算・タイプ決定。閾値 40% / ギャップ 20% でタイプを絞り込む。
-3. 回答結果は `sessionStorage("harassment-type-result")` に `{ typeId, scores }` 形式で保存。
-4. `app/experiments/harassment-type/results/[typeId]/page.tsx` — `generateMetadata` でOGP設定。`ResultContent.tsx`（Client Component）が sessionStorage からスコアを読み込む。
-5. `components/harassment-type/ShareButtons.tsx` — X・LINE・Facebook・Instagram への共有ボタン。
 
 **タイプIDと画像ファイル名の対応:**  
 `harassmentTypes[].id`（`emperor`, `villager`, `shogun` など）がそのまま画像ファイル名になる。
