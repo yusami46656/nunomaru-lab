@@ -1,0 +1,3 @@
+# Keep Codex's native footer visible in the VS Code integrated terminal.
+[tui]
+status_line = ["model-with-reasoning", "context-used", "weekly-limit", "used-tokens", "current-dir"]
