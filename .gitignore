@@ -41,3 +41,5 @@ scripts/*backup*.txt
 scripts/page-fix-backup.txt
 
 .env*
+
+.claude/settings.local.json
