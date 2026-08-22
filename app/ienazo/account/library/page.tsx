@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
+import { LinkedAccounts } from "@/components/ienazo/auth/LinkedAccounts";
 import { getUser, getOwnedSlugs } from "@/lib/ienazo/entitlements";
 import { WORKS, difficultyStars } from "@/data/ienazo/works";
 import { ClockIcon } from "@/components/ienazo/RequirementIcons";
@@ -29,7 +30,7 @@ export default async function LibraryPage() {
         />
         {user && (
           <div className="shrink-0 pt-2 text-right">
-            <p className="text-xs text-ienazo-ink-soft">{user.email}</p>
+            <p className="text-xs text-ienazo-ink-soft">{user.email ?? "メール未登録"}</p>
             <div className="mt-1">
               <LogoutButton />
             </div>
@@ -100,6 +101,12 @@ export default async function LibraryPage() {
             </li>
           ))}
         </ul>
+      )}
+
+      {user && (
+        <div className="max-w-2xl">
+          <LinkedAccounts email={user.email ?? null} />
+        </div>
       )}
     </div>
   );

@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/ienazo/supabase/client";
-import { supabaseReady, SITE_URL } from "@/lib/ienazo/config";
+import { supabaseReady, SITE_URL, OAUTH_PROVIDERS } from "@/lib/ienazo/config";
+import { SocialButtons } from "@/components/ienazo/auth/SocialButtons";
 
 export function RegisterForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next") || "/ienazo/account/library";
+  const hasSocial = OAUTH_PROVIDERS.length > 0;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -94,7 +96,9 @@ export function RegisterForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
+      <SocialButtons intent="register" next={next} />
+
+      <form onSubmit={onSubmit} className={`${hasSocial ? "mt-7" : "mt-8"} space-y-4`}>
         <div>
           <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">メールアドレス</label>
           <input

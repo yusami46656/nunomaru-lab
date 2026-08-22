@@ -4,16 +4,25 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/ienazo/supabase/client";
-import { supabaseReady } from "@/lib/ienazo/config";
+import { supabaseReady, OAUTH_PROVIDERS } from "@/lib/ienazo/config";
+import { SocialButtons } from "@/components/ienazo/auth/SocialButtons";
+
+/** callback から戻されたエラーを文言にする。 */
+function messageFor(code: string | null): string | null {
+  if (code === "oauth") return "外部サービスでのログインが完了しませんでした。もう一度お試しください。";
+  if (code === "auth") return "ログインの確認に失敗しました。もう一度お試しください。";
+  return null;
+}
 
 export function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next") || "/ienazo/account/library";
+  const hasSocial = OAUTH_PROVIDERS.length > 0;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(messageFor(params.get("error")));
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -37,7 +46,9 @@ export function LoginForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
+      <SocialButtons intent="login" next={next} />
+
+      <form onSubmit={onSubmit} className={`${hasSocial ? "mt-7" : "mt-8"} space-y-4`}>
         <div>
           <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">メールアドレス</label>
           <input
