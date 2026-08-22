@@ -21,15 +21,16 @@ export default async function LibraryPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <div className="flex items-start justify-between gap-4">
+      {/* スマホでは縦積み（長いメールアドレスで見出しが潰れる／はみ出すのを防ぐ）。 */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <SectionHeading
           label="LIBRARY"
           title="あなたのライブラリ"
           description="購入した作品が並びます。続きからプレイできます。"
         />
         {user && (
-          <div className="shrink-0 pt-2 text-right">
-            <p className="text-xs text-ienazo-ink-soft">{user.email}</p>
+          <div className="sm:shrink-0 sm:pt-2 sm:text-right">
+            <p className="break-all text-xs text-ienazo-ink-soft">{user.email}</p>
             <div className="mt-1">
               <LogoutButton />
             </div>

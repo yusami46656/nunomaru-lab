@@ -64,9 +64,9 @@ export function RegisterForm() {
 
   if (done === "exists") {
     return (
-      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+      <div className="mt-6 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-7 text-center sm:mt-8 sm:py-8">
         <p className="text-sm leading-relaxed text-ienazo-ink-soft">
-          このメールアドレス（<span className="font-bold text-ienazo-ink">{email}</span>）は
+          このメールアドレス（<span className="break-all font-bold text-ienazo-ink">{email}</span>）は
           <br />
           すでに登録されています。
         </p>
@@ -82,9 +82,9 @@ export function RegisterForm() {
 
   if (done === "confirm") {
     return (
-      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+      <div className="mt-6 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-7 text-center sm:mt-8 sm:py-8">
         <p className="text-sm leading-relaxed text-ienazo-ink-soft">
-          確認メールを <span className="font-bold text-ienazo-ink">{email}</span> に送りました。
+          確認メールを <span className="break-all font-bold text-ienazo-ink">{email}</span> に送りました。
           <br />
           メール内のリンクを開くと登録が完了します。
         </p>
@@ -94,7 +94,7 @@ export function RegisterForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
+      <form onSubmit={onSubmit} className="mt-6 space-y-3.5 sm:mt-8 sm:space-y-4">
         <div>
           <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">メールアドレス</label>
           <input
@@ -104,7 +104,7 @@ export function RegisterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
           />
         </div>
         <div>
@@ -116,7 +116,7 @@ export function RegisterForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
           />
         </div>
 
@@ -141,7 +141,7 @@ export function RegisterForm() {
         </p>
       )}
 
-      <p className="mt-6 text-sm text-ienazo-ink-soft">
+      <p className="mt-5 text-sm text-ienazo-ink-soft sm:mt-6">
         すでにアカウントをお持ちの方は{" "}
         <Link href="/ienazo/account/login" className="font-medium text-ienazo-ink hover:text-ienazo-red">
           ログイン

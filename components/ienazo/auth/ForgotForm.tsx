@@ -32,9 +32,9 @@ export function ForgotForm() {
 
   if (sent) {
     return (
-      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+      <div className="mt-6 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-7 text-center sm:mt-8 sm:py-8">
         <p className="text-sm leading-relaxed text-ienazo-ink-soft">
-          <span className="font-bold text-ienazo-ink">{email}</span> 宛に
+          <span className="break-all font-bold text-ienazo-ink">{email}</span> 宛に
           <br />
           パスワード再設定用のリンクを送りました（登録がある場合）。
           <br />
@@ -46,7 +46,7 @@ export function ForgotForm() {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
+      <form onSubmit={onSubmit} className="mt-6 space-y-3.5 sm:mt-8 sm:space-y-4">
         <div>
           <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">メールアドレス</label>
           <input
@@ -56,7 +56,7 @@ export function ForgotForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
           />
         </div>
 
@@ -81,7 +81,7 @@ export function ForgotForm() {
         </p>
       )}
 
-      <p className="mt-6 text-sm text-ienazo-ink-soft">
+      <p className="mt-5 text-sm text-ienazo-ink-soft sm:mt-6">
         パスワードを思い出した方は{" "}
         <Link href="/ienazo/account/login" className="font-medium text-ienazo-ink hover:text-ienazo-red">
           ログイン
