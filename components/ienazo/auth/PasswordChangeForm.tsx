@@ -145,7 +145,7 @@ export function PasswordChangeForm() {
       )}
 
       {open && (
-        <form onSubmit={onSubmit} className="space-y-4 border-t border-ienazo-line px-5 py-5">
+        <form onSubmit={onSubmit} className="ienazo-rise space-y-4 border-t border-ienazo-line px-5 py-5">
           {hasPassword === false && (
             <p className="text-sm leading-relaxed text-ienazo-ink-soft">
               パスワードを設定すると、メールアドレスとパスワードでもログインできるようになります。

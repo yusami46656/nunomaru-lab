@@ -479,13 +479,84 @@ body:has(.ienazo-area) input[type="radio"]:focus-visible {
   animation: ienazo-spring-once 1.5s ease-in-out both;
 }
 
+/* 家謎: アカウントメニューの出現。押したボタン（右上）を基点に、ふわっと降ろす。
+   ぱっと出ると事務的なので、ごく短い間だけ動かして角を取る。 */
+@keyframes ienazo-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.ienazo-menu-in {
+  transform-origin: top right;
+  animation: ienazo-menu-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 家謎: メニューの中身が少しずつ遅れて出る。--i に並び順を渡す。 */
+@keyframes ienazo-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ienazo-menu-item {
+  animation: ienazo-menu-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(70ms + var(--i, 0) * 45ms);
+}
+
+/* 家謎: メニュー項目にカーソルを置いたとき、文字だけ少し右へ寄る。
+   ナビ下線の左から伸びる動きと同じ「静かに反応する」語彙。 */
+.ienazo-menu-item > span {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ienazo-menu-item:hover > span,
+.ienazo-menu-item:focus-visible > span {
+  transform: translateX(3px);
+}
+
+/* 家謎: 棚のカードや、開いた入力欄がふわっと立ち上がる。
+   Reveal（視界に入ったら出す）と違い CSS だけで即座に始まるので、
+   ハイドレーションを待って中身が空になることがない。--i で順番を渡す。 */
+@keyframes ienazo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ienazo-rise {
+  animation: ienazo-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ienazo-kenburns,
   .ienazo-cardrow,
   .ienazo-header-in,
   .ienazo-scrollcue,
-  .ienazo-spin-once {
+  .ienazo-spin-once,
+  .ienazo-menu-in,
+  .ienazo-menu-item,
+  .ienazo-rise {
     animation: none !important;
+  }
+  .ienazo-menu-item > span,
+  .ienazo-menu-item:hover > span,
+  .ienazo-menu-item:focus-visible > span {
+    transition: none;
+    transform: none;
   }
 }
 

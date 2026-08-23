@@ -24,12 +24,15 @@ const BTN_GHOST =
   "inline-flex items-center justify-center border border-ienazo-rule px-6 py-4 font-medium tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper";
 
 /** 棚が2件以下のときの横長カード。1件でも画面が空かないようにする形。 */
-function ShelfRow({ work, playedAt }: { work: Work; playedAt?: string }) {
+function ShelfRow({ work, playedAt, index }: { work: Work; playedAt?: string; index: number }) {
   const played = formatPlayedAt(playedAt);
   // 無料はチケット不要で直接起動する。有料と同じ mode で叩くと発券に失敗する。
   const isFree = work.type === "free";
   return (
-    <li className="grid grid-cols-[104px_1fr] border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft sm:grid-cols-[232px_1fr]">
+    <li
+      style={{ "--i": index } as React.CSSProperties}
+      className="ienazo-rise grid grid-cols-[104px_1fr] border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft sm:grid-cols-[232px_1fr]"
+    >
       {/* カバーは grid の行高いっぱいに伸ばす（情報量で高さが変わっても隙間ができない） */}
       <div className="ienazo-frame relative overflow-hidden border-r border-ienazo-rule">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -213,15 +216,19 @@ export default async function LibraryPage({
           {shelfWorks.length <= 2 ? (
             // 1〜2件は横長カード。4列グリッドだと3列ぶんが空白のまま残る。
             <ul className="mt-12 flex flex-col gap-5">
-              {shelfWorks.map((work) => (
-                <ShelfRow key={work.slug} work={work} playedAt={lastPlayed[work.slug]} />
+              {shelfWorks.map((work, i) => (
+                <ShelfRow key={work.slug} work={work} playedAt={lastPlayed[work.slug]} index={i} />
               ))}
             </ul>
           ) : (
             // 3件以上は作品一覧と同じカード・同じ列数に揃える。
             <ul className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-              {shelfWorks.map((work) => (
-                <li key={work.slug} className="flex">
+              {shelfWorks.map((work, i) => (
+                <li
+                  key={work.slug}
+                  style={{ "--i": i } as React.CSSProperties}
+                  className="ienazo-rise flex"
+                >
                   <WorkCard work={work} />
                 </li>
               ))}

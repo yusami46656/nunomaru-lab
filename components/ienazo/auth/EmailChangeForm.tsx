@@ -107,7 +107,7 @@ export function EmailChangeForm({ currentEmail }: { currentEmail: string | null 
       )}
 
       {open && (
-        <form onSubmit={onSubmit} className="space-y-4 border-t border-ienazo-line px-5 py-5">
+        <form onSubmit={onSubmit} className="ienazo-rise space-y-4 border-t border-ienazo-line px-5 py-5">
           <div>
             <label className={LABEL} htmlFor="email-next">
               新しいメールアドレス

@@ -65,8 +65,6 @@ export function AccountMenu({ email, transparent }: { email: string | null; tran
     router.refresh();
   }
 
-  // ボタンには @ より前だけ出す。ヘッダーは横幅が限られるため。
-  const shortName = email ? email.split("@")[0] : "アカウント";
 
   return (
     <div ref={wrapRef} className="relative">
@@ -76,13 +74,13 @@ export function AccountMenu({ email, transparent }: { email: string | null; tran
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className={`inline-flex max-w-[13rem] items-center gap-2 border px-3 py-2 text-sm font-medium tracking-wide transition-colors ${
+        className={`inline-flex items-center gap-2 border px-4 py-2 text-sm font-medium tracking-wide transition-colors ${
           transparent
             ? "border-white/40 text-white/90 hover:text-white"
             : "border-ienazo-rule text-ienazo-ink hover:border-ienazo-ink"
         }`}
       >
-        <span className="truncate">{shortName}</span>
+        <span>マイページ</span>
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -90,7 +88,9 @@ export function AccountMenu({ email, transparent }: { email: string | null; tran
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            open ? "rotate-180" : ""
+          }`}
           aria-hidden
         >
           <path d="M6 9.5l6 5 6-5" />
@@ -101,20 +101,24 @@ export function AccountMenu({ email, transparent }: { email: string | null; tran
         <div
           role="menu"
           aria-label="アカウント"
-          className="absolute right-0 top-full z-50 mt-2 w-64 border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-card"
+          className="ienazo-menu-in absolute right-0 top-full z-50 mt-2 w-64 border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-card"
         >
-          <p className="break-all border-b border-ienazo-rule px-4 py-3 text-xs text-ienazo-ink-soft">
+          <p
+            className="ienazo-menu-item break-all border-b border-ienazo-rule px-4 py-3 text-xs text-ienazo-ink-soft"
+            style={{ "--i": 0 } as React.CSSProperties}
+          >
             {email ?? "メール未登録"}
           </p>
 
-          {ITEMS.map((item) => (
+          {ITEMS.map((item, i) => (
             <Link
               key={item.href}
               href={item.href}
               role="menuitem"
-              className="block border-b border-ienazo-line px-4 py-3 text-sm font-medium tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-paper-deep"
+              style={{ "--i": i + 1 } as React.CSSProperties}
+              className="ienazo-menu-item block border-b border-ienazo-line px-4 py-3 text-sm font-medium tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-paper-deep"
             >
-              {item.label}
+              <span>{item.label}</span>
             </Link>
           ))}
 
@@ -123,9 +127,10 @@ export function AccountMenu({ email, transparent }: { email: string | null; tran
             role="menuitem"
             onClick={onLogout}
             disabled={loading}
-            className="block w-full px-4 py-3 text-left text-sm font-medium tracking-wide text-ienazo-ink-soft transition-colors hover:bg-ienazo-paper-deep hover:text-ienazo-red disabled:opacity-60"
+            style={{ "--i": ITEMS.length + 1 } as React.CSSProperties}
+            className="ienazo-menu-item block w-full px-4 py-3 text-left text-sm font-medium tracking-wide text-ienazo-ink-soft transition-colors hover:bg-ienazo-paper-deep hover:text-ienazo-red disabled:opacity-60"
           >
-            {loading ? "ログアウト中…" : "ログアウト"}
+            <span>{loading ? "ログアウト中…" : "ログアウト"}</span>
           </button>
         </div>
       )}
