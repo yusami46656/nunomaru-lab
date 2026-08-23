@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeading } from "@/components/ienazo/SectionHeading";
+import { WorkCard } from "@/components/ienazo/WorkCard";
+import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
 import { LinkedAccounts } from "@/components/ienazo/auth/LinkedAccounts";
-import { getUser, getOwnedSlugs } from "@/lib/ienazo/entitlements";
-import { WORKS, difficultyStars } from "@/data/ienazo/works";
+import { getUser, loadOwnedSlugs } from "@/lib/ienazo/entitlements";
+import { loadLastPlayed, formatPlayedAt } from "@/lib/ienazo/progress";
+import { WORKS, difficultyStars, type Work } from "@/data/ienazo/works";
 import { ClockIcon } from "@/components/ienazo/RequirementIcons";
 
 export const metadata: Metadata = {
@@ -15,89 +18,221 @@ export const metadata: Metadata = {
 // セッション依存のため動的レンダリング。
 export const dynamic = "force-dynamic";
 
-export default async function LibraryPage() {
+/** 主CTA（塗り・大）。サイト共通のサイズに揃える。 */
+const BTN_PRIMARY =
+  "inline-flex min-w-[11rem] items-center justify-center bg-ienazo-red px-8 py-4 font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep";
+/** 副CTA（枠・大）。 */
+const BTN_GHOST =
+  "inline-flex items-center justify-center border border-ienazo-rule px-6 py-4 font-medium tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper";
+
+/** 棚が2件以下のときの横長カード。1件でも画面が空かないようにする形。 */
+function ShelfRow({ work, playedAt }: { work: Work; playedAt?: string }) {
+  const played = formatPlayedAt(playedAt);
+  return (
+    <li className="grid grid-cols-[104px_1fr] border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft sm:grid-cols-[232px_1fr]">
+      {/* カバーは grid の行高いっぱいに伸ばす（情報量で高さが変わっても隙間ができない） */}
+      <div className="ienazo-frame relative overflow-hidden border-r border-ienazo-rule">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={work.cover}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+        />
+      </div>
+
+      <div className="flex min-w-0 flex-col p-4 sm:p-8">
+        <h2 className="text-xl font-black leading-snug tracking-wide text-ienazo-ink sm:text-[28px]">
+          {work.title}
+        </h2>
+
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-ienazo-ink-soft sm:mt-3 sm:text-[13px]">
+          <span className="inline-flex items-center gap-1.5">
+            <ClockIcon className="h-3.5 w-3.5" />
+            {work.minutes}分
+          </span>
+          <span aria-label={`難易度 ${work.difficulty}`}>{difficultyStars(work.difficulty)}</span>
+          {played && (
+            <>
+              <span className="hidden h-3 w-px bg-ienazo-line sm:inline-block" aria-hidden />
+              <span>最後に遊んだ日 {played}</span>
+            </>
+          )}
+        </div>
+
+        <p className="mt-2.5 text-xs leading-relaxed text-ienazo-ink-soft sm:mt-3 sm:text-sm">
+          {work.tagline}
+        </p>
+
+        <div className="mt-5 flex flex-col items-start gap-3 sm:mt-7 sm:flex-row sm:items-center sm:gap-4">
+          {/* 続きがあるかで文言だけ変える。再開位置の判断はエンジンが持っている。 */}
+          <PlayLauncher slug={work.slug} mode="owned" label={played ? "続きから遊ぶ" : "はじめる"} />
+          <Link
+            href={`/ienazo/works/${work.slug}`}
+            className="text-[13px] font-medium tracking-wide text-ienazo-ink-soft transition-colors hover:text-ienazo-red sm:ml-auto"
+          >
+            作品ページを見る →
+          </Link>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+export default async function LibraryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ purchased?: string }>;
+}) {
+  const { purchased } = await searchParams;
   const user = await getUser();
-  const ownedSlugs = user ? await getOwnedSlugs() : [];
+  const owned = user ? await loadOwnedSlugs() : null;
+
+  const ownedSlugs = owned?.ok ? owned.slugs : [];
   const ownedWorks = WORKS.filter((w) => ownedSlugs.includes(w.slug));
+  // 取れなかったのか、本当に0件なのかを区別する。ここを潰すと障害時に
+  // 購入済みの人へ「まだ購入した作品がありません」と表示してしまう。
+  const loadFailed = owned !== null && !owned.ok && owned.reason === "load_failed";
+
+  const lastPlayed = user && ownedWorks.length > 0 ? await loadLastPlayed(user.id) : {};
+
+  // 決済直後の戻り先。実際に所有している作品のときだけ出す（URL を書き換えても出ない）。
+  const justPurchased = purchased ? ownedWorks.find((w) => w.slug === purchased) : undefined;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <div className="flex items-start justify-between gap-4">
-        <SectionHeading
-          label="LIBRARY"
-          title="あなたのライブラリ"
-          description="購入した作品が並びます。続きからプレイできます。"
-        />
-        {user && (
-          <div className="shrink-0 pt-2 text-right">
-            <p className="text-xs text-ienazo-ink-soft">{user.email ?? "メール未登録"}</p>
-            <div className="mt-1">
-              <LogoutButton />
-            </div>
+      {/* ページ最上部なので instant。スクロールで現れる演出は成立せず、
+          ハイドレーションが終わるまで見出しが空になるだけになる。 */}
+      <SectionHeading
+        as="h1"
+        instant
+        label="LIBRARY"
+        title="あなたのライブラリ"
+        description="購入した作品が並びます。途中まで進んだ作品は、続きから遊べます。"
+      />
+
+      {justPurchased && (
+        <div className="mt-10 flex flex-col gap-4 border border-ienazo-red bg-ienazo-paper-soft px-5 py-5 sm:flex-row sm:items-start sm:gap-5 sm:px-7 sm:py-6">
+          <span
+            className="mt-1.5 hidden h-2.5 w-2.5 shrink-0 bg-ienazo-red sm:inline-block"
+            aria-hidden
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-[15px] font-bold leading-relaxed text-ienazo-ink sm:text-[17px]">
+              『{justPurchased.title}』をご購入いただき、ありがとうございます。
+            </p>
+            <p className="mt-2 text-[13px] leading-relaxed text-ienazo-ink-soft sm:text-sm">
+              この棚からいつでも遊べます。下のボタンを押すと、別のタブで開きます。
+            </p>
           </div>
-        )}
-      </div>
+          {/* クエリを外すだけなので JS 不要。閉じたあとリロードしても戻らない。 */}
+          <Link
+            href="/ienazo/account/library"
+            className="inline-flex shrink-0 items-center justify-center self-start border border-ienazo-rule px-4 py-2.5 text-[13px] font-medium text-ienazo-ink-soft transition-colors hover:border-ienazo-ink hover:text-ienazo-ink"
+          >
+            閉じる
+          </Link>
+        </div>
+      )}
+
+      {user && (
+        <div className="mt-10 flex flex-col gap-4 border border-ienazo-rule bg-ienazo-paper-soft px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
+          <div className="flex min-w-0 items-center gap-4">
+            <span className="shrink-0 text-[11px] font-bold tracking-[0.3em] text-ienazo-ink-soft">
+              ACCOUNT
+            </span>
+            <span className="hidden h-4 w-px shrink-0 bg-ienazo-line sm:inline-block" aria-hidden />
+            {/* ソーシャルログインではメールが null になりうる（LinkedAccounts と同じ扱い） */}
+            <span className="truncate text-sm text-ienazo-ink">{user.email ?? "メール未登録"}</span>
+          </div>
+          <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <LogoutButton variant="button" />
+            <Link
+              href="/ienazo/account/delete"
+              className="text-center text-[13px] text-ienazo-ink-soft transition-colors hover:text-ienazo-red sm:text-left"
+            >
+              アカウント削除
+            </Link>
+          </div>
+        </div>
+      )}
 
       {!user ? (
-        // 未ログイン
+        // 未ログイン。このページに来た人の目的はログインなので、塗りボタンはログイン側。
         <div className="mt-12 border border-ienazo-rule bg-ienazo-paper-soft px-6 py-16 text-center">
           <p className="text-sm leading-relaxed text-ienazo-ink-soft">
             ログインすると、購入済みの作品がここに表示されます。
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/ienazo/account/login?next=/ienazo/account/library"
-              className="inline-flex items-center justify-center border border-ienazo-rule px-6 py-3 text-sm font-bold tracking-wide transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper"
-            >
+            <Link href="/ienazo/account/login?next=/ienazo/account/library" className={BTN_PRIMARY}>
               ログイン
             </Link>
-            <Link
-              href="/ienazo/works"
-              className="inline-flex items-center justify-center bg-ienazo-red px-6 py-3 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
-            >
+            <Link href="/ienazo/works" className={BTN_GHOST}>
               作品を見る
             </Link>
+          </div>
+          <p className="mt-5 text-[13px] text-ienazo-ink-soft">
+            はじめての方は{" "}
+            <Link
+              href="/ienazo/account/register?next=/ienazo/account/library"
+              className="font-bold text-ienazo-ink transition-colors hover:text-ienazo-red"
+            >
+              会員登録
+            </Link>
+          </p>
+        </div>
+      ) : loadFailed ? (
+        // 取得失敗。「購入0件」と同じ見た目にしてはいけない画面。
+        <div className="mt-12 border border-ienazo-red bg-ienazo-paper-soft px-6 py-16 text-center">
+          <p className="text-base font-bold leading-relaxed text-ienazo-ink">
+            購入情報を読み込めませんでした。
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ienazo-ink-soft">
+            通信の状態を確かめて、もう一度お試しください。
+            <br />
+            <span className="font-bold text-ienazo-ink">
+              購入した作品が消えたわけではありません。
+            </span>
+          </p>
+          <div className="mt-7">
+            {/* Link だと同一ルートで再取得が走らないことがあるので、素の a で読み直す。 */}
+            <a href="/ienazo/account/library" className={BTN_PRIMARY}>
+              再読み込み
+            </a>
           </div>
         </div>
       ) : ownedWorks.length === 0 ? (
-        // ログイン済み・未購入
-        <div className="mt-12 border border-ienazo-rule bg-ienazo-paper-soft px-6 py-16 text-center">
-          <p className="text-sm leading-relaxed text-ienazo-ink-soft">
+        // 購入0件。文字だけの空箱にせず、棚に作品の顔を出す。
+        <div className="mt-12 border border-ienazo-rule bg-ienazo-paper-soft px-5 py-10 sm:px-8 sm:py-12">
+          <p className="text-center text-sm leading-relaxed text-ienazo-ink-soft">
             まだ購入した作品がありません。
+            <br />
+            まずは無料の体験版から、どうぞ。
           </p>
-          <div className="mt-7">
-            <Link
-              href="/ienazo/works"
-              className="inline-flex items-center justify-center bg-ienazo-red px-6 py-3 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
-            >
+          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:gap-5">
+            {WORKS.filter((w) => !w.comingSoon).map((w) => (
+              <WorkCard key={w.slug} work={w} showPrice />
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link href="/ienazo/works" className={BTN_PRIMARY}>
               作品を見る
             </Link>
           </div>
         </div>
-      ) : (
-        // 購入済み一覧
-        <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      ) : ownedWorks.length <= 2 ? (
+        // 1〜2件は横長カード。4列グリッドだと3列ぶんが空白のまま残る。
+        <ul className="mt-12 flex flex-col gap-5">
           {ownedWorks.map((work) => (
-            <li key={work.slug}>
-              <Link
-                href={`/ienazo/works/${work.slug}`}
-                className="group block border border-ienazo-rule bg-ienazo-paper-soft transition-colors hover:border-ienazo-ink"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden border-b border-ienazo-rule">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={work.cover} alt="" className="h-full w-full object-cover" draggable={false} />
-                </div>
-                <div className="px-4 py-4">
-                  <h3 className="font-bold leading-snug tracking-wide">{work.title}</h3>
-                  <div className="mt-2 flex items-center gap-3 text-xs text-ienazo-ink-soft">
-                    <span className="inline-flex items-center gap-1"><ClockIcon className="h-3.5 w-3.5" />{work.minutes}分</span>
-                    <span aria-label={`難易度 ${work.difficulty}`}>{difficultyStars(work.difficulty)}</span>
-                  </div>
-                  <span className="mt-3 inline-block text-xs font-bold tracking-wide text-ienazo-red">
-                    プレイする 》
-                  </span>
-                </div>
-              </Link>
+            <ShelfRow key={work.slug} work={work} playedAt={lastPlayed[work.slug]} />
+          ))}
+        </ul>
+      ) : (
+        // 3件以上は作品一覧と同じカード・同じ列数に揃える。
+        <ul className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+          {ownedWorks.map((work) => (
+            <li key={work.slug} className="flex">
+              <WorkCard work={work} />
             </li>
           ))}
         </ul>

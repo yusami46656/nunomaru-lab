@@ -24,7 +24,10 @@ const FREE_TRIAL_HREF = "/ienazo/works/broken-android";
 export function IenazoHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [authed, setAuthed] = useState(false);
+  // null＝まだ分からない。false 始まりにすると、ログイン中の人にも初回描画で
+  // 「会員登録／ログイン」が出てから「マイページ」に入れ替わる（実機で確認済み）。
+  // 分からないあいだは場所だけ確保して、何も見せない。
+  const [authed, setAuthed] = useState<boolean | null>(supabaseReady ? null : false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -32,16 +35,25 @@ export function IenazoHeader() {
   }, [pathname]);
 
   // 認証状態を購読（初回セッションと以降の変化を反映）。
-  // 未設定・未ログイン時は「ログイン」表示のまま（安全側）。
+  // onAuthStateChange の初回発火を待たず、getSession() で自分から取りにいく。
   useEffect(() => {
     if (!supabaseReady) return;
     const supabase = createClient();
+    let alive = true;
+    void supabase.auth.getSession().then(({ data }) => {
+      if (alive) setAuthed(Boolean(data.session?.user));
+    });
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       setAuthed(Boolean(session?.user));
     });
-    return () => data.subscription.unsubscribe();
+    return () => {
+      alive = false;
+      data.subscription.unsubscribe();
+    };
   }, []);
 
+  // 認証状態が確定したか。未確定のうちはアカウント導線を隠す。
+  const resolved = authed !== null;
   const account = authed ? ACCOUNT_LOGGED_IN : ACCOUNT_LOGGED_OUT;
 
   useEffect(() => {
@@ -102,20 +114,35 @@ export function IenazoHeader() {
               </Link>
             );
           })}
-          {!authed && (
-            <Link
-              href={ACCOUNT_REGISTER.href}
-              className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
-            >
-              {ACCOUNT_REGISTER.label}
-            </Link>
-          )}
-          <Link
-            href={account.href}
-            className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
+          {/* 未確定のあいだは幅だけ確保して中身を見せない（誤ったラベルを一瞬でも出さない）。
+              未確定時は widest な未ログイン版を敷いておくので、確定しても横位置が動かない。 */}
+          <span
+            className={`inline-flex items-center gap-1 ${resolved ? "" : "invisible"}`}
+            aria-hidden={!resolved}
           >
-            {account.label}
-          </Link>
+            {!authed && (
+              <Link
+                href={ACCOUNT_REGISTER.href}
+                tabIndex={resolved ? undefined : -1}
+                className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
+              >
+                {ACCOUNT_REGISTER.label}
+              </Link>
+            )}
+            <Link
+              href={account.href}
+              tabIndex={resolved ? undefined : -1}
+              className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${
+                authed && pathname.startsWith(account.href)
+                  ? transparent
+                    ? "text-white"
+                    : "text-ienazo-red"
+                  : navColor
+              }`}
+            >
+              {account.label}
+            </Link>
+          </span>
           <Link
             href={FREE_TRIAL_HREF}
             className="ml-2 inline-flex items-center bg-ienazo-red px-5 py-2.5 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
@@ -175,7 +202,11 @@ export function IenazoHeader() {
           className="border-t border-ienazo-rule bg-ienazo-paper-soft md:hidden"
         >
           <nav className="mx-auto flex max-w-6xl flex-col" aria-label="メインナビゲーション(モバイル)">
-            {[...NAV, ...(authed ? [account] : [ACCOUNT_REGISTER, account])].map((item) => (
+            {/* 未確定なら出さない。メニューは押して開くものなので、その時点では確定している。 */}
+            {[
+              ...NAV,
+              ...(!resolved ? [] : authed ? [account] : [ACCOUNT_REGISTER, account]),
+            ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

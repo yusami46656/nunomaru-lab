@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FooterAccountDelete } from "@/components/ienazo/auth/FooterAccountDelete";
+import { FooterAccount } from "@/components/ienazo/auth/FooterAccount";
 
+// アカウント行（ログイン／マイページ・ログアウト）は認証状態で変わるので
+// FooterAccount が受け持つ。ここには状態に依らないものだけ置く。
 const NAV = [
   { href: "/ienazo/works", label: "作品" },
   { href: "/ienazo/howto", label: "遊び方" },
   { href: "/ienazo/faq", label: "FAQ" },
-  { href: "/ienazo/account/login", label: "ログイン" },
 ];
 
 const LEGAL = [
@@ -51,9 +52,9 @@ export function IenazoFooter() {
                   </Link>
                 </li>
               ))}
+              {/* 認証状態で「ログイン」／「マイページ＋ログアウト」を出し分ける */}
+              <FooterAccount />
             </ul>
-            {/* ログイン中だけ、ログインの下にさりげなく削除導線を出す */}
-            <FooterAccountDelete />
           </nav>
 
           {/* 法務 */}

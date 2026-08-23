@@ -381,11 +381,24 @@ body:has(.ienazo-area) main {
   padding: 0 !important;
 }
 
-/* 家謎: キーボード操作のフォーカス可視化（赤のアウトライン） */
+/* 家謎: キーボード操作のフォーカス可視化（赤のアウトライン）
+   入力欄も対象にする。Tailwind の preflight がブラウザ既定のリングを消すため、
+   ここで拾わないと認証フォームをキーボードで辿れなくなる。 */
 body:has(.ienazo-area) a:focus-visible,
-body:has(.ienazo-area) button:focus-visible {
+body:has(.ienazo-area) button:focus-visible,
+body:has(.ienazo-area) input:focus-visible,
+body:has(.ienazo-area) select:focus-visible,
+body:has(.ienazo-area) textarea:focus-visible,
+body:has(.ienazo-area) summary:focus-visible,
+body:has(.ienazo-area) [tabindex]:focus-visible {
   outline: 2px solid #a23a35;
   outline-offset: 2px;
+}
+
+/* チェックボックス・ラジオは outline-offset 2px だと隣の文字に触れるので詰める。 */
+body:has(.ienazo-area) input[type="checkbox"]:focus-visible,
+body:has(.ienazo-area) input[type="radio"]:focus-visible {
+  outline-offset: 1px;
 }
 
 /* 家謎: ヒーローのゆっくりズーム(Ken Burns) */
