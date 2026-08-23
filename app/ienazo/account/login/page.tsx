@@ -13,7 +13,7 @@ export default function LoginPage() {
     <AuthShell
       eyebrow="LOGIN"
       title="ログイン"
-      intro="登録済みのメールアドレスでサインインしてください。"
+      intro="お使いのアカウントでサインインしてください。"
     >
       <Suspense fallback={null}>
         <LoginForm />

@@ -13,7 +13,7 @@ export default function RegisterPage() {
     <AuthShell
       eyebrow="REGISTER"
       title="会員登録"
-      intro="メールアドレスとパスワードだけで登録できます。"
+      intro="お使いのアカウントですぐに始められます。"
     >
       <Suspense fallback={null}>
         <RegisterForm />

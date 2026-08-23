@@ -70,6 +70,14 @@ export function SocialButtons({ intent, next }: { intent: Intent; next: string }
         </p>
       )}
 
+      {/* 押す前に読める位置に置く。Google の同意画面には家謎ではなく認証基盤（Supabase）の
+          ドメインが出るため、これが無いと「知らないサイトに飛ばされた」と読まれてしまう。
+          自前ドメインに変えるには Supabase の有料アドオンが要るので、当面は先に伝えて防ぐ。 */}
+      <p className="mt-3 text-[11px] leading-relaxed text-ienazo-ink-soft">
+        ログイン画面に <span className="font-medium text-ienazo-ink">supabase.co</span>{" "}
+        と表示されることがあります。家謎が認証に使っているサービスのドメインです。
+      </p>
+
       <div className="mt-7 flex items-center gap-4">
         <span className="h-px flex-grow bg-ienazo-rule" />
         <span className="text-[11px] font-bold tracking-[0.18em] text-ienazo-ink-soft">または</span>

@@ -36,8 +36,16 @@ export const OAUTH_PROVIDERS: OAuthProviderId[] = (() => {
 
 /**
  * 家謎での呼び名 → Supabase の provider 名。
- * LINE は Supabase の標準プロバイダに無く、カスタム OIDC プロバイダ（スラッグ `line`）として登録するため
- * `custom:` が付く。ダッシュボードで別のスラッグにしたらここも合わせること。
+ *
+ * ＊`line` を env に足しても動かない（2026-08-23 に実機で確認済み）。
+ *   LINE のウェブログインが返す ID トークンは **HS256**（チャネルシークレットで署名）だが、
+ *   LINE の OIDC discovery は `id_token_signing_alg_values_supported: ["ES256"]` と宣言し
+ *   ES256 の JWKS を配っている。Supabase は discovery を信じて ES256 で検証するため必ず失敗し、
+ *   `Error getting user profile from external provider` になる。
+ *   ES256 が返るのはネイティブアプリ／LIFF のときだけで、チャネル設定では切り替えられない。
+ *   （userinfo 自体は 200 で正常。壊れているのは ID トークンの検証だけ。）
+ *   LINE を通すには Supabase のカスタム OIDC を諦め、認可〜セッション発行を自前で書く必要がある。
+ *   チャネル(2011210947)と Supabase 側の custom:line 設定は残してあるので、やるときは再利用できる。
  */
 export const SUPABASE_PROVIDER: Record<OAuthProviderId, string> = {
   google: "google",
