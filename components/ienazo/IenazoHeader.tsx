@@ -151,22 +151,30 @@ export function IenazoHeader() {
               </>
             )}
           </span>
-          <Link
-            href={FREE_TRIAL_HREF}
-            className="ml-2 inline-flex items-center bg-ienazo-red px-5 py-2.5 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
-          >
-            無料で体験する
-          </Link>
+          {/* 体験CTAはログイン中には出さない。無料作品はその人のライブラリの棚に
+              並ぶようになったので、ヘッダーで案内する役目が終わっている。
+              未確定(null)のうちは出したままにする。未ログインが大多数で、
+              その人たちには一度も動かない見え方になるため。 */}
+          {authed !== true && (
+            <Link
+              href={FREE_TRIAL_HREF}
+              className="ml-2 inline-flex items-center bg-ienazo-red px-5 py-2.5 text-sm font-bold tracking-wide text-white transition-colors hover:bg-ienazo-red-deep"
+            >
+              無料で体験する
+            </Link>
+          )}
         </nav>
 
         {/* モバイル: 体験CTAは畳まず常設＋ハンバーガー */}
         <div className="flex items-center gap-2 md:hidden">
-          <Link
-            href={FREE_TRIAL_HREF}
-            className="bg-ienazo-red px-3.5 py-2 text-xs font-bold tracking-wide text-white"
-          >
-            無料で体験
-          </Link>
+          {authed !== true && (
+            <Link
+              href={FREE_TRIAL_HREF}
+              className="bg-ienazo-red px-3.5 py-2 text-xs font-bold tracking-wide text-white"
+            >
+              無料で体験
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
