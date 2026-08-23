@@ -11,11 +11,13 @@ import { supabaseReady } from "@/lib/ienazo/config";
  *   nav    … フッターのリンク列に並べる
  *   button … アカウント帯に置く枠ボタン。指で押せるよう高さ 44px を確保する
  */
-export type LogoutVariant = "link" | "nav" | "button";
+export type LogoutVariant = "link" | "nav" | "button" | "row";
 
 const VARIANT_CLASS: Record<LogoutVariant, string> = {
   link: "text-xs font-bold tracking-wide text-ienazo-ink-soft underline-offset-4 hover:text-ienazo-red hover:underline disabled:opacity-60",
   nav: "text-left text-sm text-ienazo-ink transition-colors hover:text-ienazo-red disabled:opacity-60",
+  // 設定画面の一覧に並べる行アクション。連携の「解除」ボタンと同じ寸法。
+  row: "inline-flex h-11 items-center justify-center border border-ienazo-rule px-4 text-xs font-bold tracking-wide text-ienazo-ink transition-colors hover:border-ienazo-ink disabled:opacity-60",
   button:
     "inline-flex w-full min-h-[44px] items-center justify-center border border-ienazo-rule bg-ienazo-paper-soft px-5 py-2.5 text-sm font-bold tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper disabled:opacity-60 sm:w-auto",
 };

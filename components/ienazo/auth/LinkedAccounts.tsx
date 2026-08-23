@@ -41,7 +41,19 @@ function matches(identity: UserIdentity, id: OAuthProviderId) {
   return identity.provider === want || identity.provider === want.replace(/^custom:/, "");
 }
 
-export function LinkedAccounts({ email }: { email: string | null }) {
+/**
+ * variant
+ *   section … 見出し付きの独立パネル（従来）
+ *   rows    … 行だけ返す。アカウント設定の一覧に混ぜて並べるとき。
+ *             メールアドレスの行は設定側が持つので出さない。
+ */
+export function LinkedAccounts({
+  email,
+  variant = "section",
+}: {
+  email: string | null;
+  variant?: "section" | "rows";
+}) {
   const [identities, setIdentities] = useState<UserIdentity[] | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -98,20 +110,17 @@ export function LinkedAccounts({ email }: { email: string | null }) {
     await load();
   }
 
-  return (
-    <section className="border border-ienazo-rule bg-ienazo-paper-soft">
-      <h2 className="flex items-center gap-3 px-5 py-3.5 text-xs font-bold tracking-[0.28em] text-ienazo-ink-soft">
-        <span className="inline-block h-2 w-2 bg-ienazo-ink" aria-hidden />
-        ログイン方法
-      </h2>
-
-      {/* メールは連携ではなく登録状態なので、ここでは解除させない。 */}
-      <Row
-        mark={<MailMark />}
-        name="メールアドレス"
-        sub={email ?? "未登録"}
-        action={<span className="text-xs text-ienazo-ink-soft">—</span>}
-      />
+  const rows = (
+    <>
+      {/* 独立パネルのときだけ、メールを登録状態として並べる（解除はさせない）。 */}
+      {variant === "section" && (
+        <Row
+          mark={<MailMark />}
+          name="メールアドレス"
+          sub={email ?? "未登録"}
+          action={<span className="text-xs text-ienazo-ink-soft">—</span>}
+        />
+      )}
 
       {identities === null ? (
         <p className="border-t border-ienazo-rule px-5 py-4 text-xs text-ienazo-ink-soft">
@@ -161,6 +170,18 @@ export function LinkedAccounts({ email }: { email: string | null }) {
           {error}
         </p>
       )}
+    </>
+  );
+
+  if (variant === "rows") return rows;
+
+  return (
+    <section className="border border-ienazo-rule bg-ienazo-paper-soft">
+      <h2 className="flex items-center gap-3 px-5 py-3.5 text-xs font-bold tracking-[0.28em] text-ienazo-ink-soft">
+        <span className="inline-block h-2 w-2 bg-ienazo-ink" aria-hidden />
+        ログイン方法
+      </h2>
+      {rows}
     </section>
   );
 }
