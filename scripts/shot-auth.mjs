@@ -1,9 +1,9 @@
-// 認証まわり（ログイン／会員登録／ライブラリ）の表示崩れを機械的に見る検証スクリプト。
+// 認証まわり（ログイン／会員登録／ライブラリ／アカウント設定）の表示崩れを機械的に見る検証スクリプト。
 //
 //   1) 別ターミナルで dev サーバーを起動: npm run dev -- -p 3411
 //   2) node scripts/shot-auth.mjs
 //
-// ライブラリはログインが要るので、確認したいときだけ実在アカウントを渡す:
+// ライブラリとアカウント設定はログインが要るので、確認したいときだけ実在アカウントを渡す:
 //   IENAZO_TEST_EMAIL=... IENAZO_TEST_PASSWORD=... node scripts/shot-auth.mjs
 // 渡さない場合はライブラリを飛ばし、飛ばしたことを最後に明示する（黙って減らさない）。
 //
@@ -30,9 +30,10 @@ function measure(tapMin, isMobile) {
   const overflow = document.documentElement.scrollWidth - window.innerWidth;
   if (overflow > 1) problems.push(`横スクロール +${overflow}px`);
 
-  // タップ領域は本文側だけを見る。サイト共通ヘッダー／フッターはこの改修の対象外で、
-  // ここで拾うと毎回同じ指摘が並んで本来の崩れが埋もれる。
-  const scope = document.querySelector("main") || document.body;
+  // タップ領域は本文と、サイト共通（ヘッダー／フッター）を分けて見る。
+  // 共通側は毎ページ同じ指摘になるので、混ぜると本来の崩れが埋もれる。
+  // 呼び出し側で [共通] を集約し、最後に1回だけ出す。
+  const scope = document.body;
   const inChrome = (el) => el.closest("header, footer") !== null;
 
   for (const el of scope.querySelectorAll("button, a[href], input")) {
@@ -41,8 +42,9 @@ function measure(tapMin, isMobile) {
     const label = (el.textContent || el.getAttribute("aria-label") || el.tagName).trim().slice(0, 24);
 
     // 2) タップ領域（モバイル幅のみ。本文中のテキストリンクは対象外）
-    if (isMobile && el.tagName === "BUTTON" && !inChrome(el) && rect.height < tapMin) {
-      problems.push(`タップ領域 ${Math.round(rect.height)}px「${label}」`);
+    if (isMobile && el.tagName === "BUTTON" && rect.height < tapMin) {
+      const prefix = inChrome(el) ? "[共通]" : "";
+      problems.push(`${prefix}タップ領域 ${Math.round(rect.height)}px「${label}」`);
     }
 
     // 3) はみ出し
@@ -120,16 +122,20 @@ if (email && password) {
   await page.click('button[type="submit"]');
   await page.waitForURL(/\/ienazo\/account\/library/, { timeout: 15000 });
   targets.push({ name: "library", path: "/ienazo/account/library" });
+  targets.push({ name: "settings", path: "/ienazo/account/settings" });
 } else {
-  skipped.push("library（IENAZO_TEST_EMAIL / IENAZO_TEST_PASSWORD が未設定のため未検証）");
+  skipped.push("library / settings（IENAZO_TEST_EMAIL / IENAZO_TEST_PASSWORD が未設定のため未検証）");
 }
 
 let failures = 0;
+const sharedIssues = new Set();
 for (const target of targets) {
   console.log(`\n── ${target.name} ${BASE}${target.path}`);
   for (const width of WIDTHS) {
     await page.goto(`${BASE}${target.path}`, { waitUntil: "domcontentloaded" });
-    const problems = await shoot(page, target.name, width, width <= MOBILE_MAX);
+    const all = await shoot(page, target.name, width, width <= MOBILE_MAX);
+    for (const x of all.filter((v) => v.startsWith("[共通]"))) sharedIssues.add(x.slice(4));
+    const problems = all.filter((v) => !v.startsWith("[共通]"));
     if (problems.length === 0) {
       console.log(`   ${String(width).padStart(4)}px  ok`);
     } else {
@@ -143,5 +149,9 @@ await browser.close();
 
 console.log(`\n画像: ${OUT}/`);
 for (const s of skipped) console.log(`飛ばした対象: ${s}`);
+if (sharedIssues.size) {
+  console.log(`\n── サイト共通（ヘッダー／フッター・全ページ同じ）──`);
+  for (const x of [...sharedIssues].sort()) console.log(`  ${x}`);
+}
 console.log(failures === 0 ? "崩れの検出なし。" : `${failures} 件の崩れを検出。`);
 process.exit(failures === 0 ? 0 : 1);
