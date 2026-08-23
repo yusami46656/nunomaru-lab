@@ -64,7 +64,7 @@ export function ResetForm() {
 
   if (gate === "checking") {
     return (
-      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+      <div className="mt-6 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-7 text-center sm:mt-8 sm:py-8">
         <p className="text-sm text-ienazo-ink-soft">確認中…</p>
       </div>
     );
@@ -72,7 +72,7 @@ export function ResetForm() {
 
   if (gate === "invalid") {
     return (
-      <div className="mt-8 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-8 text-center">
+      <div className="mt-6 rounded border border-ienazo-rule bg-ienazo-paper-soft px-5 py-7 text-center sm:mt-8 sm:py-8">
         <p className="text-sm leading-relaxed text-ienazo-ink-soft">
           リンクが無効か、有効期限が切れています。
           <br />
@@ -89,7 +89,7 @@ export function ResetForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-8 space-y-4">
+    <form onSubmit={onSubmit} className="mt-6 space-y-3.5 sm:mt-8 sm:space-y-4">
       <div>
         <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">新しいパスワード（6文字以上）</label>
         <input
@@ -99,7 +99,7 @@ export function ResetForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+          className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
         />
       </div>
       <div>
@@ -111,7 +111,7 @@ export function ResetForm() {
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           placeholder="••••••••"
-          className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+          className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
         />
       </div>
 

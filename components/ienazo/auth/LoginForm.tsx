@@ -48,7 +48,11 @@ export function LoginForm() {
     <>
       <SocialButtons intent="login" next={next} />
 
-      <form onSubmit={onSubmit} className={`${hasSocial ? "mt-7" : "mt-8"} space-y-4`}>
+      {/* スマホは余白を詰めて1画面に収める。ソーシャルボタンがある分だけさらに詰める。 */}
+      <form
+        onSubmit={onSubmit}
+        className={`${hasSocial ? "mt-5 sm:mt-7" : "mt-6 sm:mt-8"} space-y-3.5 sm:space-y-4`}
+      >
         <div>
           <label className="block text-xs font-bold tracking-wide text-ienazo-ink-soft">メールアドレス</label>
           <input
@@ -58,7 +62,7 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
           />
         </div>
         <div>
@@ -70,7 +74,7 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-sm"
+            className="mt-1.5 w-full border border-ienazo-rule bg-ienazo-paper-soft px-3 py-2.5 text-base sm:text-sm"
           />
         </div>
 
@@ -95,7 +99,7 @@ export function LoginForm() {
         </p>
       )}
 
-      <p className="mt-6 text-sm text-ienazo-ink-soft">
+      <p className="mt-5 text-sm text-ienazo-ink-soft sm:mt-6">
         はじめての方は{" "}
         <Link href="/ienazo/account/register" className="font-medium text-ienazo-ink hover:text-ienazo-red">
           会員登録
