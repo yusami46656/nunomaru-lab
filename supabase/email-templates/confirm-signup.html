@@ -1,0 +1,101 @@
+<!--
+  家謎（ienazo）／ Supabase Auth メールテンプレート
+  種別 : Confirm sign up（新規登録時のメールアドレス確認）
+  件名 : 【家謎】メールアドレスのご確認
+  貼付先: Supabase → Authentication → Emails → Templates → Confirm sign up → Body
+
+  リンクは token_hash 方式（type=signup）。/ienazo/account/callback が
+  verifyOtp でセッションに交換するため、別端末で開いてもそのままログインできる。
+  この行を {{ .ConfirmationURL }} に変えると別端末ログインが壊れるので触らないこと。
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f7f6f2" style="background-color:#f7f6f2;">
+  <tr>
+    <td align="center" style="padding:32px 12px;">
+
+      <!-- ── 本体カード ───────────────────────────── -->
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #dcd9d0;">
+
+        <!-- ロゴ -->
+        <tr>
+          <td align="center" bgcolor="#ffffff" style="padding:36px 32px 26px 32px;background-color:#ffffff;">
+            <img src="https://www.nunomaru-lab.com/ienazo/logo_lockup.png" width="180" alt="家謎（いえなぞ）" style="display:block;width:180px;max-width:56%;height:auto;border:0;outline:none;text-decoration:none;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;font-size:22px;font-weight:bold;color:#181818;">
+          </td>
+        </tr>
+
+        <!-- ヘアライン -->
+        <tr>
+          <td style="padding:0 32px;">
+            <div style="height:1px;background-color:#dcd9d0;font-size:0;line-height:0;">&nbsp;</div>
+          </td>
+        </tr>
+
+        <!-- 見出し＋本文 -->
+        <tr>
+          <td style="padding:30px 32px 0 32px;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;">
+            <h1 style="margin:0;font-size:19px;line-height:1.6;font-weight:bold;letter-spacing:0.04em;color:#181818;">メールアドレスのご確認</h1>
+            <p style="margin:18px 0 0 0;font-size:15px;line-height:1.95;color:#3f3d36;">
+              このたびは家謎にご登録いただき、ありがとうございます。<br>
+              下のボタンでメールアドレスの確認を完了すると、そのままログインした状態で家謎をお使いいただけます。
+            </p>
+          </td>
+        </tr>
+
+        <!-- ボタン -->
+        <tr>
+          <td align="center" style="padding:30px 32px 0 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#a23a35" style="background-color:#a23a35;">
+                  <a href="{{ .SiteURL }}/ienazo/account/callback?token_hash={{ .TokenHash }}&type=signup&next=/ienazo/account/library" style="display:inline-block;padding:15px 38px;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;font-size:15px;font-weight:bold;letter-spacing:0.08em;line-height:1.2;color:#ffffff;text-decoration:none;">メールアドレスを確認する</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- URL フォールバック -->
+        <tr>
+          <td style="padding:24px 32px 0 32px;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;">
+            <p style="margin:0;font-size:12px;line-height:1.85;color:#5e5c55;">ボタンが開けない場合は、次のURLをブラウザのアドレス欄に貼り付けてください。</p>
+            <p style="margin:7px 0 0 0;font-size:12px;line-height:1.7;color:#5e5c55;word-break:break-all;">
+              <a href="{{ .SiteURL }}/ienazo/account/callback?token_hash={{ .TokenHash }}&type=signup&next=/ienazo/account/library" style="color:#a23a35;text-decoration:underline;word-break:break-all;">{{ .SiteURL }}/ienazo/account/callback?token_hash={{ .TokenHash }}&amp;type=signup&amp;next=/ienazo/account/library</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- 注意書き -->
+        <tr>
+          <td style="padding:26px 32px 0 32px;">
+            <div style="height:1px;background-color:#e4e2da;font-size:0;line-height:0;">&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 32px 34px 32px;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;">
+            <p style="margin:0;font-size:12.5px;line-height:1.95;color:#5e5c55;">
+              ・このリンクの有効期限は、発行から1時間です。期限が切れた場合は、登録画面からもう一度お手続きください。<br>
+              ・このメールに心当たりがない場合は、そのまま破棄してください。リンクを開かないかぎり、登録が完了することはありません。
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+      <!-- ── 署名 ───────────────────────────────── -->
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
+        <tr>
+          <td align="center" style="padding:22px 20px 6px 20px;font-family:'Hiragino Maru Gothic ProN','Hiragino Kaku Gothic ProN','Yu Gothic Medium',Meiryo,sans-serif;">
+            <p style="margin:0;font-size:12px;line-height:1.95;color:#5e5c55;">
+              <span style="font-weight:bold;color:#181818;">家謎（いえなぞ）</span>　おうちで遊ぶ、謎解き・脱出ゲーム<br>
+              運営：ぬのまる工房　／　お問い合わせ：<a href="mailto:nunomaru0x0u@gmail.com" style="color:#5e5c55;text-decoration:underline;">nunomaru0x0u@gmail.com</a><br>
+              <a href="https://www.nunomaru-lab.com/ienazo" style="color:#5e5c55;text-decoration:underline;">nunomaru-lab.com/ienazo</a>　｜　<a href="https://www.nunomaru-lab.com/ienazo/legal/terms" style="color:#5e5c55;text-decoration:underline;">利用規約</a>　<a href="https://www.nunomaru-lab.com/ienazo/legal/privacy" style="color:#5e5c55;text-decoration:underline;">プライバシーポリシー</a>
+            </p>
+            <p style="margin:11px 0 0 0;font-size:11px;line-height:1.8;color:#8b877c;">
+              このメールは送信専用アドレスからお送りしています。ご返信いただいてもお答えできません。
+            </p>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
