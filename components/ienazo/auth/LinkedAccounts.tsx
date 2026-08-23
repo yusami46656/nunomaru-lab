@@ -99,7 +99,7 @@ export function LinkedAccounts({ email }: { email: string | null }) {
   }
 
   return (
-    <section className="mt-14 border border-ienazo-rule bg-ienazo-paper-soft">
+    <section className="border border-ienazo-rule bg-ienazo-paper-soft">
       <h2 className="flex items-center gap-3 px-5 py-3.5 text-xs font-bold tracking-[0.28em] text-ienazo-ink-soft">
         <span className="inline-block h-2 w-2 bg-ienazo-ink" aria-hidden />
         ログイン方法

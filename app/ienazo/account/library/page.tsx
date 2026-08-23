@@ -4,7 +4,6 @@ import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { WorkCard } from "@/components/ienazo/WorkCard";
 import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
 import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
-import { LinkedAccounts } from "@/components/ienazo/auth/LinkedAccounts";
 import { getUser, loadOwnedSlugs } from "@/lib/ienazo/entitlements";
 import { loadLastPlayed, formatPlayedAt } from "@/lib/ienazo/progress";
 import { WORKS, difficultyStars, type Work } from "@/data/ienazo/works";
@@ -28,6 +27,8 @@ const BTN_GHOST =
 /** 棚が2件以下のときの横長カード。1件でも画面が空かないようにする形。 */
 function ShelfRow({ work, playedAt }: { work: Work; playedAt?: string }) {
   const played = formatPlayedAt(playedAt);
+  // 無料はチケット不要で直接起動する。有料と同じ mode で叩くと発券に失敗する。
+  const isFree = work.type === "free";
   return (
     <li className="grid grid-cols-[104px_1fr] border border-ienazo-rule bg-ienazo-paper-soft shadow-ienazo-soft sm:grid-cols-[232px_1fr]">
       {/* カバーは grid の行高いっぱいに伸ばす（情報量で高さが変わっても隙間ができない） */}
@@ -39,6 +40,11 @@ function ShelfRow({ work, playedAt }: { work: Work; playedAt?: string }) {
           className="absolute inset-0 h-full w-full object-cover"
           draggable={false}
         />
+        {isFree && (
+          <span className="absolute left-0 top-0 bg-ienazo-red px-2.5 py-1 text-xs font-bold tracking-wide text-white">
+            無料
+          </span>
+        )}
       </div>
 
       <div className="flex min-w-0 flex-col p-4 sm:p-8">
@@ -66,7 +72,11 @@ function ShelfRow({ work, playedAt }: { work: Work; playedAt?: string }) {
 
         <div className="mt-5 flex flex-col items-start gap-3 sm:mt-7 sm:flex-row sm:items-center sm:gap-4">
           {/* 続きがあるかで文言だけ変える。再開位置の判断はエンジンが持っている。 */}
-          <PlayLauncher slug={work.slug} mode="owned" label={played ? "続きから遊ぶ" : "はじめる"} />
+          <PlayLauncher
+            slug={work.slug}
+            mode={isFree ? "free" : "owned"}
+            label={played ? "続きから遊ぶ" : "はじめる"}
+          />
           <Link
             href={`/ienazo/works/${work.slug}`}
             className="text-[13px] font-medium tracking-wide text-ienazo-ink-soft transition-colors hover:text-ienazo-red sm:ml-auto"
@@ -89,15 +99,23 @@ export default async function LibraryPage({
   const owned = user ? await loadOwnedSlugs() : null;
 
   const ownedSlugs = owned?.ok ? owned.slugs : [];
-  const ownedWorks = WORKS.filter((w) => ownedSlugs.includes(w.slug));
+  const purchasedWorks = WORKS.filter((w) => ownedSlugs.includes(w.slug));
+  // 無料作品は購入記録を持たないので entitlement には出てこない。
+  // ただし遊べることに変わりはないので、棚には並べる（体験版を探して迷わせない）。
+  const freeWorks = WORKS.filter(
+    (w) => w.type === "free" && !w.comingSoon && !ownedSlugs.includes(w.slug),
+  );
+  // 並びは「買ったもの → 無料」。最後に遊んだ順にすると開くたびに入れ替わって落ち着かない。
+  const shelfWorks = [...purchasedWorks, ...freeWorks];
+
   // 取れなかったのか、本当に0件なのかを区別する。ここを潰すと障害時に
   // 購入済みの人へ「まだ購入した作品がありません」と表示してしまう。
   const loadFailed = owned !== null && !owned.ok && owned.reason === "load_failed";
 
-  const lastPlayed = user && ownedWorks.length > 0 ? await loadLastPlayed(user.id) : {};
+  const lastPlayed = user && shelfWorks.length > 0 ? await loadLastPlayed(user.id) : {};
 
   // 決済直後の戻り先。実際に所有している作品のときだけ出す（URL を書き換えても出ない）。
-  const justPurchased = purchased ? ownedWorks.find((w) => w.slug === purchased) : undefined;
+  const justPurchased = purchased ? purchasedWorks.find((w) => w.slug === purchased) : undefined;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
@@ -148,10 +166,10 @@ export default async function LibraryPage({
           <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
             <LogoutButton variant="button" />
             <Link
-              href="/ienazo/account/delete"
-              className="text-center text-[13px] text-ienazo-ink-soft transition-colors hover:text-ienazo-red sm:text-left"
+              href="/ienazo/account/settings"
+              className="text-center text-[13px] font-medium text-ienazo-ink transition-colors hover:text-ienazo-red sm:text-left"
             >
-              アカウント削除
+              アカウント設定 →
             </Link>
           </div>
         </div>
@@ -201,47 +219,53 @@ export default async function LibraryPage({
             </a>
           </div>
         </div>
-      ) : ownedWorks.length === 0 ? (
-        // 購入0件。文字だけの空箱にせず、棚に作品の顔を出す。
-        <div className="mt-12 border border-ienazo-rule bg-ienazo-paper-soft px-5 py-10 sm:px-8 sm:py-12">
-          <p className="text-center text-sm leading-relaxed text-ienazo-ink-soft">
-            まだ購入した作品がありません。
-            <br />
-            まずは無料の体験版から、どうぞ。
+      ) : shelfWorks.length === 0 ? (
+        // 遊べるものが1つも無いとき（無料作品も配信していない場合）。
+        <div className="mt-12 border border-ienazo-rule bg-ienazo-paper-soft px-6 py-16 text-center">
+          <p className="text-sm leading-relaxed text-ienazo-ink-soft">
+            まだ遊べる作品がありません。
           </p>
-          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:gap-5">
-            {WORKS.filter((w) => !w.comingSoon).map((w) => (
-              <WorkCard key={w.slug} work={w} showPrice />
-            ))}
-          </div>
-          <div className="mt-8 text-center">
+          <div className="mt-7">
             <Link href="/ienazo/works" className={BTN_PRIMARY}>
               作品を見る
             </Link>
           </div>
         </div>
-      ) : ownedWorks.length <= 2 ? (
-        // 1〜2件は横長カード。4列グリッドだと3列ぶんが空白のまま残る。
-        <ul className="mt-12 flex flex-col gap-5">
-          {ownedWorks.map((work) => (
-            <ShelfRow key={work.slug} work={work} playedAt={lastPlayed[work.slug]} />
-          ))}
-        </ul>
       ) : (
-        // 3件以上は作品一覧と同じカード・同じ列数に揃える。
-        <ul className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-          {ownedWorks.map((work) => (
-            <li key={work.slug} className="flex">
-              <WorkCard work={work} />
-            </li>
-          ))}
-        </ul>
-      )}
+        <>
+          {shelfWorks.length <= 2 ? (
+            // 1〜2件は横長カード。4列グリッドだと3列ぶんが空白のまま残る。
+            <ul className="mt-12 flex flex-col gap-5">
+              {shelfWorks.map((work) => (
+                <ShelfRow key={work.slug} work={work} playedAt={lastPlayed[work.slug]} />
+              ))}
+            </ul>
+          ) : (
+            // 3件以上は作品一覧と同じカード・同じ列数に揃える。
+            <ul className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+              {shelfWorks.map((work) => (
+                <li key={work.slug} className="flex">
+                  <WorkCard work={work} />
+                </li>
+              ))}
+            </ul>
+          )}
 
-      {user && (
-        <div className="max-w-2xl">
-          <LinkedAccounts email={user.email ?? null} />
-        </div>
+          {/* まだ買っていない人にだけ、棚の下に静かに置く。棚そのものは空にしない。 */}
+          {purchasedWorks.length === 0 && (
+            <div className="mt-8 flex flex-col items-start gap-4 border border-ienazo-rule bg-ienazo-paper-soft px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <p className="text-sm leading-relaxed text-ienazo-ink-soft">
+                有料の作品もあります。物語も謎も、たっぷり遊べます。
+              </p>
+              <Link
+                href="/ienazo/works"
+                className="inline-flex shrink-0 items-center justify-center border border-ienazo-rule px-5 py-2.5 text-sm font-bold tracking-wide text-ienazo-ink transition-colors hover:bg-ienazo-ink hover:text-ienazo-paper"
+              >
+                作品を見る
+              </Link>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
