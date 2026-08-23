@@ -75,6 +75,9 @@ export function EmailChangeForm({ currentEmail }: { currentEmail: string | null 
               メール内のリンクを開くまで、登録アドレスは変わりません。
               <br />
               リンクを開くと、この画面に戻ってきます。
+              <br />
+              いまご登録のアドレスにも、確認のご案内が届くことがあります。両方に届いた場合は、
+              どちらのリンクも開いてください。
             </p>
           </div>
         ) : (
