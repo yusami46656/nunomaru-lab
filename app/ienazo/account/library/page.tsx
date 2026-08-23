@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/ienazo/SectionHeading";
 import { WorkCard } from "@/components/ienazo/WorkCard";
 import { PlayLauncher } from "@/components/ienazo/PlayLauncher";
-import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
 import { getUser, loadOwnedSlugs } from "@/lib/ienazo/entitlements";
 import { loadLastPlayed, formatPlayedAt } from "@/lib/ienazo/progress";
 import { WORKS, difficultyStars, type Work } from "@/data/ienazo/works";
@@ -150,28 +149,6 @@ export default async function LibraryPage({
           >
             閉じる
           </Link>
-        </div>
-      )}
-
-      {user && (
-        <div className="mt-10 flex flex-col gap-4 border border-ienazo-rule bg-ienazo-paper-soft px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
-          <div className="flex min-w-0 items-center gap-4">
-            <span className="shrink-0 text-[11px] font-bold tracking-[0.3em] text-ienazo-ink-soft">
-              ACCOUNT
-            </span>
-            <span className="hidden h-4 w-px shrink-0 bg-ienazo-line sm:inline-block" aria-hidden />
-            {/* ソーシャルログインではメールが null になりうる（LinkedAccounts と同じ扱い） */}
-            <span className="truncate text-sm text-ienazo-ink">{user.email ?? "メール未登録"}</span>
-          </div>
-          <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
-            <LogoutButton variant="button" />
-            <Link
-              href="/ienazo/account/settings"
-              className="text-center text-[13px] font-medium text-ienazo-ink transition-colors hover:text-ienazo-red sm:text-left"
-            >
-              アカウント設定 →
-            </Link>
-          </div>
         </div>
       )}
 

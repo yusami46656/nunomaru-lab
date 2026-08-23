@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/ienazo/supabase/client";
 import { supabaseReady } from "@/lib/ienazo/config";
+import { AccountMenu } from "@/components/ienazo/auth/AccountMenu";
+import { LogoutButton } from "@/components/ienazo/auth/LogoutButton";
 
 const NAV = [
   { href: "/ienazo/works", label: "作品" },
@@ -16,7 +18,11 @@ const NAV = [
 // 認証状態でアカウント導線を出し分ける（未ログイン＝会員登録＋ログイン / ログイン中＝マイページ）。
 const ACCOUNT_REGISTER = { href: "/ienazo/account/register", label: "会員登録" };
 const ACCOUNT_LOGGED_OUT = { href: "/ienazo/account/login", label: "ログイン" };
-const ACCOUNT_LOGGED_IN = { href: "/ienazo/account/library", label: "マイページ" };
+// ログイン中に出す行き先。PC はアカウントメニューの中、スマホはハンバーガーの中。
+const ACCOUNT_MENU = [
+  { href: "/ienazo/account/library", label: "あなたのライブラリ" },
+  { href: "/ienazo/account/settings", label: "アカウント設定" },
+];
 
 // 無料体験の入口（まず作品ページへ。そこから PLAY で起動）。
 const FREE_TRIAL_HREF = "/ienazo/works/broken-android";
@@ -28,6 +34,8 @@ export function IenazoHeader() {
   // 「会員登録／ログイン」が出てから「マイページ」に入れ替わる（実機で確認済み）。
   // 分からないあいだは場所だけ確保して、何も見せない。
   const [authed, setAuthed] = useState<boolean | null>(supabaseReady ? null : false);
+  // ヘッダーのアカウントメニューに出す。取れないこともある（メールを返さないプロバイダ）。
+  const [email, setEmail] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -41,10 +49,13 @@ export function IenazoHeader() {
     const supabase = createClient();
     let alive = true;
     void supabase.auth.getSession().then(({ data }) => {
-      if (alive) setAuthed(Boolean(data.session?.user));
+      if (!alive) return;
+      setAuthed(Boolean(data.session?.user));
+      setEmail(data.session?.user?.email ?? null);
     });
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       setAuthed(Boolean(session?.user));
+      setEmail(session?.user?.email ?? null);
     });
     return () => {
       alive = false;
@@ -54,7 +65,6 @@ export function IenazoHeader() {
 
   // 認証状態が確定したか。未確定のうちはアカウント導線を隠す。
   const resolved = authed !== null;
-  const account = authed ? ACCOUNT_LOGGED_IN : ACCOUNT_LOGGED_OUT;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -120,28 +130,26 @@ export function IenazoHeader() {
             className={`inline-flex items-center gap-1 ${resolved ? "" : "invisible"}`}
             aria-hidden={!resolved}
           >
-            {!authed && (
-              <Link
-                href={ACCOUNT_REGISTER.href}
-                tabIndex={resolved ? undefined : -1}
-                className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
-              >
-                {ACCOUNT_REGISTER.label}
-              </Link>
+            {authed ? (
+              <AccountMenu email={email} transparent={transparent} />
+            ) : (
+              <>
+                <Link
+                  href={ACCOUNT_REGISTER.href}
+                  tabIndex={resolved ? undefined : -1}
+                  className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
+                >
+                  {ACCOUNT_REGISTER.label}
+                </Link>
+                <Link
+                  href={ACCOUNT_LOGGED_OUT.href}
+                  tabIndex={resolved ? undefined : -1}
+                  className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${navColor}`}
+                >
+                  {ACCOUNT_LOGGED_OUT.label}
+                </Link>
+              </>
             )}
-            <Link
-              href={account.href}
-              tabIndex={resolved ? undefined : -1}
-              className={`ienazo-navlink px-4 py-2 text-sm font-medium tracking-wide transition-colors ${
-                authed && pathname.startsWith(account.href)
-                  ? transparent
-                    ? "text-white"
-                    : "text-ienazo-red"
-                  : navColor
-              }`}
-            >
-              {account.label}
-            </Link>
           </span>
           <Link
             href={FREE_TRIAL_HREF}
@@ -202,10 +210,11 @@ export function IenazoHeader() {
           className="border-t border-ienazo-rule bg-ienazo-paper-soft md:hidden"
         >
           <nav className="mx-auto flex max-w-6xl flex-col" aria-label="メインナビゲーション(モバイル)">
-            {/* 未確定なら出さない。メニューは押して開くものなので、その時点では確定している。 */}
+            {/* 未確定なら出さない。メニューは押して開くものなので、その時点では確定している。
+                スマホはドロップダウンを重ねず、ここに同じ項目を平らに並べる。 */}
             {[
               ...NAV,
-              ...(!resolved ? [] : authed ? [account] : [ACCOUNT_REGISTER, account]),
+              ...(!resolved ? [] : authed ? ACCOUNT_MENU : [ACCOUNT_REGISTER, ACCOUNT_LOGGED_OUT]),
             ].map((item) => (
               <Link
                 key={item.href}
@@ -215,6 +224,11 @@ export function IenazoHeader() {
                 {item.label}
               </Link>
             ))}
+            {resolved && authed && (
+              <div className="border-b border-ienazo-line px-5 py-3.5">
+                <LogoutButton variant="nav" />
+              </div>
+            )}
           </nav>
         </div>
       )}
